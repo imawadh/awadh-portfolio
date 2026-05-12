@@ -91,27 +91,27 @@ const currentItem = navItems.find((item) =>
     id="navMenu"
     class="nav-menu invisible absolute left-0 right-0 top-full max-h-[calc(100dvh-5.25rem)] origin-top -translate-y-3 overflow-y-auto border-b border-[var(--border)] bg-[var(--bg)] opacity-0 transition-all duration-300 ease-out md:max-h-[calc(100dvh-5.75rem)]"
   >
-    <div class="container mx-auto grid gap-10 px-7 py-8 md:grid-cols-[1.6fr_1fr] md:gap-16 md:px-10 md:py-14">
-      <ul class="flex flex-col">
-        {navItems.map((item) => {
+    <div class="container mx-auto grid gap-12 px-7 py-10 md:grid-cols-[1.6fr_1fr] md:gap-20 md:px-10 md:py-16">
+      <ul class="flex flex-col gap-0">
+        {navItems.map((item, index) => {
           const isActive = currentItem?.href === item.href;
           return (
-            <li class="border-t border-[var(--border)] last:border-b">
+            <li class={`border-t border-[var(--border)] ${index === navItems.length - 1 ? 'border-b' : ''}`}>
               <a
                 href={item.href}
-                class="group/item flex items-center justify-between gap-6 py-3.5 transition-all duration-300 md:py-4"
+                class="group/item flex items-center justify-between gap-8 py-4 px-0 transition-all duration-300 md:py-5"
                 aria-current={isActive ? 'page' : undefined}
               >
-                <span class={`text-xl font-semibold tracking-tight transition-all duration-300 group-hover/item:translate-x-2 group-hover/item:text-[var(--accent)] md:text-3xl lg:text-4xl ${isActive ? 'text-[var(--accent)]' : 'text-[var(--fg)]'}`}>
-                  {item.label}
-                </span>
-                <span class="flex items-center gap-3 font-mono text-xs text-[var(--muted)]">
-                  <span class="hidden opacity-0 transition-opacity duration-300 group-hover/item:opacity-100 md:inline">
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class={`text-lg font-semibold tracking-tight transition-all duration-300 group-hover/item:text-[var(--accent)] md:text-2xl lg:text-3xl ${isActive ? 'text-[var(--accent)]' : 'text-[var(--fg)]'}`}>
+                    {item.label}
+                  </span>
+                  <span class="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--muted)] transition-colors duration-300 group-hover/item:text-[var(--fg)]">
                     {item.hint}
                   </span>
-                  <span class={`text-base transition-all duration-300 ${isActive ? 'text-[var(--accent)] opacity-100' : 'opacity-40 group-hover/item:opacity-100 group-hover/item:text-[var(--accent)]'}`}>
-                    →
-                  </span>
+                </div>
+                <span class={`flex-shrink-0 text-lg transition-all duration-300 ${isActive ? 'text-[var(--accent)] opacity-100' : 'text-[var(--muted)] opacity-50 group-hover/item:opacity-100 group-hover/item:text-[var(--accent)]'}`}>
+                  →
                 </span>
               </a>
             </li>
@@ -119,36 +119,38 @@ const currentItem = navItems.find((item) =>
         })}
       </ul>
 
-      <aside class="flex flex-col gap-7 md:border-l md:border-[var(--border)] md:pl-12">
-        <div>
+      <aside class="flex flex-col gap-10 md:border-l md:border-[var(--border)] md:pl-12">
+        <div class="flex flex-col gap-2.5">
           <span class="eyebrow">Currently</span>
-          <p class="m-0 mt-1 text-sm font-medium text-[var(--fg)]">
-            Full Stack Intern @ <span class="text-[var(--accent)]">IAverse</span>
-          </p>
-          <p class="m-0 text-sm text-[var(--muted)]">Bengaluru, India</p>
+          <div class="flex flex-col gap-1">
+            <p class="m-0 text-base font-medium text-[var(--fg)]">
+              Full Stack Intern @ <span class="text-[var(--accent)]">IAverse</span>
+            </p>
+            <p class="m-0 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-[var(--muted)]">Bengaluru, India</p>
+          </div>
         </div>
 
-        <div>
+        <div class="flex flex-col gap-2.5">
           <span class="eyebrow">Get in touch</span>
           <a
             href="mailto:awadhkishorsingh241@gmail.com"
-            class="m-0 mt-1 block font-mono text-sm text-[var(--fg)] no-underline transition-colors duration-300 hover:text-[var(--accent)]"
+            class="m-0 font-mono text-sm text-[var(--fg)] no-underline transition-colors duration-300 hover:text-[var(--accent)] break-all"
             style="border: none;"
           >
             awadhkishorsingh241@gmail.com
           </a>
         </div>
 
-        <div>
+        <div class="flex flex-col gap-2.5">
           <span class="eyebrow">Elsewhere</span>
-          <div class="mt-2 flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2.5">
             {socials.map((social) => (
               <a
                 href={social.url}
                 title={social.label}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="rounded-xl border border-[var(--border)] bg-[var(--surface)]/40 px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--muted)] no-underline transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                class="rounded-lg border border-[var(--border)] bg-transparent px-3.5 py-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--muted)] no-underline transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
                 style="border-color: var(--border);"
               >
                 {social.label}
