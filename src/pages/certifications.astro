@@ -4,27 +4,31 @@ import CertCard from '../components/CertCard.astro';
 
 const certifications = [
   {
+    index: '01',
     date: 'Jan 2026',
-    title: 'The Complete FullStack Web Development Bootcamp',
+    title: 'The Complete Full-Stack Web Development Bootcamp',
     issuer: 'Dr. Angela Yu · Udemy',
-    details: '70 hours of full-stack web development',
+    details: '70 hours — REST API design, backend architecture, SQL & NoSQL databases',
     url: 'https://www.udemy.com/certificate/UC-16b07d74-aa19-45d3-924c-41b9e7fae772/',
   },
   {
-    date: 'April 2025',
-    title: 'Python Intellipaat Certification',
+    index: '02',
+    date: 'Apr 2025',
+    title: 'Python Certification',
     issuer: 'Intellipaat',
-    details: 'Professional Python certification',
+    details: 'Professional Python programming certification',
     url: 'https://intellipaat.com/academy/certificate-link/?Yz0xNTQzJnU9MTY2Njk4JmV4dD0x',
   },
   {
-    date: 'March 2025',
+    index: '03',
+    date: 'Mar 2025',
     title: 'Mathematics for Data Science & ML Bootcamp',
     issuer: 'Krish Naik · Udemy',
     details: 'Mathematical foundations for machine learning',
     url: 'https://www.udemy.com/certificate/UC-d4ef6961-95f9-4912-be28-c2c0cf02974a/',
   },
   {
+    index: '04',
     date: 'Jan 2025',
     title: 'Complete Data Analysis Bootcamp',
     issuer: 'Krish Naik · Udemy',
@@ -32,32 +36,66 @@ const certifications = [
     url: 'https://www.udemy.com/certificate/UC-1590fb55-374f-406a-8285-014f7a1b1088/',
   },
 ];
+
+const achievements = [
+  {
+    value: '1,000+',
+    label: 'DSA problems solved',
+    note: 'LeetCode & Codeforces — Trees, Graphs, Dynamic Programming',
+  },
+  {
+    value: '1,800+',
+    label: 'GitHub commits',
+    note: 'Across personal projects, freelance work, and internship contributions',
+  },
+];
 ---
 
 <PageLayout
-  title="Certifications — Awadh Kishor Singh"
-  description="Verified learning and certifications earned by Awadh Kishor Singh in full stack development, Python, and data science."
+  title="Certifications & Achievements — Awadh Kishor Singh"
+  description="Certifications and achievements of Awadh Kishor Singh — full-stack web development, Python, data science, 1,000+ DSA problems, and 1,800+ GitHub commits."
 >
-  <section class="container mx-auto px-6 py-16 md:px-8 md:py-24">
-    <span class="eyebrow">Verified learning</span>
-    <h1 class="mb-3 text-4xl font-semibold tracking-tight text-[var(--fg)] md:text-5xl">
-      Licenses & certifications
-    </h1>
-    <p class="mb-12 max-w-[640px] text-base text-[var(--muted)] md:text-lg">
-      Professional certifications collected through continuous learning across full-stack, Python,
-      and data science.
+  <section class="wrap pt-14 md:pt-20">
+    <span class="eyebrow reveal reveal-1">certifications</span>
+    <h1 class="reveal reveal-2 mt-4">cat ./credentials</h1>
+    <p class="reveal reveal-2 mt-4 max-w-[60ch] text-base md:text-lg">
+      Verified certifications and measurable achievements from continuous learning across
+      full-stack development, Python, and data science.
     </p>
 
-    <div class="flex flex-col gap-3">
-      {certifications.map((cert) => (
-        <CertCard
-          date={cert.date}
-          title={cert.title}
-          issuer={cert.issuer}
-          details={cert.details}
-          url={cert.url}
-        />
-      ))}
+    <!-- Achievements -->
+    <div class="reveal reveal-3 mt-12">
+      <p class="prompt mb-4 text-xs">./achievements --highlights</p>
+      <div class="grid gap-3 md:grid-cols-2">
+        {
+          achievements.map((a) => (
+            <div class="card p-6">
+              <span class="font-mono text-3xl font-bold text-[var(--accent)]">{a.value}</span>
+              <p class="m-0 mt-1.5 font-mono text-sm text-[var(--fg)]">{a.label}</p>
+              <p class="m-0 mt-1 text-sm text-[var(--muted)]">{a.note}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="reveal reveal-4 mt-14">
+      <p class="prompt mb-4 text-xs">ls ./certificates</p>
+      <div class="flex flex-col gap-3">
+        {
+          certifications.map((cert) => (
+            <CertCard
+              index={cert.index}
+              date={cert.date}
+              title={cert.title}
+              issuer={cert.issuer}
+              details={cert.details}
+              url={cert.url}
+            />
+          ))
+        }
+      </div>
     </div>
   </section>
 </PageLayout>

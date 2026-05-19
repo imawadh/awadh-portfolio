@@ -1,22 +1,23 @@
 ---
 interface Props {
+  index: string;
   category: string;
+  command: string;
   skills: string[];
 }
 
-const { category, skills } = Astro.props;
+const { index, category, command, skills } = Astro.props;
 ---
 
-<div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-6 backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)] md:p-7">
-  <div class="mb-4 flex items-baseline justify-between gap-3">
-    <h3 class="m-0 text-lg font-semibold text-[var(--fg)]">{category}</h3>
-    <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--muted)]">{skills.length} items</span>
+<div class="card p-6">
+  <div class="flex items-baseline justify-between gap-3">
+    <h3 class="m-0 text-base">
+      <span class="text-[var(--muted)]">{index}</span> {category}
+    </h3>
+    <span class="font-mono text-[0.7rem] text-[var(--muted)]">{skills.length} items</span>
   </div>
-  <div class="flex flex-wrap gap-2">
-    {skills.map((skill) => (
-      <span class="rounded-md border border-[var(--border)] bg-[var(--surface)]/60 px-3 py-1.5 font-mono text-xs text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]">
-        {skill}
-      </span>
-    ))}
+  <p class="prompt mt-1 text-xs">{command}</p>
+  <div class="mt-4 flex flex-wrap gap-2">
+    {skills.map((skill) => <span class="chip">{skill}</span>)}
   </div>
 </div>

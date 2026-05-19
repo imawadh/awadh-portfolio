@@ -10,12 +10,7 @@ interface Props {
   canonical?: string;
 }
 
-const {
-  title,
-  description,
-  ogImage,
-  canonical,
-} = Astro.props;
+const { title, description, ogImage, canonical } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage} canonical={canonical}>

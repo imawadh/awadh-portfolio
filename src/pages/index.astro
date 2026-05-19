@@ -1,96 +1,296 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import TerminalWindow from '../components/TerminalWindow.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { socials } from '../utils/socials';
+import { featuredProjects } from '../data/projects';
 
 const stats = [
-  { value: '5', label: 'Projects shipped' },
-  { value: '3', label: 'Freelance clients' },
-  { value: '2+', label: 'Years coding' },
+  { value: '1,000+', label: 'DSA problems solved' },
+  { value: '1,800+', label: 'GitHub commits' },
+  { value: '6', label: 'products shipped' },
+  { value: '8.27', label: 'CGPA · IIT Madras' },
 ];
 
 const highlights = [
-  { label: 'Currently', value: 'Full Stack Intern @ IAverse' },
-  { label: 'Studying', value: 'BS Data Science · IIT Madras' },
-  { label: 'Based in', value: 'Bengaluru, India' },
+  { key: 'role', value: 'Full Stack Developer Intern @ IAVerse' },
+  { key: 'studying', value: 'BS Data Science · IIT Madras' },
+  { key: 'location', value: 'Bengaluru, India · Remote-friendly' },
+];
+
+// Syntax-highlighted code card — token colours by key
+const cls: Record<string, string> = {
+  com: 'text-[var(--muted)] italic',
+  kw: 'text-[var(--cyan)]',
+  var: 'text-[var(--fg)]',
+  pun: 'text-[var(--muted)]',
+  prop: 'text-[var(--fg-dim)]',
+  str: 'text-[var(--accent)]',
+  num: 'text-[var(--amber)]',
+  bool: 'text-[var(--amber)]',
+};
+
+const codeLines: { t: string; c: keyof typeof cls }[][] = [
+  [{ t: '// the person behind the commits', c: 'com' }],
+  [
+    { t: 'const ', c: 'kw' },
+    { t: 'developer', c: 'var' },
+    { t: ' = {', c: 'pun' },
+  ],
+  [
+    { t: '  name', c: 'prop' },
+    { t: ':      ', c: 'pun' },
+    { t: "'Awadh Kishor Singh'", c: 'str' },
+    { t: ',', c: 'pun' },
+  ],
+  [
+    { t: '  alias', c: 'prop' },
+    { t: ':     ', c: 'pun' },
+    { t: "'imawadh'", c: 'str' },
+    { t: ',', c: 'pun' },
+  ],
+  [
+    { t: '  role', c: 'prop' },
+    { t: ':      ', c: 'pun' },
+    { t: "'Full Stack Developer'", c: 'str' },
+    { t: ',', c: 'pun' },
+  ],
+  [
+    { t: '  edu', c: 'prop' },
+    { t: ':       ', c: 'pun' },
+    { t: "'BS Data Science @ IIT Madras'", c: 'str' },
+    { t: ',', c: 'pun' },
+  ],
+  [
+    { t: '  base', c: 'prop' },
+    { t: ':      ', c: 'pun' },
+    { t: "'Bengaluru, India'", c: 'str' },
+    { t: ',', c: 'pun' },
+  ],
+  [
+    { t: '  stack', c: 'prop' },
+    { t: ':     [', c: 'pun' },
+    { t: "'Next.js'", c: 'str' },
+    { t: ', ', c: 'pun' },
+    { t: "'Node'", c: 'str' },
+    { t: ', ', c: 'pun' },
+    { t: "'Mongo'", c: 'str' },
+    { t: '],', c: 'pun' },
+  ],
+  [
+    { t: '  solved', c: 'prop' },
+    { t: ':    ', c: 'pun' },
+    { t: '1000', c: 'num' },
+    { t: ',', c: 'pun' },
+    { t: '   // DSA problems', c: 'com' },
+  ],
+  [
+    { t: '  available', c: 'prop' },
+    { t: ': ', c: 'pun' },
+    { t: 'true', c: 'bool' },
+    { t: ',', c: 'pun' },
+  ],
+  [{ t: '};', c: 'pun' }],
 ];
 ---
 
 <PageLayout
-  title="Awadh Kishor Singh | Full Stack & Gen AI Developer"
-  description="Awadh Kishor Singh — Full Stack & Gen AI developer in Bengaluru, India. Building production web apps and AI-powered products with Next.js, Node, MongoDB, Claude, and MCP."
+  title="Awadh Kishor Singh | Full Stack Developer"
+  description="Awadh Kishor Singh — Full Stack Developer in Bengaluru building production-ready web apps with React, Next.js, Node.js, and REST APIs. Data Science undergraduate at IIT Madras."
 >
-  <section class="relative overflow-hidden">
-    <div class="container mx-auto px-6 py-16 md:px-8 md:py-24">
-      <span class="eyebrow">Welcome to my portfolio</span>
+  <!-- ───────────── HERO ───────────── -->
+  <section class="wrap pt-14 md:pt-20">
+    <div class="grid gap-10 md:grid-cols-[1.45fr_1fr] md:items-center md:gap-12">
+      <!-- LEFT: headline -->
+      <div>
+        <span class="eyebrow reveal reveal-1">portfolio v2.0</span>
 
-      <h1 class="mb-4 text-4xl font-semibold leading-[1.05] tracking-tight text-[var(--fg)] md:text-6xl">
-        Full Stack & Gen AI developer crafting <span class="text-[var(--accent)]">scalable, considered</span> products.
-      </h1>
+        <h1 class="reveal reveal-2 mt-4 max-w-[16ch]">
+          Full Stack Developer building
+          <span class="text-[var(--accent)]">production-ready</span> web apps.
+        </h1>
 
-      <p class="mb-2 text-base text-[var(--muted)] md:text-lg">
-        Hi, I'm Awadh Kishor Singh — also known online as <span class="font-mono text-sm text-[var(--fg)]">imawadh</span>.
-      </p>
-
-      <p class="mb-8 max-w-[640px] text-base leading-relaxed text-[var(--fg)] md:text-lg">
-        I build full-stack products and AI-powered applications — from Next.js, Node, and MongoDB
-        stacks to Claude- and MCP-driven agentic workflows — turning ideas into polished,
-        performant experiences.
-      </p>
-
-      <div class="mb-10 flex flex-wrap gap-3">
-        <a
-          href="/projects"
-          class="inline-flex items-center gap-2 rounded-xl border border-[var(--accent)] bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-[var(--bg)] transition-all duration-300 hover:bg-[var(--accent-light)] hover:border-[var(--accent-light)]"
-        >
-          View my work →
-        </a>
-        <a
-          href="/Awadh Full Stack Developer Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-5 py-2.5 text-sm font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-        >
-          Download CV
-        </a>
-        <a
-          href="/contact"
-          class="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-5 py-2.5 text-sm font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-        >
-          Get in touch
-        </a>
+        <p class="reveal reveal-2 mt-5 max-w-[52ch] text-base leading-relaxed md:text-lg">
+          I'm Awadh Kishor Singh — I design, build, and ship end-to-end web applications with
+          React, Next.js, Node.js, and REST APIs. Data Science undergraduate at IIT Madras,
+          and a developer who cares about clean architecture and what users never see.
+        </p>
       </div>
 
-      <div class="mb-10 flex flex-wrap gap-2">
-        {socials.map((social) => (
-          <a
-            href={social.url}
-            title={social.label}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="rounded-xl border border-[var(--border)] bg-[var(--surface)]/40 px-3 py-1.5 text-xs font-medium text-[var(--muted)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+      <!-- RIGHT: code card -->
+      <div class="reveal reveal-3 card overflow-hidden">
+        <div class="flex items-center gap-2 border-b border-[var(--border)] bg-[var(--surface)] px-4 py-2.5">
+          <span
+            class="inline-flex h-4 w-4 items-center justify-center rounded-[3px] bg-[var(--cyan)] font-mono text-[8px] font-bold text-[var(--bg)]"
           >
-            {social.label}
-          </a>
-        ))}
-      </div>
-
-      <div class="grid gap-3 md:grid-cols-3">
-        {highlights.map((h) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-5 backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
-            <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--muted)]">{h.label}</span>
-            <p class="mt-1.5 mb-0 text-sm font-medium text-[var(--fg)]">{h.value}</p>
+            TS
+          </span>
+          <span class="font-mono text-xs text-[var(--fg-dim)]">developer.ts</span>
+          <span class="ml-auto inline-flex items-center gap-1.5 font-mono text-[0.68rem] text-[var(--accent)]">
+            <span class="h-1.5 w-1.5 rounded-full bg-[var(--accent)]"></span>
+            live
+          </span>
+        </div>
+        <div class="overflow-x-auto p-4 md:p-5">
+          <div class="font-mono text-[0.76rem] leading-[1.75] md:text-[0.8rem]">
+            {
+              codeLines.map((line, i) => (
+                <div class="flex gap-3.5">
+                  <span class="w-4 shrink-0 select-none text-right text-[var(--muted)] opacity-40">
+                    {i + 1}
+                  </span>
+                  <span class="whitespace-pre">
+                    {line.map((tok) => (
+                      <span class={cls[tok.c]}>{tok.t}</span>
+                    ))}
+                  </span>
+                </div>
+              ))
+            }
           </div>
-        ))}
-      </div>
-
-      <div class="mt-10 grid gap-3 md:grid-cols-3">
-        {stats.map((s) => (
-          <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-6 backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
-            <span class="text-3xl font-semibold leading-none text-[var(--fg)] md:text-4xl">{s.value}</span>
-            <p class="mt-2 mb-0 font-mono text-xs uppercase tracking-[0.14em] text-[var(--muted)]">{s.label}</p>
-          </div>
-        ))}
+        </div>
       </div>
     </div>
+
+    <!-- Terminal + photo -->
+    <div class="reveal reveal-3 mt-6 grid gap-5 md:grid-cols-[1.5fr_1fr] md:items-stretch">
+      <TerminalWindow title="awadh@portfolio: ~">
+        <div class="flex flex-col gap-2.5 font-mono text-sm md:text-[0.95rem]">
+          <p class="prompt">whoami</p>
+          <p class="out text-[var(--fg)]">Awadh Kishor Singh — aka imawadh</p>
+
+          <p class="prompt mt-2">cat role.txt</p>
+          <p class="out text-[var(--fg)]">Full Stack Developer · Data Science @ IIT Madras</p>
+
+          <p class="prompt mt-2">./stack --list</p>
+          <p class="out text-[var(--fg-dim)]">
+            React · Next.js · Node.js · Express · MongoDB · PostgreSQL
+          </p>
+
+          <p class="prompt mt-2">echo $STATUS</p>
+          <p class="out text-[var(--accent)]">
+            available for full-stack &amp; SWE roles
+            <span class="cursor"></span>
+          </p>
+        </div>
+      </TerminalWindow>
+
+      <!-- Photo as a terminal window -->
+      <div class="term flex flex-col">
+        <div class="term-bar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="term-title">~/awadh/me.jpg</span>
+        </div>
+        <div class="relative flex-1">
+          <img
+            src="/standing-image.webp"
+            alt="Awadh Kishor Singh looking out over a hilltop view"
+            loading="eager"
+            class="aspect-[4/5] h-full w-full object-cover object-top md:aspect-auto"
+          />
+          <span
+            class="absolute bottom-3 left-3 rounded-md border border-[var(--border-bright)] bg-[rgba(10,13,18,0.85)] px-2.5 py-1 font-mono text-[0.7rem] text-[var(--accent)] backdrop-blur"
+          >
+            ● Bengaluru, IN
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="reveal reveal-4 mt-8 flex flex-wrap gap-3">
+      <a href="/projects" class="btn btn-primary">▸ view my work</a>
+      <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">↓ resume.pdf</a>
+      <a href="/contact" class="btn">↳ get in touch</a>
+    </div>
+
+    <!-- Socials -->
+    <div class="reveal reveal-4 mt-6 flex flex-wrap gap-2">
+      {
+        socials.map((social) => (
+          <a href={social.url} target="_blank" rel="noopener noreferrer" class="chip">
+            {social.label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ───────────── STATS ───────────── -->
+  <section class="wrap mt-20">
+    <p class="prompt mb-4 text-xs">cat ./stats.json</p>
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="card p-5">
+            <span class="font-mono text-2xl font-bold text-[var(--accent)] md:text-3xl">
+              {s.value}
+            </span>
+            <p class="m-0 mt-1.5 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--muted)]">
+              {s.label}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ───────────── HIGHLIGHTS ───────────── -->
+  <section class="wrap mt-12">
+    <div class="grid gap-3 md:grid-cols-3">
+      {
+        highlights.map((h) => (
+          <div class="card p-5">
+            <span class="font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+              {h.key}
+            </span>
+            <p class="m-0 mt-1.5 text-sm font-medium text-[var(--fg)]">{h.value}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ───────────── FEATURED WORK ───────────── -->
+  <section class="wrap mt-24">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <span class="eyebrow">featured work</span>
+        <h2 class="mt-3">Selected projects</h2>
+      </div>
+      <a
+        href="/projects"
+        class="hidden shrink-0 font-mono text-sm text-[var(--fg-dim)] transition-colors hover:text-[var(--accent)] sm:inline"
+      >
+        all projects →
+      </a>
+    </div>
+
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {
+        featuredProjects.map((p) => (
+          <ProjectCard
+            index={p.index}
+            name={p.name}
+            tagline={p.tagline}
+            description={p.description}
+            tags={p.tags}
+            status={p.status}
+            live={p.live}
+            code={p.code}
+            caseStudy={p.caseStudy}
+          />
+        ))
+      }
+    </div>
+
+    <a
+      href="/projects"
+      class="mt-6 inline-flex font-mono text-sm text-[var(--fg-dim)] transition-colors hover:text-[var(--accent)] sm:hidden"
+    >
+      all projects →
+    </a>
   </section>
 </PageLayout>

@@ -1,0 +1,115 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import TerminalWindow from '../../components/TerminalWindow.astro';
+
+const techStack = ['Next.js', 'React', 'Tailwind CSS', 'Responsive Web Design', 'SEO', 'Vercel'];
+
+const ventures = [
+  { name: 'MetaKitchen', area: 'Food Tech', desc: 'Engineered food products and an AI health companion.' },
+  { name: 'Omnis', area: 'Health Tech', desc: 'A research platform for metabolic and longevity science.' },
+  { name: 'Virtual Promoter', area: 'Conversational Commerce', desc: 'A voice-first, multilingual AI sales assistant.' },
+  { name: 'OpenRift', area: 'AI Operations', desc: 'Slack-integrated automation for small, specialised teams.' },
+];
+
+const built = [
+  'Corporate site presenting EVAA as a unified parent brand',
+  'Dedicated sections for each of the four ventures',
+  'A clean, research-led visual identity',
+  'Fast, SEO-friendly pages built on Next.js',
+  'Fully responsive layout across devices',
+];
+---
+
+<CaseStudyLayout
+  name="EVAA Enterprises"
+  tagline="The corporate website for EVAA — a Singapore-based AI research and venture studio — presenting the parent brand and its four autonomous ventures under one cohesive identity."
+  description="Case study of the EVAA Enterprises website — a Next.js corporate site for a Singapore-based AI research and venture studio housing four ventures."
+  role="Freelance Web Developer"
+  status="Live · evaa.enterprises"
+  stackSummary="Next.js · React · Tailwind"
+  live="https://www.evaa.enterprises/"
+>
+  <section>
+    <h2>Overview</h2>
+    <p>
+      EVAA is a Singapore-based AI research and venture studio — a holding company that builds
+      "what doesn't exist yet." I built its corporate website: the public face that ties the
+      parent brand together with its four independent ventures and communicates a single,
+      research-driven identity.
+    </p>
+  </section>
+
+  <section>
+    <h2>The brief</h2>
+    <p>
+      A venture studio has a hard story to tell — one parent brand, several very different
+      products, none of which should look like an afterthought. The site needed to present EVAA
+      as a credible research-led company, give each venture room to stand on its own, and still
+      feel like one coherent whole rather than a directory of links.
+    </p>
+  </section>
+
+  <section>
+    <h2>The four ventures</h2>
+    <p>
+      The site gives each EVAA venture its own clearly defined space:
+    </p>
+    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+      {
+        ventures.map((v) => (
+          <div class="card p-5">
+            <div class="flex items-baseline justify-between gap-2">
+              <h3 class="text-base text-[var(--accent)]">{v.name}</h3>
+              <span class="font-mono text-[0.68rem] uppercase tracking-wider text-[var(--muted)]">
+                {v.area}
+              </span>
+            </div>
+            <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{v.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>What I built</h2>
+    <p>
+      I designed and developed the corporate site with Next.js and React, balancing a unified
+      brand layer with distinct, well-structured venture sections.
+    </p>
+    <ul class="mt-5 grid list-none gap-2.5 p-0 sm:grid-cols-2">
+      {
+        built.map((b) => (
+          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+            <span>{b}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tech stack</h2>
+    <div class="mt-1 flex flex-wrap gap-2">
+      {techStack.map((t) => <span class="chip">{t}</span>)}
+    </div>
+    <TerminalWindow title="deploy — evaa-enterprises" class="mt-5">
+      <div class="flex flex-col gap-1.5 font-mono text-sm">
+        <p class="prompt">next build &amp;&amp; deploy</p>
+        <p class="out text-[var(--fg-dim)]">framework: Next.js · React · Tailwind CSS</p>
+        <p class="out text-[var(--fg-dim)]">scope: 1 parent brand · 4 ventures</p>
+        <p class="out text-[var(--accent)]">status: live ✓</p>
+      </div>
+    </TerminalWindow>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      EVAA now has a corporate site that reads as a single, confident research company while still
+      letting MetaKitchen, Omnis, Virtual Promoter, and OpenRift each tell their own story — a
+      clean home base for an ambitious, multi-venture brand.
+    </p>
+  </section>
+</CaseStudyLayout>

@@ -1,90 +1,145 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import TerminalWindow from '../../components/TerminalWindow.astro';
 
-const stats = [
-  { value: '5', label: 'Projects shipped' },
-  { value: '3', label: 'Freelance clients' },
-  { value: '2+', label: 'Years coding' },
+const facts = [
+  { key: 'stack', value: 'Next.js · React · Node · Express · MongoDB · PostgreSQL' },
+  { key: 'currently', value: 'Full Stack Developer Intern @ IAVerse (Remote)' },
+  { key: 'education', value: 'BS Data Science, IIT Madras · CGPA 8.27' },
+  { key: 'algorithms', value: '1,000+ DSA problems · LeetCode & Codeforces' },
+];
+
+const principles = [
+  {
+    title: 'Ship end-to-end',
+    body: 'I work across the whole stack — UI, API, database, deployment — so a feature is done when it is live and working, not when the PR merges.',
+  },
+  {
+    title: 'Build for scale',
+    body: 'Scalable architecture, clean component systems, and API security are decisions I make early, not patches I add when something breaks.',
+  },
+  {
+    title: 'Mind the invisible',
+    body: 'Analytics, error monitoring, and performance budgets matter as much as the visible UI — they are how you actually know a product works.',
+  },
 ];
 
 const quickNav = [
-  { label: 'Skills', href: '/skills' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '/contact' },
-];
-
-const facts = [
-  { label: 'Stack', value: 'Next.js · React · Node · MongoDB · Python' },
-  { label: 'Now building', value: 'GEO + tracking system at IAverse' },
-  { label: 'Building with AI', value: 'Claude · MCP · OpenAI · agentic workflows' },
-  { label: 'Studying', value: 'BS Data Science, IIT Madras (2024–2028)' },
+  { label: 'experience', href: '/experience' },
+  { label: 'projects', href: '/projects' },
+  { label: 'skills', href: '/skills' },
+  { label: 'contact', href: '/contact' },
 ];
 ---
 
 <PageLayout
   title="About — Awadh Kishor Singh"
-  description="Learn about Awadh Kishor Singh — Full Stack Developer from Bengaluru, passionate about scalable web apps and clean UI."
-  ogImage="https://picsum.photos/1200/630?random=3"
+  description="About Awadh Kishor Singh — Full Stack Developer in Bengaluru and Data Science undergraduate at IIT Madras, building production-ready web applications end-to-end."
 >
-  <section class="container mx-auto px-6 py-16 md:px-8 md:py-24">
-    <span class="eyebrow">About</span>
-    <h1 class="mb-10 text-4xl font-semibold tracking-tight text-[var(--fg)] md:text-5xl">
-      Hi, I'm Awadh.
-    </h1>
+  <section class="wrap pt-14 md:pt-20">
+    <span class="eyebrow reveal reveal-1">about</span>
+    <h1 class="reveal reveal-2 mt-4">whoami</h1>
+    <p class="reveal reveal-2 mt-4 max-w-[60ch] text-base md:text-lg">
+      Full Stack Developer based in Bengaluru — building web apps that hold up with real users,
+      real traffic, and real deadlines.
+    </p>
 
-    <div class="grid gap-10 md:grid-cols-[280px_1fr] md:items-start md:gap-12">
-      <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-3 backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
+    <div class="reveal reveal-3 mt-12 grid gap-8 md:grid-cols-[300px_1fr] md:items-start">
+      <!-- Profile photo card -->
+      <div class="term overflow-hidden md:sticky md:top-24">
+        <div class="term-bar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span class="term-title">~/awadh/profile.jpg</span>
+        </div>
         <img
-          src="https://picsum.photos/300/300?random=3"
+          src="/sitting-image.webp"
           alt="Awadh Kishor Singh"
-          class="aspect-square w-full rounded-xl object-cover"
+          loading="eager"
+          class="aspect-[3/4] w-full object-cover object-top"
         />
-      </div>
-
-      <div class="flex flex-col gap-6">
-        <p class="m-0 text-base leading-relaxed text-[var(--fg)] md:text-lg">
-          I'm a Full Stack Developer based in Bengaluru, currently interning at <span class="font-medium text-[var(--accent)]">IAverse</span>
-          while pursuing a BS in Data Science at IIT Madras. I gravitate toward products that feel
-          fast, look intentional, and solve a real problem end-to-end.
-        </p>
-        <p class="m-0 text-base leading-relaxed text-[var(--muted)] md:text-lg">
-          Most of my recent work has been Next.js and Node-driven full-stack apps — a live ed-tech
-          platform, a cryptocurrency portfolio tracker, and an internal GEO + tracking system. I'm
-          also deep in Gen AI right now: building agentic workflows with Claude, MCP-powered tools,
-          and OpenAI APIs to ship more ambitious, AI-augmented applications. On the side I sharpen my
-          data-science chops with Python, ML, and analytics tooling.
-        </p>
-
-        <div class="grid gap-3 sm:grid-cols-2">
-          {facts.map((f) => (
-            <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-5 backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
-              <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--muted)]">{f.label}</span>
-              <p class="mt-1.5 mb-0 text-sm font-medium text-[var(--fg)]">{f.value}</p>
-            </div>
-          ))}
-        </div>
-
-        <div class="grid grid-cols-3 gap-3">
-          {stats.map((s) => (
-            <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-5 text-center backdrop-blur-[20px] transition-colors duration-300 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
-              <span class="block text-2xl font-semibold leading-none text-[var(--fg)] md:text-3xl">{s.value}</span>
-              <span class="mt-2 block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--muted)]">{s.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div class="flex flex-wrap gap-2 pt-2">
-          {quickNav.map((n) => (
-            <a
-              href={n.href}
-              class="rounded-xl border border-[var(--border)] bg-transparent px-4 py-2 text-xs font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-            >
-              {n.label} →
-            </a>
-          ))}
+        <div class="flex items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface)] px-4 py-3">
+          <div>
+            <p class="m-0 font-mono text-sm text-[var(--fg)]">Awadh Kishor Singh</p>
+            <p class="m-0 font-mono text-xs text-[var(--muted)]">@imawadh</p>
+          </div>
+          <div class="inline-flex items-center gap-1.5">
+            <span class="relative inline-flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-60"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]"></span>
+            </span>
+            <span class="font-mono text-[0.7rem] text-[var(--accent)]">open</span>
+          </div>
         </div>
       </div>
+
+      <!-- Bio -->
+      <div class="flex flex-col gap-5">
+        <p class="m-0 text-base leading-relaxed md:text-lg">
+          I'm a Full Stack Developer and a Data Science undergraduate at
+          <span class="link">IIT Madras</span>. I design, build, and ship production-ready web
+          applications — currently as a Full Stack Developer Intern at
+          <span class="text-[var(--accent)]">IAVerse</span>.
+        </p>
+        <p class="m-0 leading-relaxed text-[var(--fg-dim)]">
+          My recent work spans a 1,600-page WordPress-to-Next.js migration at IAVerse, a freelance
+          ed-tech platform serving 1,500+ daily active users, and a peer-to-peer marketplace live
+          across four Indian cities. I work the whole stack: React and Next.js on the front,
+          Node.js and Express REST APIs on the back, MongoDB and PostgreSQL for data, deployed on
+          Vercel and Render.
+        </p>
+        <p class="m-0 leading-relaxed text-[var(--fg-dim)]">
+          I care about the parts users never see — product analytics with Mixpanel and PostHog,
+          error monitoring with Sentry, API security, and architecture that scales. Alongside
+          building, I've solved 1,000+ Data Structures &amp; Algorithms problems on LeetCode and
+          Codeforces, with a focus on Trees, Graphs, and Dynamic Programming.
+        </p>
+
+        <!-- Facts terminal -->
+        <TerminalWindow title="cat ~/about/facts.txt" class="mt-2">
+          <div class="flex flex-col gap-3 font-mono text-sm">
+            {
+              facts.map((f) => (
+                <div class="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
+                  <span class="shrink-0 text-[var(--accent)] sm:w-28">{f.key}:</span>
+                  <span class="text-[var(--fg-dim)]">{f.value}</span>
+                </div>
+              ))
+            }
+          </div>
+        </TerminalWindow>
+      </div>
+    </div>
+
+    <!-- Principles -->
+    <div class="reveal reveal-4 mt-20">
+      <span class="eyebrow">how i work</span>
+      <h2 class="mt-3">Principles</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {
+          principles.map((p, i) => (
+            <div class="card p-6">
+              <span class="font-mono text-sm text-[var(--muted)]">
+                0{i + 1}
+              </span>
+              <h3 class="mt-2 text-base text-[var(--accent)]">{p.title}</h3>
+              <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--fg-dim)]">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Quick nav -->
+    <div class="mt-16 flex flex-wrap gap-2.5">
+      {
+        quickNav.map((n) => (
+          <a href={n.href} class="btn">
+            {n.label} →
+          </a>
+        ))
+      }
     </div>
   </section>
 </PageLayout>

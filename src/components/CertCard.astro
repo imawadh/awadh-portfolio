@@ -1,5 +1,6 @@
 ---
 interface Props {
+  index: string;
   date: string;
   title: string;
   issuer: string;
@@ -7,25 +8,27 @@ interface Props {
   url: string;
 }
 
-const { date, title, issuer, details, url } = Astro.props;
+const { index, date, title, issuer, details, url } = Astro.props;
 ---
 
 <a
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class="group flex flex-col gap-3 rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-6 backdrop-blur-[20px] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)] md:flex-row md:items-center md:justify-between md:p-7"
-  style="border-bottom: 1px solid var(--border);"
+  class="card card-link group flex flex-col gap-3 p-6 md:flex-row md:items-center md:justify-between"
 >
-  <div class="flex flex-col gap-1.5">
-    <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--accent)]">{date}</span>
-    <h4 class="m-0 text-base font-semibold text-[var(--fg)] transition-colors duration-300 group-hover:text-[var(--accent)] md:text-lg">
-      {title}
-    </h4>
-    <p class="m-0 text-sm font-medium text-[var(--fg)]">{issuer}</p>
-    <p class="m-0 text-sm text-[var(--muted)]">{details}</p>
+  <div class="flex gap-4">
+    <span class="font-mono text-sm text-[var(--muted)]">{index}</span>
+    <div class="flex flex-col gap-1">
+      <span class="font-mono text-[0.7rem] uppercase tracking-wider text-[var(--accent)]">{date}</span>
+      <h3 class="m-0 text-base transition-colors duration-200 group-hover:text-[var(--accent)]">
+        {title}
+      </h3>
+      <p class="m-0 font-mono text-[0.82rem] text-[var(--fg-dim)]">{issuer}</p>
+      <p class="m-0 text-sm text-[var(--muted)]">{details}</p>
+    </div>
   </div>
-  <span class="font-mono text-xs text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--accent)] md:text-sm">
-    View certificate →
+  <span class="shrink-0 font-mono text-xs text-[var(--muted)] transition-colors duration-200 group-hover:text-[var(--accent)] md:pl-4">
+    verify ↗
   </span>
 </a>

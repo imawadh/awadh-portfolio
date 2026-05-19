@@ -1,73 +1,60 @@
 ---
 interface Props {
+  index: string;
   name: string;
+  tagline: string;
   description: string;
   tags: string[];
+  status: string;
   live?: string;
   code?: string;
   caseStudy?: string;
-  image?: string;
 }
 
-const { name, description, tags, live, code, caseStudy, image } = Astro.props;
+const { index, name, tagline, description, tags, status, live, code, caseStudy } = Astro.props;
+const href = caseStudy ?? live ?? code ?? '#';
 ---
 
-<article class="group flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] backdrop-blur-[20px] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)] dark:bg-[rgba(4,8,15,0.55)]">
-  {image && (
-    <div class="overflow-hidden">
-      <img
-        src={image}
-        alt={name}
-        class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-      />
-    </div>
-  )}
+<article class="card card-link flex flex-col overflow-hidden">
+  <!-- Window header -->
+  <div class="term-bar">
+    <span class="dot dot-r"></span>
+    <span class="dot dot-y"></span>
+    <span class="dot dot-g"></span>
+    <span class="term-title">{name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.app</span>
+    <span class="ml-auto font-mono text-[0.68rem] text-[var(--accent)]">● {status}</span>
+  </div>
 
-  <div class="flex flex-1 flex-col gap-4 p-6 md:p-7">
-    <div class="flex flex-col gap-2">
-      <h3 class="m-0 text-xl font-semibold text-[var(--fg)] transition-colors duration-300 group-hover:text-[var(--accent)]">
-        {name}
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <div class="flex items-baseline gap-2.5">
+      <span class="font-mono text-sm text-[var(--muted)]">{index}</span>
+      <h3 class="m-0 text-lg">
+        <a href={href} class="transition-colors duration-200 hover:text-[var(--accent)]">{name}</a>
       </h3>
-      <p class="m-0 text-sm leading-relaxed text-[var(--muted)]">
-        {description}
-      </p>
     </div>
+
+    <p class="m-0 font-mono text-[0.82rem] text-[var(--accent)]">{tagline}</p>
+
+    <p class="m-0 text-sm leading-relaxed text-[var(--fg-dim)]">{description}</p>
 
     <div class="flex flex-wrap gap-1.5">
-      {tags.map((tag) => (
-        <span class="rounded-md border border-[var(--border)] bg-[var(--surface)]/60 px-2.5 py-1 font-mono text-xs text-[var(--muted)]">
-          {tag}
-        </span>
-      ))}
+      {tags.map((tag) => <span class="chip">{tag}</span>)}
     </div>
 
     <div class="mt-auto flex flex-wrap gap-2 pt-2">
+      {caseStudy && (
+        <a href={caseStudy} class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
+          read case study →
+        </a>
+      )}
       {live && (
-        <a
-          href={live}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="rounded-xl border border-[var(--accent)] bg-[var(--accent)] px-4 py-2 text-xs font-medium text-[var(--bg)] transition-all duration-300 hover:bg-[var(--accent-light)] hover:border-[var(--accent-light)]"
-        >
-          Live demo
+        <a href={live} target="_blank" rel="noopener noreferrer" class="btn" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
+          live ↗
         </a>
       )}
       {code && (
-        <a
-          href={code}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="rounded-xl border border-[var(--border)] bg-transparent px-4 py-2 text-xs font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-        >
-          View code
-        </a>
-      )}
-      {caseStudy && (
-        <a
-          href={caseStudy}
-          class="rounded-xl border border-[var(--border)] bg-transparent px-4 py-2 text-xs font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-        >
-          Case study →
+        <a href={code} target="_blank" rel="noopener noreferrer" class="btn" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
+          code ↗
         </a>
       )}
     </div>

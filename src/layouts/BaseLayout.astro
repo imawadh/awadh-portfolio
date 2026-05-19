@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Awadh Kishor Singh | Full Stack & Gen AI Developer',
-  description = 'Portfolio of Awadh Kishor Singh — Full Stack & Gen AI developer in Bengaluru, building production web apps with Next.js, Node, MongoDB, Claude, and MCP.',
+  title = 'Awadh Kishor Singh | Full Stack Developer',
+  description = 'Awadh Kishor Singh — Full Stack Developer in Bengaluru building production-ready web apps with React, Next.js, Node.js, and REST APIs. Data Science undergraduate at IIT Madras.',
   ogImage = '/og-default.png',
   canonical = Astro.url.href,
 } = Astro.props;
@@ -22,10 +22,11 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Awadh Kishor Singh',
-  alternateName: ['imawadh', 'im_awadh', 'im_awadh_'],
+  alternateName: ['imawadh', 'im_awadh_'],
   url: siteUrl,
-  jobTitle: 'Full Stack & Gen AI Developer',
+  jobTitle: 'Full Stack Developer',
   description,
+  email: 'mailto:awadhkishorsingh241@gmail.com',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Bengaluru',
@@ -34,18 +35,18 @@ const personSchema = {
   },
   alumniOf: {
     '@type': 'EducationalOrganization',
-    name: 'IIT Madras',
+    name: 'Indian Institute of Technology Madras',
   },
   knowsAbout: [
     'Full Stack Development',
-    'Next.js',
     'React',
+    'Next.js',
     'Node.js',
+    'Express.js',
     'MongoDB',
-    'Generative AI',
-    'Claude',
-    'Model Context Protocol',
-    'Agentic Workflows',
+    'PostgreSQL',
+    'REST API Development',
+    'Data Structures and Algorithms',
   ],
   sameAs: [
     'https://github.com/imawadh',
@@ -65,20 +66,22 @@ const websiteSchema = {
 };
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#fdf6ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#04080f" media="(prefers-color-scheme: dark)" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0a0d12" />
+    <meta name="color-scheme" content="dark" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Awadh Kishor Singh" />
-    <meta name="keywords" content="Awadh Kishor Singh, imawadh, Full Stack Developer, Gen AI Developer, Claude, MCP, Next.js, React, MongoDB, Bengaluru Developer, IIT Madras" />
+    <meta
+      name="keywords"
+      content="Awadh Kishor Singh, imawadh, Full Stack Developer, Next.js Developer, React Developer, Node.js, Bengaluru Developer, IIT Madras, Software Engineer"
+    />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
     <link rel="canonical" href={canonical} />
@@ -104,7 +107,7 @@ const websiteSchema = {
     <meta name="twitter:image" content={absoluteOgImage} />
     <meta name="twitter:image:alt" content={title} />
 
-    <!-- Favicon / icons -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.svg" />

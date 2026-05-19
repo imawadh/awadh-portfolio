@@ -1,0 +1,166 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import TerminalWindow from '../../components/TerminalWindow.astro';
+
+const techStack = [
+  'Next.js',
+  'React',
+  'Node.js',
+  'Express.js',
+  'MongoDB',
+  'Razorpay',
+  'REST API',
+  'Vercel',
+  'Render',
+];
+
+const modes = [
+  { name: "Don't Go Alone", desc: "Find a companion for an outing you'd rather not do solo." },
+  { name: 'Sit With Me', desc: 'Quiet company — someone to simply be present alongside you.' },
+  { name: 'Be Around', desc: 'Low-key presence nearby without a structured plan.' },
+  { name: 'Explore Together', desc: 'Pair up to discover places and experiences in the city.' },
+];
+
+const stats = [
+  { value: '4', label: 'cities live' },
+  { value: '500+', label: 'users' },
+  { value: '4.9/5', label: 'user rating' },
+];
+
+const features = [
+  'Four discovery modes for different companionship needs',
+  'Verified companion profiles to build trust',
+  'Availability booking with a real-time slot system',
+  'Secure payments integrated through Razorpay',
+  'End-to-end companion onboarding flow',
+  'User authentication and account management',
+];
+---
+
+<CaseStudyLayout
+  name="Prsnn"
+  tagline="A peer-to-peer companion marketplace live across four Indian cities — 500+ users, a 4.9/5 rating, and a real-time availability system, built end-to-end as the sole developer."
+  description="Case study of Prsnn, a peer-to-peer companion marketplace built with Next.js, Node.js, MongoDB, and Razorpay — live across Mumbai, Bangalore, Delhi, and Hyderabad."
+  role="Sole Full Stack Developer"
+  status="Live · 4 cities"
+  stackSummary="Next.js · Node · MongoDB · Razorpay"
+  live="https://www.prsnn.com/"
+>
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Prsnn is a peer-to-peer companion marketplace — it connects people who want company for an
+      outing, an errand, or simply for presence, with verified companions available near them. It
+      is live across four Indian cities — Mumbai, Bangalore, Delhi, and Hyderabad — and has grown
+      to 500+ users with a 4.9/5 rating.
+    </p>
+  </section>
+
+  <!-- Stats -->
+  <section>
+    <h2>By the numbers</h2>
+    <div class="mt-5 grid grid-cols-3 gap-3">
+      {
+        stats.map((s) => (
+          <div class="card p-5 text-center">
+            <span class="font-mono text-2xl font-bold text-[var(--accent)] md:text-3xl">
+              {s.value}
+            </span>
+            <p class="m-0 mt-1.5 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--muted)]">
+              {s.label}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>The challenge</h2>
+    <p>
+      "Companionship" is not one need — sometimes people want an active partner to explore a
+      city, sometimes just quiet presence. A single generic "book a person" flow flattens all of
+      that. Prsnn needed discovery that respects those different intents, and — because it puts
+      strangers in contact — trust and safety built in from the first screen.
+    </p>
+  </section>
+
+  <section>
+    <h2>Multi-mode discovery</h2>
+    <p>
+      Instead of one search box, Prsnn offers four distinct modes, each shaping how companions are
+      matched and presented:
+    </p>
+    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+      {
+        modes.map((m) => (
+          <div class="card p-5">
+            <h3 class="text-base text-[var(--accent)]">{m.name}</h3>
+            <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{m.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>Real-time availability</h2>
+    <p>
+      Bookings only work if availability is honest. I built a real-time availability system so
+      companion slots reflect the current state — when a slot is taken it disappears, and users
+      book against live data rather than a stale calendar. Verified profiles sit on top of this,
+      so every bookable companion has been vetted.
+    </p>
+    <TerminalWindow title="booking-flow — prsnn" class="mt-5">
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./trace booking</span>
+
+  discover (mode)  ──▶  verified profile  ──▶  pick live slot
+        │                                            │
+        ▼                                            ▼
+  real-time availability  ◀──────────────  Razorpay payment
+        │
+        ▼
+  confirmed booking ✓</pre>
+    </TerminalWindow>
+  </section>
+
+  <section>
+    <h2>Payments &amp; onboarding</h2>
+    <p>
+      Payments are handled through a secure Razorpay integration, so money changes hands inside a
+      trusted, compliant flow. On the supply side, I built the full companion onboarding journey
+      end-to-end — sign-up, verification, and going live — alongside user authentication for the
+      people booking them.
+    </p>
+  </section>
+
+  <section>
+    <h2>Key features</h2>
+    <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
+      {
+        features.map((f) => (
+          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+            <span>{f}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tech stack</h2>
+    <div class="mt-1 flex flex-wrap gap-2">
+      {techStack.map((t) => <span class="chip">{t}</span>)}
+    </div>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      Built solo and shipped to production, Prsnn reached 500+ users across four cities with a
+      4.9/5 rating — evidence that thoughtful, intent-aware discovery and trust-first design
+      resonate with real people, not just in a spec.
+    </p>
+  </section>
+</CaseStudyLayout>

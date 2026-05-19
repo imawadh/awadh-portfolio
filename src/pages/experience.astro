@@ -6,64 +6,99 @@ const experiences = [
   {
     type: 'work' as const,
     title: 'Full Stack Developer Intern',
-    company: 'IAverse',
-    date: 'Feb 2026 – Present',
-    description: 'Building a GEO and tracking system for a client — handling everything from data ingestion to map-driven UI.',
+    company: 'IAVerse',
+    meta: 'Remote',
+    date: 'Feb 2026 — Present',
+    current: true,
+    points: [
+      'Led the full migration of a 1,600-page WordPress site to a custom-built Next.js application — rebuilding content architecture, routing, and UI components from scratch with zero data loss.',
+      'Engineered a scalable page and component system to support 1,600+ content pages, delivering measurable gains in performance, SEO, and long-term maintainability over the WordPress baseline.',
+      'Instrumented the platform with Mixpanel and Sentry for product analytics and error monitoring, enabling proactive issue resolution and data-driven product decisions.',
+    ],
+    tags: ['Next.js', 'React', 'Mixpanel', 'Sentry', 'SEO'],
   },
   {
     type: 'work' as const,
-    title: 'Full Stack Freelancer',
+    title: 'Full Stack Developer (Freelance)',
     company: 'SRS Classes',
-    date: 'Nov 2024 – Present',
-    description: 'Designing and shipping full-stack web applications for clients across ed-tech and product domains.',
+    meta: 'Remote',
+    date: 'Nov 2024 — Dec 2024',
+    current: false,
+    points: [
+      'Built and shipped a responsive educational web application with Next.js and React, supporting 1,500+ daily active users with stable cross-device performance.',
+      'Reduced page load times by ~30% through server-side rendering optimisations, asset compression, and SEO best practices.',
+      'Owned the full product lifecycle solo — feature development, cloud deployment, monitoring, and post-launch maintenance.',
+    ],
+    tags: ['Next.js', 'React', 'Node.js', 'MongoDB'],
   },
   {
     type: 'education' as const,
     title: 'BS in Data Science & Applications',
     company: 'IIT Madras',
-    date: 'May 2024 – March 2028',
-    description: 'Online degree program focused on data science, statistics, and applied machine learning.',
+    meta: 'Chennai, India',
+    date: 'Apr 2024 — Jun 2028',
+    current: false,
+    points: [
+      'Undergraduate degree focused on data science, statistics, programming, and applied machine learning.',
+      'Current CGPA: 8.27.',
+    ],
+    tags: ['Python', 'Statistics', 'Machine Learning', 'DSA'],
   },
   {
     type: 'education' as const,
-    title: 'Intermediate (Class XII)',
-    company: 'Central Hindu Boys School',
-    date: 'May 2021 – March 2023',
-    description: 'Higher secondary education with a focus on math and science.',
-  },
-  {
-    type: 'education' as const,
-    title: 'High School (Class X)',
-    company: 'PG Senior Secondary School',
-    date: 'April 2019 – March 2021',
-    description: 'Secondary school education.',
+    title: 'Intermediate (Higher Secondary)',
+    company: "Central Hindu Boys' School (B.H.U)",
+    meta: 'Varanasi, India',
+    date: 'Apr 2021 — Jun 2023',
+    current: false,
+    points: ['Higher secondary education with a focus on mathematics and science.'],
+    tags: [],
   },
 ];
 ---
 
 <PageLayout
   title="Experience & Education — Awadh Kishor Singh"
-  description="Awadh's work experience including internship at IAverse and freelance work, plus his education at IIT Madras."
+  description="Work experience and education of Awadh Kishor Singh — Full Stack Developer Intern at IAVerse, freelance work for SRS Classes, and a BS in Data Science at IIT Madras."
 >
-  <section class="container mx-auto px-6 py-16 md:px-8 md:py-24">
-    <span class="eyebrow">Timeline</span>
-    <h1 class="mb-3 text-4xl font-semibold tracking-tight text-[var(--fg)] md:text-5xl">
-      Experience & education
-    </h1>
-    <p class="mb-12 max-w-[640px] text-base text-[var(--muted)] md:text-lg">
+  <section class="wrap pt-14 md:pt-20">
+    <span class="eyebrow reveal reveal-1">experience</span>
+    <h1 class="reveal reveal-2 mt-4">git log --career</h1>
+    <p class="reveal reveal-2 mt-4 max-w-[58ch] text-base md:text-lg">
       A timeline of professional work and academic background — most recent first.
     </p>
 
-    <div class="flex flex-col gap-4">
-      {experiences.map((exp) => (
-        <TimelineItem
-          type={exp.type}
-          title={exp.title}
-          company={exp.company}
-          date={exp.date}
-          description={exp.description}
-        />
-      ))}
+    <div class="reveal reveal-3 mt-14 flex flex-col gap-10">
+      {
+        experiences.map((exp) => (
+          <TimelineItem
+            type={exp.type}
+            title={exp.title}
+            company={exp.company}
+            meta={exp.meta}
+            date={exp.date}
+            current={exp.current}
+            points={exp.points}
+            tags={exp.tags}
+          />
+        ))
+      }
+    </div>
+
+    <!-- Resume CTA -->
+    <div class="mt-16 card flex flex-col gap-4 p-7 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="prompt text-xs">cat resume.pdf</p>
+        <p class="m-0 mt-1 text-sm text-[var(--fg-dim)]">
+          Want the full picture in one page? Grab the PDF.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          ↓ download resume
+        </a>
+        <a href="/projects" class="btn">view projects →</a>
+      </div>
     </div>
   </section>
 </PageLayout>

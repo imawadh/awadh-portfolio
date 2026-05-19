@@ -1,146 +1,152 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import TerminalWindow from '../../components/TerminalWindow.astro';
 
-const techStack = ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js', 'MongoDB'];
-
-const features = [
-  'Add and manage cryptocurrency holdings',
-  'Real-time price updates from public APIs',
-  'Portfolio value calculation and tracking',
-  'Performance analytics with interactive charts',
-  'Authentication and secure data storage',
-  'Responsive design for all devices',
+const techStack = [
+  'Next.js 14',
+  'React 18',
+  'Tailwind CSS',
+  'Node.js',
+  'Express.js',
+  'MongoDB Atlas',
+  'Mongoose',
+  'JWT',
+  'bcrypt',
+  'CoinGecko API',
+  'Cloudinary',
+  'TradingView',
+  'Vercel',
+  'Render',
 ];
 
-const meta = [
-  { label: 'Role', value: 'Full Stack Developer' },
-  { label: 'Type', value: 'Freelance · Live' },
-  { label: 'Stack', value: 'React · Node · MongoDB' },
+const security = [
+  { k: 'JWT', v: 'Stateless token-based authentication' },
+  { k: 'bcrypt', v: 'Salted password hashing at rest' },
+  { k: 'helmet', v: 'Hardened HTTP security headers' },
+  { k: 'rate-limit', v: 'express-rate-limit guards API abuse' },
+];
+
+const features = [
+  'Live cryptocurrency prices via the CoinGecko API',
+  'Interactive TradingView charts embedded client-side',
+  'Virtual demo trading — every user starts at 10,000',
+  'Holdings replayed from buy/sell transaction history',
+  'Cloudinary-backed profile image uploads',
+  'JWT auth with bcrypt-hashed credentials',
 ];
 ---
 
-<PageLayout
-  title="CryptoFolio — Awadh Kishor Singh"
-  description="Case study of CryptoFolio, a cryptocurrency portfolio tracking application."
-  ogImage="https://picsum.photos/1200/630?random=5"
+<CaseStudyLayout
+  name="Cryptofolio"
+  tagline="A decoupled MERN-stack crypto portfolio platform — Next.js 14 frontend, Express REST API, and a virtual demo-trading engine that computes holdings by replaying transaction history."
+  description="Case study of Cryptofolio, a cryptocurrency portfolio management platform built with Next.js 14, Express, MongoDB Atlas, and the CoinGecko API."
+  role="Full Stack Developer"
+  status="Live · Vercel + Render"
+  stackSummary="Next.js 14 · Express · MongoDB Atlas"
+  live="https://task-cryptopolio-main-two.vercel.app/"
+  code="https://github.com/imawadh/task-cryptopolio-main"
 >
-  <article class="container mx-auto px-6 py-16 md:px-8 md:py-24">
-    <a
-      href="/projects"
-      class="mb-8 inline-flex items-center gap-1.5 font-mono text-xs text-[var(--muted)] transition-colors duration-300 hover:text-[var(--accent)]"
-    >
-      ← Back to projects
-    </a>
-
-    <span class="eyebrow">Case study</span>
-    <h1 class="mb-4 text-4xl font-semibold tracking-tight text-[var(--fg)] md:text-5xl">
-      CryptoFolio
-    </h1>
-    <p class="mb-10 max-w-[680px] text-base text-[var(--muted)] md:text-lg">
-      A cryptocurrency portfolio tracker for managing digital-asset investments — real-time prices,
-      performance analytics, and a clean dashboard, all in one place.
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Cryptofolio is a cryptocurrency portfolio platform where users track digital assets and
+      practice trading without risking real money. It pairs live market data with a virtual
+      trading engine — every account starts with a 10,000 balance, and holdings are derived
+      entirely from the user's recorded buy and sell history.
     </p>
+  </section>
 
-    <div class="mb-10 overflow-hidden rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] backdrop-blur-[20px] dark:bg-[rgba(4,8,15,0.55)]">
-      <img
-        src="https://picsum.photos/800/400?random=5"
-        alt="CryptoFolio"
-        class="h-72 w-full object-cover md:h-96"
-      />
+  <section>
+    <h2>The challenge</h2>
+    <p>
+      Crypto investors juggling holdings across exchanges had no single, calm view of their
+      position — and no safe way to test a strategy before committing capital. The product needed
+      live prices, a clean portfolio view, and a trading sandbox, all without a heavy backend or
+      the risk of stale, drifting balances.
+    </p>
+  </section>
+
+  <section>
+    <h2>Architecture</h2>
+    <p>
+      Cryptofolio is fully decoupled: a Next.js 14 (App Router) frontend deployed on Vercel talks
+      to an Express REST API on Render over plain HTTP/JSON, with MongoDB Atlas as the database.
+      Third-party services — CoinGecko for prices, TradingView for charts, Cloudinary for image
+      uploads — are called directly from the browser, deliberately keeping load off the backend.
+    </p>
+    <TerminalWindow title="architecture — cryptofolio" class="mt-5">
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./describe --stack</span>
+
+  ┌────────────────────────────┐
+  │  Next.js 14  (Vercel)      │──┐ direct browser calls
+  └─────────────┬──────────────┘  ├──▶ CoinGecko  (prices)
+                │ HTTP / JSON     ├──▶ TradingView (charts)
+                ▼                 └──▶ Cloudinary  (uploads)
+  ┌────────────────────────────┐
+  │  Express REST API (Render) │
+  └─────────────┬──────────────┘
+                ▼
+  ┌────────────────────────────┐
+  │  MongoDB Atlas + Mongoose  │
+  └────────────────────────────┘</pre>
+    </TerminalWindow>
+  </section>
+
+  <section>
+    <h2>The demo trading engine</h2>
+    <p>
+      Rather than storing a mutable balance that can drift out of sync, the engine treats every
+      buy and sell as an immutable transaction in MongoDB. A user's current coin holdings and
+      portfolio value are computed dynamically by replaying that transaction history — so the
+      portfolio is always a provable function of what the user actually did, and never a number
+      that can quietly go wrong.
+    </p>
+  </section>
+
+  <section>
+    <h2>Security</h2>
+    <p>
+      The API is treated as a public surface and hardened accordingly.
+    </p>
+    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+      {
+        security.map((s) => (
+          <div class="card flex gap-3 p-4">
+            <span class="font-mono text-sm font-semibold text-[var(--accent)]">{s.k}</span>
+            <span class="text-sm text-[var(--muted)]">{s.v}</span>
+          </div>
+        ))
+      }
     </div>
+  </section>
 
-    <div class="mb-12 grid gap-3 md:grid-cols-3">
-      {meta.map((m) => (
-        <div class="rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-5 backdrop-blur-[20px] dark:bg-[rgba(4,8,15,0.55)]">
-          <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[var(--muted)]">{m.label}</span>
-          <p class="mt-1.5 mb-0 text-sm font-medium text-[var(--fg)]">{m.value}</p>
-        </div>
-      ))}
+  <section>
+    <h2>Key features</h2>
+    <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
+      {
+        features.map((f) => (
+          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+            <span>{f}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tech stack</h2>
+    <div class="mt-1 flex flex-wrap gap-2">
+      {techStack.map((t) => <span class="chip">{t}</span>)}
     </div>
+  </section>
 
-    <div class="flex flex-col gap-10">
-      <section>
-        <h2 class="mb-3 mt-0 text-2xl font-semibold text-[var(--fg)]">Overview</h2>
-        <p class="m-0 leading-relaxed text-[var(--fg)]">
-          CryptoFolio helps cryptocurrency investors track portfolios in real time. Users can add
-          holdings, monitor price movements, and analyze performance through clean charts and
-          summary cards.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="mb-3 mt-0 text-2xl font-semibold text-[var(--fg)]">Problem</h2>
-        <p class="m-0 leading-relaxed text-[var(--fg)]">
-          Crypto investors juggling multiple holdings across exchanges had no single, calm view of
-          their position. They needed a centralized dashboard with live prices, portfolio value,
-          and performance metrics together.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="mb-3 mt-0 text-2xl font-semibold text-[var(--fg)]">Solution</h2>
-        <p class="m-0 leading-relaxed text-[var(--fg)]">
-          A full-stack tracker that pulls live price data from public APIs, persists user portfolios
-          securely, and renders an interactive view of investment performance — all behind a focused,
-          uncluttered interface.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="mb-4 mt-0 text-2xl font-semibold text-[var(--fg)]">Tech stack</h2>
-        <div class="flex flex-wrap gap-2">
-          {techStack.map((t) => (
-            <span class="rounded-md border border-[var(--border)] bg-[var(--surface)]/60 px-3 py-1.5 font-mono text-xs text-[var(--fg)]">
-              {t}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 class="mb-4 mt-0 text-2xl font-semibold text-[var(--fg)]">Key features</h2>
-        <ul class="m-0 grid list-none gap-2 p-0 md:grid-cols-2">
-          {features.map((f) => (
-            <li class="m-0 flex items-start gap-3 rounded-2xl border border-[var(--border)] bg-[rgba(253,246,238,0.55)] p-4 text-sm text-[var(--fg)] backdrop-blur-[20px] dark:bg-[rgba(4,8,15,0.55)]">
-              <span class="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--accent)]"></span>
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2 class="mb-3 mt-0 text-2xl font-semibold text-[var(--fg)]">Outcome</h2>
-        <p class="m-0 leading-relaxed text-[var(--fg)]">
-          The application is deployed and actively used by the crypto community for portfolio
-          tracking and analysis — a tight, focused tool that does one thing well.
-        </p>
-      </section>
-    </div>
-
-    <div class="mt-12 flex flex-wrap gap-3 border-t border-[var(--border)] pt-8">
-      <a
-        href="https://task-cryptopolio-main-two.vercel.app/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-xl border border-[var(--accent)] bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-[var(--bg)] transition-all duration-300 hover:bg-[var(--accent-light)] hover:border-[var(--accent-light)]"
-      >
-        Visit live site →
-      </a>
-      <a
-        href="https://github.com/imawadh/task-cryptopolio-main"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-5 py-2.5 text-sm font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-      >
-        View code
-      </a>
-      <a
-        href="/projects"
-        class="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-5 py-2.5 text-sm font-medium text-[var(--fg)] transition-colors duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
-      >
-        ← All projects
-      </a>
-    </div>
-  </article>
-</PageLayout>
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      Cryptofolio is deployed and used for portfolio tracking and risk-free practice trading. The
+      replay-based engine and offloaded third-party calls keep the backend lean while the platform
+      stays accurate — a focused tool that does one thing, dependably.
+    </p>
+  </section>
+</CaseStudyLayout>

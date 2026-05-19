@@ -1,0 +1,110 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import TerminalWindow from '../../components/TerminalWindow.astro';
+
+const techStack = ['Next.js', 'React', 'Tailwind CSS', 'Responsive Web Design', 'SEO', 'Vercel'];
+
+const programs = [
+  { name: 'IGCSE & O Level', desc: 'Structured preparation for Cambridge lower-secondary boards.' },
+  { name: 'AS & A Level', desc: 'Advanced-level coaching for university-bound students.' },
+  { name: 'Mathematics Mastery', desc: 'A dedicated track focused on building deep maths fluency.' },
+  { name: 'Science Mastery', desc: 'Subject-specific science coaching and concept mastery.' },
+];
+
+const built = [
+  'Responsive marketing site with a clear program hierarchy',
+  'Dedicated pages for each curriculum and mastery track',
+  'About and contact sections for prospective families',
+  'Fast, SEO-friendly pages built on Next.js',
+  'Consistent visual identity around the brand promise',
+];
+---
+
+<CaseStudyLayout
+  name="Axiora Learning"
+  tagline="A marketing and information website for Axiora Learning — a Bengaluru academic coaching institute — presenting its international-curriculum programs through a fast, structured Next.js site."
+  description="Case study of the Axiora Learning website — a Next.js marketing site for a Bengaluru academic coaching institute offering IGCSE, O Level, and A Level preparation."
+  role="Freelance Web Developer"
+  status="Live · axioralearning.com"
+  stackSummary="Next.js · React · Tailwind"
+  live="https://www.axioralearning.com/"
+>
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Axiora Learning is a Bengaluru-based academic coaching institute built around one promise —
+      "System-Driven Academic Excellence." I built its public website: a fast, well-organised
+      marketing site that explains the institute's international-curriculum programs and turns
+      visiting parents and students into enquiries.
+    </p>
+  </section>
+
+  <section>
+    <h2>The brief</h2>
+    <p>
+      A coaching institute lives or dies on trust. The site had to make a structured, systematic
+      approach feel credible at a glance, present a range of curricula without overwhelming
+      visitors, and load quickly for families browsing on mobile. The goal was clarity: any
+      visitor should understand what Axiora offers and how to reach them within seconds.
+    </p>
+  </section>
+
+  <section>
+    <h2>Programs showcased</h2>
+    <p>
+      The site organises Axiora's offering into clear, self-contained program areas:
+    </p>
+    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+      {
+        programs.map((p) => (
+          <div class="card p-5">
+            <h3 class="text-base text-[var(--accent)]">{p.name}</h3>
+            <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>What I built</h2>
+    <p>
+      I designed and developed the site with Next.js and React, focusing on a clean information
+      architecture and speed.
+    </p>
+    <ul class="mt-5 grid list-none gap-2.5 p-0 sm:grid-cols-2">
+      {
+        built.map((b) => (
+          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+            <span>{b}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tech stack</h2>
+    <div class="mt-1 flex flex-wrap gap-2">
+      {techStack.map((t) => <span class="chip">{t}</span>)}
+    </div>
+    <TerminalWindow title="deploy — axiora-learning" class="mt-5">
+      <div class="flex flex-col gap-1.5 font-mono text-sm">
+        <p class="prompt">next build &amp;&amp; deploy</p>
+        <p class="out text-[var(--fg-dim)]">framework: Next.js · React · Tailwind CSS</p>
+        <p class="out text-[var(--fg-dim)]">host: Vercel · responsive · SEO-ready</p>
+        <p class="out text-[var(--accent)]">status: live ✓</p>
+      </div>
+    </TerminalWindow>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <p>
+      Axiora Learning now has a professional, fast-loading web presence that mirrors its
+      system-driven brand — a clear digital front door for prospective students and families to
+      explore programs and get in touch.
+    </p>
+  </section>
+</CaseStudyLayout>
