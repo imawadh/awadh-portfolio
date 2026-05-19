@@ -2,31 +2,59 @@
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import TerminalWindow from '../../components/TerminalWindow.astro';
 
-const techStack = [
-  'Next.js',
-  'React',
-  'Node.js',
-  'Express.js',
-  'MongoDB',
-  'PostgreSQL',
-  'REST API',
+const frontendStack = [
+  'Next.js 14',
+  'React 18',
+  'Tailwind CSS 3.4',
+  'PostCSS',
+  'Autoprefixer',
+  'next-themes',
+  'Axios',
+  'react-icons',
+  'Sharp',
+  'ESLint',
   'Vercel',
+];
+
+const backendStack = [
+  'Node.js 22',
+  'Express 4',
+  'MongoDB',
+  'Mongoose 6',
+  'JWT',
+  'bcrypt',
+  'express-validator',
+  'Helmet',
+  'express-rate-limit',
+  'CORS',
+  'dotenv',
+  'Nodemon',
+  'mongodb-memory-server',
   'Render',
 ];
 
 const portals = [
   {
     name: 'Patient portal',
+    url: 'https://awadh-patient-app.vercel.app/',
     desc: 'Book appointments, view issued prescriptions, and track visit history.',
   },
   {
     name: 'Doctor portal',
+    url: 'https://awadh-doctor-app.vercel.app/',
     desc: 'Manage appointment queues and issue digital prescriptions to patients.',
   },
   {
     name: 'Admin portal',
+    url: 'https://awadh-hospital-admin-app.vercel.app/',
     desc: 'Hospital-wide administration — manage doctors, departments, and records.',
   },
+];
+
+const portalLinks = [
+  { label: 'patient app ↗', url: 'https://awadh-patient-app.vercel.app/' },
+  { label: 'doctor app ↗', url: 'https://awadh-doctor-app.vercel.app/' },
+  { label: 'admin app ↗', url: 'https://awadh-hospital-admin-app.vercel.app/' },
 ];
 
 const features = [
@@ -35,17 +63,19 @@ const features = [
   'Appointment booking and scheduling workflow',
   'Digital prescription issuance from doctor to patient',
   'Hospital-wide administration and record management',
-  'Hybrid MongoDB + PostgreSQL data layer',
+  'JWT authentication with bcrypt-hashed credentials',
 ];
 ---
 
 <CaseStudyLayout
   name="Prescripto"
   tagline="A full-stack, multi-portal hospital prescription management system — three independent Next.js portals for Patients, Doctors, and Admins, all running on a single shared REST API."
-  description="Case study of Prescripto, a multi-portal hospital prescription management system built with Next.js, Node.js, MongoDB, and PostgreSQL."
+  description="Case study of Prescripto, a multi-portal hospital prescription management system built with Next.js, Express, and MongoDB."
   role="Solo Full Stack Developer"
-  status="Deployed · Vercel + Render"
-  stackSummary="Next.js · Node · Mongo + PostgreSQL"
+  status="Live · 3 portals on Vercel"
+  stackSummary="Next.js · Express · MongoDB"
+  links={portalLinks}
+  code="https://github.com/imawadh/Hospital-Prescripto"
 >
   <section>
     <h2>Overview</h2>
@@ -71,9 +101,10 @@ const features = [
     <h2>Architecture</h2>
     <p>
       I architected the platform as three independent Next.js frontends — Patient, Doctor, and
-      Admin — backed by a single shared Node.js/Express REST API. Each frontend deploys
-      separately on Vercel; the API runs on Render. Cross-origin requests between the portals and
-      the API are handled with explicit CORS configuration and environment-scoped settings.
+      Admin — backed by a single shared Express REST API with MongoDB as the database. Each
+      frontend deploys separately on Vercel; the API runs on Render. Cross-origin requests between
+      the portals and the API are handled with explicit CORS configuration and environment-scoped
+      settings.
     </p>
     <TerminalWindow title="architecture — prescripto" class="mt-5">
       <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./describe --stack</span>
@@ -85,14 +116,13 @@ const features = [
          │                 │                 │
          └────────┬────────┴────────┬────────┘
                   ▼   REST / JSON   ▼
-            ┌───────────────────────────┐
-            │  Node.js / Express API    │  ← RBAC
-            └─────────────┬─────────────┘
-                          ▼
-              ┌───────────┴───────────┐
-        ┌─────┴─────┐           ┌─────┴─────┐
-        │  MongoDB  │           │ PostgreSQL│
-        └───────────┘           └───────────┘</pre>
+          ┌───────────────────────────┐
+          │  Express API · JWT · RBAC │   (Render)
+          └─────────────┬─────────────┘
+                        ▼
+              ┌─────────────────────┐
+              │  MongoDB + Mongoose │
+              └─────────────────────┘</pre>
     </TerminalWindow>
   </section>
 
@@ -102,13 +132,27 @@ const features = [
       Each portal is a focused product in its own right — but they all read and write through the
       same API, so the data never forks.
     </p>
-    <div class="mt-5 grid gap-3 sm:grid-cols-3">
+    <div class="grid gap-3 sm:grid-cols-3">
       {
         portals.map((p) => (
-          <div class="card p-5">
-            <h3 class="text-base text-[var(--accent)]">{p.name}</h3>
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card card-link group flex flex-col p-5"
+          >
+            <div class="flex items-baseline justify-between gap-2">
+              <h3 class="text-base text-[var(--accent)]">{p.name}</h3>
+              <span class="font-mono text-[0.7rem] text-[var(--muted)] transition-colors group-hover:text-[var(--accent)]">
+                ↗
+              </span>
+            </div>
             <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.desc}</p>
-          </div>
+            <span class="mt-3 inline-flex items-center gap-1.5 font-mono text-[0.72rem] text-[var(--fg-dim)] transition-colors group-hover:text-[var(--accent)]">
+              <span class="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+              visit live app
+            </span>
+          </a>
         ))
       }
     </div>
@@ -117,20 +161,22 @@ const features = [
   <section>
     <h2>Role-based access control</h2>
     <p>
-      RBAC is enforced at the API layer, not just hidden in the UI. Every request is scoped to its
-      role — a patient can never reach an admin endpoint, and a doctor can only issue prescriptions
-      for their own appointments. This keeps appointment booking, prescription issuance, and
-      hospital administration cleanly separated across all three portals.
+      RBAC is enforced at the API layer, not just hidden in the UI. Authentication runs on JWT, and
+      every request is scoped to its role — a patient can never reach an admin endpoint, and a
+      doctor can only issue prescriptions for their own appointments. This keeps appointment
+      booking, prescription issuance, and hospital administration cleanly separated across all
+      three portals.
     </p>
   </section>
 
   <section>
     <h2>Data modelling</h2>
     <p>
-      Hospital data is part flexible, part strictly relational — so I used both. Patients, doctors,
-      prescriptions, and appointments are modelled across MongoDB and PostgreSQL, letting the
-      document store handle flexible records while PostgreSQL handles structured, relational
-      queries that need integrity guarantees.
+      Hospital records — patients, doctors, prescriptions, and appointments — are modelled in
+      MongoDB through Mongoose schemas. Mongoose gives each collection a clear, validated shape
+      while keeping records flexible enough to evolve, and the relationships between them — a
+      prescription belongs to a doctor, an appointment to a patient — are linked by reference so
+      the data stays consistent across every portal.
     </p>
   </section>
 
@@ -150,8 +196,23 @@ const features = [
 
   <section>
     <h2>Tech stack</h2>
-    <div class="mt-1 flex flex-wrap gap-2">
-      {techStack.map((t) => <span class="chip">{t}</span>)}
+    <div class="space-y-4">
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          frontend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {frontendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          backend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {backendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
     </div>
   </section>
 

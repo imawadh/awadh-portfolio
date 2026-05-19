@@ -2,16 +2,40 @@
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import TerminalWindow from '../../components/TerminalWindow.astro';
 
-const techStack = [
-  'Next.js',
-  'React',
-  'Node.js',
-  'Express.js',
+const frontendStack = [
+  'Next.js 16',
+  'React 19',
+  'Tailwind CSS v4',
+  'PostCSS',
+  'Axios',
+  'Socket.io Client',
+  'Sentry',
+  'Vitest',
+  'Testing Library',
+  'ESLint v9',
+];
+
+const backendStack = [
+  'Node.js (ESM)',
+  'Express 5',
   'MongoDB',
+  'Mongoose 9',
+  'JWT',
+  'Bcrypt',
+  'Socket.io',
   'Razorpay',
-  'REST API',
-  'Vercel',
-  'Render',
+  'Multer',
+  'Cloudinary',
+  'Resend',
+  'Zod',
+  'Helmet',
+  'CORS',
+  'express-rate-limit',
+  'Sentry',
+  'Vitest',
+  'Supertest',
+  'Nodemon',
+  'Morgan',
 ];
 
 const modes = [
@@ -106,10 +130,10 @@ const features = [
   <section>
     <h2>Real-time availability</h2>
     <p>
-      Bookings only work if availability is honest. I built a real-time availability system so
-      companion slots reflect the current state — when a slot is taken it disappears, and users
-      book against live data rather than a stale calendar. Verified profiles sit on top of this,
-      so every bookable companion has been vetted.
+      Bookings only work if availability is honest. I built a real-time availability system on
+      Socket.io so companion slots reflect the current state — when a slot is taken it disappears
+      for everyone instantly, and users book against live data rather than a stale calendar.
+      Verified profiles sit on top of this, so every bookable companion has been vetted.
     </p>
     <TerminalWindow title="booking-flow — prsnn" class="mt-5">
       <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./trace booking</span>
@@ -150,8 +174,23 @@ const features = [
 
   <section>
     <h2>Tech stack</h2>
-    <div class="mt-1 flex flex-wrap gap-2">
-      {techStack.map((t) => <span class="chip">{t}</span>)}
+    <div class="space-y-4">
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          frontend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {frontendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          backend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {backendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
     </div>
   </section>
 

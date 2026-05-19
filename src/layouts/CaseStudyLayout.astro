@@ -10,9 +10,11 @@ interface Props {
   stackSummary: string;
   live?: string;
   code?: string;
+  links?: { label: string; url: string }[];
 }
 
-const { name, tagline, description, role, status, stackSummary, live, code } = Astro.props;
+const { name, tagline, description, role, status, stackSummary, live, code, links } =
+  Astro.props;
 
 const meta = [
   { key: 'role', value: role },
@@ -56,11 +58,17 @@ const meta = [
     <!-- Footer links -->
     <div class="mt-14 flex flex-wrap gap-3 border-t border-[var(--border)] pt-8">
       {
-        live && (
-          <a href={live} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            visit live site ↗
-          </a>
-        )
+        links && links.length > 0
+          ? links.map((l) => (
+              <a href={l.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                {l.label}
+              </a>
+            ))
+          : live && (
+              <a href={live} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                visit live site ↗
+              </a>
+            )
       }
       {
         code && (
@@ -81,14 +89,18 @@ const meta = [
     align-items: baseline;
     gap: 0.6rem;
     font-size: 1.35rem;
+    margin-bottom: 1.15rem;
   }
   .case-body section > h2::before {
     content: '##';
     color: var(--accent);
     font-size: 1rem;
   }
+  /* consistent gap between any heading and the content that follows it */
+  .case-body section > h2 + * {
+    margin-top: 0;
+  }
   .case-body section > p {
-    margin-top: 0.85rem;
     line-height: 1.75;
   }
 </style>

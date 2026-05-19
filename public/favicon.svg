@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="26" fill="#0a0d12"/>
-  <rect x="6.5" y="6.5" width="115" height="115" rx="20" fill="none" stroke="#1f2630" stroke-width="3"/>
-  <!-- prompt chevron -->
-  <path d="M34 48 L52 64 L34 80" fill="none" stroke="#4ade80" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- command underscore -->
-  <line x1="60" y1="82" x2="92" y2="82" stroke="#4ade80" stroke-width="9" stroke-linecap="round"/>
-</svg>

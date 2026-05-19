@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import TimelineItem from '../components/TimelineItem.astro';
+import { resumeUrl } from '../utils/site';
 
 const experiences = [
   {
@@ -94,7 +95,7 @@ const experiences = [
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
           ↓ download resume
         </a>
         <a href="/projects" class="btn">view projects →</a>

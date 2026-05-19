@@ -1,5 +1,6 @@
 ---
 import { socials } from '../utils/socials';
+import { resumeUrl } from '../utils/site';
 
 const navItems = [
   { label: 'about', href: '/about' },
@@ -29,10 +30,8 @@ const year = new Date().getFullYear();
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <a href="mailto:awadhkishorsingh241@gmail.com" class="btn btn-primary">
-          ↳ say hello
-        </a>
-        <a href="/contact" class="btn">contact page</a>
+        <a href="/contact" class="btn btn-primary">↳ say hello</a>
+        <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn">↓ resume.pdf</a>
       </div>
     </div>
 
@@ -99,9 +98,8 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Bottom -->
-    <div class="flex flex-col gap-2 border-t border-[var(--border)] pt-7 font-mono text-xs text-[var(--muted)] md:flex-row md:items-center md:justify-between">
+    <div class="border-t border-[var(--border)] pt-7 font-mono text-xs text-[var(--muted)]">
       <p>// © {year} Awadh Kishor Singh — all rights reserved</p>
-      <p>built with Astro · Tailwind · deployed on Vercel</p>
     </div>
   </div>
 </footer>

@@ -25,9 +25,11 @@ export const projects: Project[] = [
     tagline: 'Multi-portal hospital prescription system',
     description:
       'A full-stack healthcare platform with three independent Next.js portals — Patient, Doctor, and Admin — running on a shared Node/Express REST API, with role-based access control enforced across every portal.',
-    tags: ['Next.js', 'React', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL'],
-    status: 'deployed',
+    tags: ['Next.js', 'React', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
+    status: 'live',
     featured: true,
+    live: 'https://awadh-patient-app.vercel.app/',
+    code: 'https://github.com/imawadh/Hospital-Prescripto',
     caseStudy: '/projects/prescripto',
   },
   {
@@ -38,11 +40,11 @@ export const projects: Project[] = [
     tagline: 'Crypto portfolio management platform',
     description:
       'A decoupled MERN platform — Next.js 14 frontend, Express REST API — with live CoinGecko prices, TradingView charts, and a virtual demo-trading engine that computes holdings by replaying buy/sell history.',
-    tags: ['Next.js 14', 'React 18', 'Express', 'MongoDB Atlas', 'JWT', 'CoinGecko API'],
+    tags: ['Next.js 14', 'React 18', 'Express', 'MongoDB', 'JWT', 'CoinGecko API'],
     status: 'live',
     featured: true,
-    live: 'https://task-cryptopolio-main-two.vercel.app/',
-    code: 'https://github.com/imawadh/task-cryptopolio-main',
+    live: 'https://crytofolio.vercel.app/',
+    code: 'https://github.com/imawadh/crytofolio',
     caseStudy: '/projects/cryptofolio',
   },
 
@@ -54,8 +56,8 @@ export const projects: Project[] = [
     name: 'Axiora Learning',
     tagline: 'System-driven academic coaching institute',
     description:
-      'A marketing and information site for Axiora Learning, a Bengaluru coaching institute specialising in IGCSE, O Level, AS & A Level, and subject-mastery programs. Built with Next.js for a fast, structured experience.',
-    tags: ['Next.js', 'React', 'Tailwind CSS', 'Responsive Design', 'Vercel'],
+      'A full-stack site for Axiora Learning, a Bengaluru coaching institute (IGCSE, O Level, AS & A Level). A Next.js + TypeScript front end backed by a typed NestJS API on PostgreSQL via Prisma.',
+    tags: ['Next.js', 'TypeScript', 'NestJS', 'Prisma', 'PostgreSQL', 'Tailwind CSS'],
     status: 'live',
     featured: false,
     live: 'https://www.axioralearning.com/',
@@ -83,7 +85,7 @@ export const projects: Project[] = [
     tagline: 'Ed-tech platform · 1,500+ daily users',
     description:
       'A responsive ed-tech web app built with Next.js and React for BPSC and competitive-exam aspirants, serving 1,500+ daily active users. SSR optimisations and asset compression cut page load times by ~30%.',
-    tags: ['Next.js', 'React', 'Tailwind', 'Node.js', 'MongoDB'],
+    tags: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'Mongoose', 'MongoDB'],
     status: 'live',
     featured: false,
     live: 'https://srsclasses.com/',
@@ -98,7 +100,7 @@ export const projects: Project[] = [
     tagline: 'Peer-to-peer companion marketplace',
     description:
       'A peer-to-peer companion platform live across four Indian cities with a 4.9/5 rating. Multi-mode discovery, verified profiles with Comfort Zones, availability booking, and secure Razorpay payments.',
-    tags: ['Next.js', 'React', 'Node.js', 'Express', 'MongoDB', 'Razorpay'],
+    tags: ['Next.js', 'React', 'Express', 'MongoDB', 'Socket.io', 'Razorpay'],
     status: 'live',
     featured: true,
     live: 'https://www.prsnn.com/',

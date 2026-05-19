@@ -153,6 +153,16 @@ img {
   max-width: 100%;
 }
 
+code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  color: var(--accent);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.08em 0.36em;
+}
+
 /* ── LAYOUT ── */
 .wrap {
   width: 100%;

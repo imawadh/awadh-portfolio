@@ -2,28 +2,44 @@
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import TerminalWindow from '../../components/TerminalWindow.astro';
 
-const techStack = [
+const frontendStack = [
   'Next.js 14',
   'React 18',
-  'Tailwind CSS',
-  'Node.js',
-  'Express.js',
-  'MongoDB Atlas',
-  'Mongoose',
-  'JWT',
-  'bcrypt',
-  'CoinGecko API',
-  'Cloudinary',
-  'TradingView',
+  'Tailwind CSS 3.4',
+  'PostCSS',
+  'Autoprefixer',
+  'Axios',
+  'next-themes',
+  'react-icons',
+  'Sharp',
+  'ESLint',
   'Vercel',
+];
+
+const backendStack = [
+  'Node.js 22',
+  'Express 4',
+  'Mongoose 6',
+  'MongoDB',
+  'bcrypt',
+  'jsonwebtoken',
+  'Helmet',
+  'express-rate-limit',
+  'express-validator',
+  'CORS',
+  'dotenv',
+  'Nodemon',
+  'mongodb-memory-server',
   'Render',
 ];
 
 const security = [
   { k: 'JWT', v: 'Stateless token-based authentication' },
   { k: 'bcrypt', v: 'Salted password hashing at rest' },
-  { k: 'helmet', v: 'Hardened HTTP security headers' },
+  { k: 'Helmet', v: 'Hardened HTTP security headers' },
   { k: 'rate-limit', v: 'express-rate-limit guards API abuse' },
+  { k: 'validation', v: 'express-validator sanitises every input' },
+  { k: 'CORS', v: 'Scoped cross-origin access control' },
 ];
 
 const features = [
@@ -31,20 +47,20 @@ const features = [
   'Interactive TradingView charts embedded client-side',
   'Virtual demo trading — every user starts at 10,000',
   'Holdings replayed from buy/sell transaction history',
-  'Cloudinary-backed profile image uploads',
   'JWT auth with bcrypt-hashed credentials',
+  'Light and dark theme support via next-themes',
 ];
 ---
 
 <CaseStudyLayout
   name="Cryptofolio"
   tagline="A decoupled MERN-stack crypto portfolio platform — Next.js 14 frontend, Express REST API, and a virtual demo-trading engine that computes holdings by replaying transaction history."
-  description="Case study of Cryptofolio, a cryptocurrency portfolio management platform built with Next.js 14, Express, MongoDB Atlas, and the CoinGecko API."
+  description="Case study of Cryptofolio, a cryptocurrency portfolio management platform built with Next.js 14, Express, MongoDB, and the CoinGecko API."
   role="Full Stack Developer"
   status="Live · Vercel + Render"
-  stackSummary="Next.js 14 · Express · MongoDB Atlas"
-  live="https://task-cryptopolio-main-two.vercel.app/"
-  code="https://github.com/imawadh/task-cryptopolio-main"
+  stackSummary="Next.js 14 · Express · MongoDB"
+  live="https://crytofolio.vercel.app/"
+  code="https://github.com/imawadh/crytofolio"
 >
   <section>
     <h2>Overview</h2>
@@ -69,26 +85,24 @@ const features = [
   <section>
     <h2>Architecture</h2>
     <p>
-      Cryptofolio is fully decoupled: a Next.js 14 (App Router) frontend deployed on Vercel talks
-      to an Express REST API on Render over plain HTTP/JSON, with MongoDB Atlas as the database.
-      Third-party services — CoinGecko for prices, TradingView for charts, Cloudinary for image
-      uploads — are called directly from the browser, deliberately keeping load off the backend.
+      Cryptofolio is a monorepo with separate <code>client/</code> and <code>server/</code>
+      directories. The client is a Next.js 14 App Router frontend on Vercel; the server is an
+      Express REST API on Render following an MVC structure — models → routes → controllers — with
+      MongoDB accessed through Mongoose. The two talk over HTTP/JSON via Axios, while CoinGecko
+      prices and TradingView charts are pulled straight into the browser to keep the backend lean.
     </p>
     <TerminalWindow title="architecture — cryptofolio" class="mt-5">
       <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./describe --stack</span>
 
-  ┌────────────────────────────┐
-  │  Next.js 14  (Vercel)      │──┐ direct browser calls
-  └─────────────┬──────────────┘  ├──▶ CoinGecko  (prices)
-                │ HTTP / JSON     ├──▶ TradingView (charts)
-                ▼                 └──▶ Cloudinary  (uploads)
-  ┌────────────────────────────┐
-  │  Express REST API (Render) │
-  └─────────────┬──────────────┘
-                ▼
-  ┌────────────────────────────┐
-  │  MongoDB Atlas + Mongoose  │
-  └────────────────────────────┘</pre>
+  monorepo/
+  ├── client/   Next.js 14 · App Router        (Vercel)
+  │      │  HTTP / JSON via Axios
+  │      │  └──▶ CoinGecko (prices) · TradingView (charts)
+  │      ▼
+  ├── server/   Express REST API · MVC         (Render)
+  │      │  models → routes → controllers
+  │      ▼
+  └── MongoDB  +  Mongoose</pre>
     </TerminalWindow>
   </section>
 
@@ -108,11 +122,11 @@ const features = [
     <p>
       The API is treated as a public surface and hardened accordingly.
     </p>
-    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+    <div class="grid gap-3 sm:grid-cols-2">
       {
         security.map((s) => (
           <div class="card flex gap-3 p-4">
-            <span class="font-mono text-sm font-semibold text-[var(--accent)]">{s.k}</span>
+            <span class="shrink-0 font-mono text-sm font-semibold text-[var(--accent)]">{s.k}</span>
             <span class="text-sm text-[var(--muted)]">{s.v}</span>
           </div>
         ))
@@ -136,8 +150,23 @@ const features = [
 
   <section>
     <h2>Tech stack</h2>
-    <div class="mt-1 flex flex-wrap gap-2">
-      {techStack.map((t) => <span class="chip">{t}</span>)}
+    <div class="space-y-4">
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          frontend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {frontendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
+          backend
+        </p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {backendStack.map((t) => <span class="chip">{t}</span>)}
+        </div>
+      </div>
     </div>
   </section>
 

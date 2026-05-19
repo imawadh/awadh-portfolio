@@ -4,18 +4,19 @@ import TerminalWindow from '../components/TerminalWindow.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { socials } from '../utils/socials';
 import { featuredProjects } from '../data/projects';
+import { resumeUrl } from '../utils/site';
 
 const stats = [
-  { value: '1,000+', label: 'DSA problems solved' },
-  { value: '1,800+', label: 'GitHub commits' },
-  { value: '6', label: 'products shipped' },
-  { value: '8.27', label: 'CGPA · IIT Madras' },
+  { key: 'dsa.solved', value: '1,000+', label: 'DSA problems solved', meter: 88 },
+  { key: 'git.commits', value: '1,800+', label: 'GitHub commits', meter: 96 },
+  { key: 'projects.shipped', value: '6', label: 'products shipped', meter: 72 },
+  { key: 'iitm.cgpa', value: '8.27', label: 'CGPA · IIT Madras', meter: 83 },
 ];
 
 const highlights = [
-  { key: 'role', value: 'Full Stack Developer Intern @ IAVerse' },
-  { key: 'studying', value: 'BS Data Science · IIT Madras' },
-  { key: 'location', value: 'Bengaluru, India · Remote-friendly' },
+  { n: '01', key: 'role', value: 'Full Stack Developer Intern @ IAVerse' },
+  { n: '02', key: 'studying', value: 'BS Data Science · IIT Madras' },
+  { n: '03', key: 'location', value: 'Bengaluru, India · Remote-friendly' },
 ];
 
 // Syntax-highlighted code card — token colours by key
@@ -45,9 +46,11 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
   ],
   [
     { t: '  alias', c: 'prop' },
-    { t: ':     ', c: 'pun' },
+    { t: ':     [', c: 'pun' },
     { t: "'imawadh'", c: 'str' },
-    { t: ',', c: 'pun' },
+    { t: ', ', c: 'pun' },
+    { t: "'im_awadh_'", c: 'str' },
+    { t: '],', c: 'pun' },
   ],
   [
     { t: '  role', c: 'prop' },
@@ -157,7 +160,7 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
       <TerminalWindow title="awadh@portfolio: ~">
         <div class="flex flex-col gap-2.5 font-mono text-sm md:text-[0.95rem]">
           <p class="prompt">whoami</p>
-          <p class="out text-[var(--fg)]">Awadh Kishor Singh — aka imawadh</p>
+          <p class="out text-[var(--fg)]">Awadh Kishor Singh — aka imawadh / im_awadh_</p>
 
           <p class="prompt mt-2">cat role.txt</p>
           <p class="out text-[var(--fg)]">Full Stack Developer · Data Science @ IIT Madras</p>
@@ -185,10 +188,10 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
         </div>
         <div class="relative flex-1">
           <img
-            src="/standing-image.webp"
-            alt="Awadh Kishor Singh looking out over a hilltop view"
+            src="/awadh-about.webp"
+            alt="Portrait of Awadh Kishor Singh"
             loading="eager"
-            class="aspect-[4/5] h-full w-full object-cover object-top md:aspect-auto"
+            class="aspect-[4/5] h-full w-full object-cover object-center md:aspect-auto"
           />
           <span
             class="absolute bottom-3 left-3 rounded-md border border-[var(--border-bright)] bg-[rgba(10,13,18,0.85)] px-2.5 py-1 font-mono text-[0.7rem] text-[var(--accent)] backdrop-blur"
@@ -202,7 +205,7 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
     <!-- CTAs -->
     <div class="reveal reveal-4 mt-8 flex flex-wrap gap-3">
       <a href="/projects" class="btn btn-primary">▸ view my work</a>
-      <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">↓ resume.pdf</a>
+      <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn">↓ resume.pdf</a>
       <a href="/contact" class="btn">↳ get in touch</a>
     </div>
 
@@ -218,35 +221,51 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
     </div>
   </section>
 
-  <!-- ───────────── STATS ───────────── -->
+  <!-- ───────────── STATS + STATUS ───────────── -->
   <section class="wrap mt-20">
-    <p class="prompt mb-4 text-xs">cat ./stats.json</p>
-    <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <div class="flex items-center justify-between gap-4">
+      <p class="prompt m-0 text-xs">cat ./stats.json</p>
+      <span class="hidden font-mono text-[0.7rem] text-[var(--muted)] sm:inline">// the track record</span>
+    </div>
+
+    <div class="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
       {
         stats.map((s) => (
-          <div class="card p-5">
-            <span class="font-mono text-2xl font-bold text-[var(--accent)] md:text-3xl">
+          <div class="card group overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-2)]">
+            <span class="block truncate font-mono text-[0.64rem] text-[var(--muted)] transition-colors duration-300 group-hover:text-[var(--accent)]">
+              {s.key}
+            </span>
+            <span class="stat-num mt-1.5 block font-mono text-3xl font-bold leading-none text-[var(--accent)] md:text-4xl">
               {s.value}
             </span>
-            <p class="m-0 mt-1.5 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--muted)]">
+            <p class="m-0 mt-2.5 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--muted)]">
               {s.label}
             </p>
+            <div class="mt-3.5 h-[3px] w-full overflow-hidden rounded-full bg-[var(--border)]">
+              <div
+                class="meter-fill h-full rounded-full bg-[var(--accent)]"
+                style={`width:${s.meter}%`}
+              />
+            </div>
           </div>
         ))
       }
     </div>
-  </section>
 
-  <!-- ───────────── HIGHLIGHTS ───────────── -->
-  <section class="wrap mt-12">
+    <p class="prompt mb-3 mt-10 text-xs">whoami --status</p>
     <div class="grid gap-3 md:grid-cols-3">
       {
         highlights.map((h) => (
-          <div class="card p-5">
-            <span class="font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
-              {h.key}
+          <div class="card group flex items-center gap-3.5 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent-2)]">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-[var(--border-bright)] bg-[var(--bg-2)] font-mono text-sm font-bold text-[var(--accent)] transition-colors duration-300 group-hover:border-[var(--accent)]">
+              {h.n}
             </span>
-            <p class="m-0 mt-1.5 text-sm font-medium text-[var(--fg)]">{h.value}</p>
+            <div class="min-w-0">
+              <span class="font-mono text-[0.68rem] uppercase tracking-wider text-[var(--accent)]">
+                {h.key}
+              </span>
+              <p class="m-0 mt-0.5 text-sm font-medium text-[var(--fg)]">{h.value}</p>
+            </div>
           </div>
         ))
       }
@@ -294,3 +313,26 @@ const codeLines: { t: string; c: keyof typeof cls }[][] = [
     </a>
   </section>
 </PageLayout>
+
+<style>
+  .stat-num {
+    text-shadow: 0 0 22px var(--glow);
+  }
+  .meter-fill {
+    transform-origin: left;
+    animation: growbar 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  }
+  @keyframes growbar {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .meter-fill {
+      animation: none;
+    }
+  }
+</style>
