@@ -1,6 +1,7 @@
 /* ============================================================
    EDITORIAL — design system
-   Paper-white ground, serif display, hairline rules, one accent.
+   Clinical Blue & Mint: white ground, cool-grey bands, navy footer,
+   azure for actions and links, mint for highlights only.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..700;1,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -21,32 +22,41 @@
 }
 
 :root {
-  /* ── SURFACES ── */
-  --bg: #f7f6fa;
-  --bg-2: #e9e6ee;
-  --surface: #fcfbfd;
-  --surface-2: #f2f0f6;
-  --border: #dcd7e3;
-  --border-bright: #bdb5c9;
+  /* ── SURFACES — white ground, cool grey tinted towards the brand ── */
+  --bg: #ffffff;
+  --bg-2: #f1f4f8;
+  --surface: #ffffff;
+  --surface-2: #f1f4f8;
+  --border: #dce3ec;
+  --border-bright: #7c93a8;
 
-  /* ── INK ── */
-  --fg: #191622;
-  --fg-dim: #453f52;
-  --muted: #817b8e;
+  /* ── INK — cooled to sit with the blues; never pure black ── */
+  --fg: #16212e;
+  --fg-dim: #4a5a6b;
+  --muted: #5c6e82;
 
-  /* ── ACCENT (violet) — micro-labels, links, primary action ── */
-  --accent: #5b3fa8;
-  --accent-2: #472f87;
-  --accent-soft: #ede8f8;
+  /* ── ACCENT (azure) — links and the primary action, white label;
+     hover deepens to navy ── */
+  --accent: #1b6ca8;
+  --accent-2: #12395b;
+  --accent-soft: #e4eef7;
 
-  /* ── SIGNAL — live / available status; one hue, so it reuses the accent ── */
-  --signal: #5b3fa8;
+  /* ── HIGHLIGHT (mint) — badges and the availability signal, ink label.
+     Never an action. ── */
+  --highlight: #57c5b6;
+  --highlight-deep: #1f6f62;
 
-  /* ── SECTION BANDS — all one ground; the a/b/c hooks stay so variation
-     can come back without touching markup ── */
-  --band-a: #f0eef4;
-  --band-b: #f0eef4;
-  --band-c: #f0eef4;
+  /* ── NAVY — dark bands. --navy-strong is the footer. ── */
+  --navy: #12395b;
+  --navy-strong: #0c2740;
+
+  /* ── SIGNAL — live / available status; mint darkened to read on white ── */
+  --signal: var(--highlight-deep);
+
+  /* ── SECTION BANDS — alternate white and cool grey ── */
+  --band-a: transparent;
+  --band-b: #f1f4f8;
+  --band-c: transparent;
 
   /* ── TYPE ── */
   --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
@@ -58,6 +68,26 @@
   --radius-sm: 3px;
 
   color-scheme: light;
+}
+
+/* ── ON-BRAND — a navy band (the footer). Retargets the role tokens so the
+   markup inside reads by role; white text, mint takes over as the accent
+   and the primary action carries a navy label. ── */
+.on-brand {
+  --bg: var(--navy-strong);
+  --bg-2: var(--navy-strong);
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-2: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.14);
+  --border-bright: rgba(255, 255, 255, 0.32);
+  --fg: #ffffff;
+  --fg-dim: #b9c7d6;
+  --muted: #8fa3b8;
+  --accent: var(--highlight);
+  --accent-2: #8adfd2;
+  --accent-soft: rgba(87, 197, 182, 0.14);
+  --signal: var(--highlight);
+  color: var(--fg);
 }
 
 html {
@@ -77,15 +107,15 @@ body {
   overflow-x: hidden;
 }
 
-/* Warm paper wash, fixed behind everything. */
+/* Cool wash, fixed behind everything. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(91, 63, 168, 0.06), transparent 70%),
-    radial-gradient(ellipse 70% 40% at 100% 100%, rgba(25, 22, 34, 0.035), transparent 70%);
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(27, 108, 168, 0.06), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 100% 100%, rgba(18, 57, 91, 0.04), transparent 70%);
   pointer-events: none;
 }
 
@@ -368,7 +398,7 @@ code {
 .card-link:hover {
   border-color: var(--fg);
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px -28px rgba(25, 22, 34, 0.45);
+  box-shadow: 0 18px 40px -28px rgba(18, 57, 91, 0.45);
 }
 
 /* ── CHIP / TAG ── */
@@ -441,7 +471,7 @@ code {
 /* ── INLINE LINK ── */
 .link {
   color: var(--accent);
-  border-bottom: 1px solid rgba(91, 63, 168, 0.35);
+  border-bottom: 1px solid rgba(27, 108, 168, 0.35);
   transition: border-color 0.2s ease;
 }
 .link:hover {
