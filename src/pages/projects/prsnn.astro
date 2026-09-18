@@ -1,6 +1,6 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
-import TerminalWindow from '../../components/TerminalWindow.astro';
+import Panel from '../../components/Panel.astro';
 
 const frontendStack = [
   'Next.js 16',
@@ -135,17 +135,15 @@ const features = [
       for everyone instantly, and users book against live data rather than a stale calendar.
       Verified profiles sit on top of this, so every bookable companion has been vetted.
     </p>
-    <TerminalWindow title="booking-flow — prsnn" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./trace booking</span>
-
-  discover (mode)  ──▶  verified profile  ──▶  pick live slot
+    <Panel title="Booking flow" class="mt-5">
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm">  discover (mode)  ──▶  verified profile  ──▶  pick live slot
         │                                            │
         ▼                                            ▼
   real-time availability  ◀──────────────  Razorpay payment
         │
         ▼
   confirmed booking ✓</pre>
-    </TerminalWindow>
+    </Panel>
   </section>
 
   <section>
@@ -163,8 +161,8 @@ const features = [
     <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
       {
         features.map((f) => (
-          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
             <span>{f}</span>
           </li>
         ))

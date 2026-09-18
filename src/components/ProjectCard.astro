@@ -15,48 +15,77 @@ const { index, name, tagline, description, tags, status, live, code, caseStudy }
 const href = caseStudy ?? live ?? code ?? '#';
 ---
 
-<article class="card card-link flex flex-col overflow-hidden">
-  <!-- Window header -->
-  <div class="term-bar">
-    <span class="dot dot-r"></span>
-    <span class="dot dot-y"></span>
-    <span class="dot dot-g"></span>
-    <span class="term-title">{name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.app</span>
-    <span class="ml-auto font-mono text-[0.68rem] text-[var(--accent)]">● {status}</span>
+<article class="card card-link group flex flex-col overflow-hidden">
+  <!-- Index + status strip -->
+  <div
+    class="flex items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--surface-2)] px-6 py-3"
+  >
+    <span class="font-mono text-[0.66rem] tracking-[0.19em] text-[var(--muted)]">{index}</span>
+    <span
+      class="inline-flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--signal)]"
+    >
+      <span class="h-1.5 w-1.5 rounded-full bg-[var(--signal)]"></span>
+      {status}
+    </span>
   </div>
 
-  <div class="flex flex-1 flex-col gap-4 p-6">
-    <div class="flex items-baseline gap-2.5">
-      <span class="font-mono text-sm text-[var(--muted)]">{index}</span>
-      <h3 class="m-0 text-lg">
-        <a href={href} class="transition-colors duration-200 hover:text-[var(--accent)]">{name}</a>
+  <div class="flex flex-1 flex-col gap-4 p-6 md:p-7">
+    <div>
+      <h3 class="m-0 text-2xl">
+        <a href={href} class="transition-colors duration-200 group-hover:text-[var(--accent)]">
+          {name}
+        </a>
       </h3>
+      <p
+        class="m-0 mt-2 text-[0.95rem] font-medium text-[var(--fg)]"
+        style="font-family:var(--font-display);letter-spacing:-0.018em;"
+      >
+        {tagline}
+      </p>
     </div>
 
-    <p class="m-0 font-mono text-[0.82rem] text-[var(--accent)]">{tagline}</p>
-
-    <p class="m-0 text-sm leading-relaxed text-[var(--fg-dim)]">{description}</p>
+    <p class="m-0 text-[0.93rem] leading-relaxed text-[var(--fg-dim)]">{description}</p>
 
     <div class="flex flex-wrap gap-1.5">
       {tags.map((tag) => <span class="chip">{tag}</span>)}
     </div>
 
-    <div class="mt-auto flex flex-wrap gap-2 pt-2">
-      {caseStudy && (
-        <a href={caseStudy} class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
-          read case study →
-        </a>
-      )}
-      {live && (
-        <a href={live} target="_blank" rel="noopener noreferrer" class="btn" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
-          live ↗
-        </a>
-      )}
-      {code && (
-        <a href={code} target="_blank" rel="noopener noreferrer" class="btn" style="padding:0.5rem 0.9rem;font-size:0.78rem;">
-          code ↗
-        </a>
-      )}
+    <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[var(--border)] pt-5">
+      {
+        caseStudy && (
+          <a
+            href={caseStudy}
+            class="inline-flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-[var(--fg)] transition-colors hover:text-[var(--accent)]"
+          >
+            Read case study
+            <span class="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
+          </a>
+        )
+      }
+      {
+        live && (
+          <a
+            href={live}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+          >
+            Live &#8599;
+          </a>
+        )
+      }
+      {
+        code && (
+          <a
+            href={code}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+          >
+            Code &#8599;
+          </a>
+        )
+      }
     </div>
   </div>
 </article>

@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Awadh Kishor Singh | Full Stack Developer',
-  description = 'Awadh Kishor Singh — Full Stack Developer in Bengaluru building production-ready web apps with React, Next.js, Node.js, and REST APIs. Data Science undergraduate at IIT Madras.',
+  title = 'Awadh Kishor Singh | Full Stack AI Developer',
+  description = 'Awadh Kishor Singh — Full Stack AI Developer in Bengaluru building production-ready web apps with React, Next.js, NestJS and Node.js, with applied ML and LLM experience. Data Science undergraduate at IIT Madras.',
   ogImage = '/og-default.png',
   canonical = Astro.url.href,
 } = Astro.props;
@@ -24,9 +24,10 @@ const personSchema = {
   name: 'Awadh Kishor Singh',
   alternateName: ['imawadh', 'im_awadh_'],
   url: siteUrl,
-  jobTitle: 'Full Stack Developer',
+  jobTitle: 'Full Stack AI Developer',
   description,
   email: 'mailto:awadhkishorsingh241@gmail.com',
+  telephone: '+91-79850-00241',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Bengaluru',
@@ -41,11 +42,20 @@ const personSchema = {
     'Full Stack Development',
     'React',
     'Next.js',
+    'TypeScript',
     'Node.js',
     'Express.js',
+    'NestJS',
+    'Python',
+    'scikit-learn',
     'MongoDB',
     'PostgreSQL',
     'REST API Development',
+    'System Design',
+    'Machine Learning',
+    'Large Language Models',
+    'Android Development',
+    'iOS Development',
     'Data Structures and Algorithms',
   ],
   sameAs: [
@@ -72,19 +82,23 @@ const websiteSchema = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0a0d12" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#e9e6ee" />
+    <meta name="color-scheme" content="light" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Awadh Kishor Singh" />
     <meta
       name="keywords"
-      content="Awadh Kishor Singh, imawadh, im_awadh_, Full Stack Developer, Next.js Developer, React Developer, Node.js, Bengaluru Developer, IIT Madras, Software Engineer"
+      content="Awadh Kishor Singh, imawadh, im_awadh_, Full Stack AI Developer, Full Stack Developer, AI Developer, Next.js Developer, React Developer, Node.js, NestJS, Bengaluru Developer, IIT Madras, Software Engineer"
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
     <link rel="canonical" href={canonical} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />

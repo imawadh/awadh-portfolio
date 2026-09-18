@@ -1,0 +1,21 @@
+---
+/**
+ * A bordered figure block — the editorial replacement for the old terminal
+ * window. Used for stack breakdowns, architecture notes, and spec tables.
+ */
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = 'Detail', class: cls = '' } = Astro.props;
+---
+
+<figure class={`panel ${cls}`}>
+  <figcaption class="panel-head">
+    <span class="panel-title">{title}</span>
+  </figcaption>
+  <div class="panel-body">
+    <slot />
+  </div>
+</figure>

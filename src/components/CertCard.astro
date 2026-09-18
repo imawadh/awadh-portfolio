@@ -15,20 +15,43 @@ const { index, date, title, issuer, details, url } = Astro.props;
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class="card card-link group flex flex-col gap-3 p-6 md:flex-row md:items-center md:justify-between"
+  class="cert-row group grid items-baseline gap-x-6 gap-y-2 border-t border-[var(--border)] py-7 transition-colors duration-200 last:border-b hover:bg-[var(--surface-2)]"
 >
-  <div class="flex gap-4">
-    <span class="font-mono text-sm text-[var(--muted)]">{index}</span>
-    <div class="flex flex-col gap-1">
-      <span class="font-mono text-[0.7rem] uppercase tracking-wider text-[var(--accent)]">{date}</span>
-      <h3 class="m-0 text-base transition-colors duration-200 group-hover:text-[var(--accent)]">
-        {title}
-      </h3>
-      <p class="m-0 font-mono text-[0.82rem] text-[var(--fg-dim)]">{issuer}</p>
-      <p class="m-0 text-sm text-[var(--muted)]">{details}</p>
-    </div>
+  <span class="font-mono text-[0.66rem] tracking-[0.19em] text-[var(--muted)]">{index}</span>
+
+  <div class="min-w-0">
+    <h3 class="m-0 text-xl transition-colors duration-200 group-hover:text-[var(--accent)]">
+      {title}
+    </h3>
+    <p class="m-0 mt-1 text-[0.95rem] font-medium text-[var(--fg-dim)]">{issuer}</p>
+    <p class="m-0 mt-2 text-sm text-[var(--muted)]">{details}</p>
   </div>
-  <span class="shrink-0 font-mono text-xs text-[var(--muted)] transition-colors duration-200 group-hover:text-[var(--accent)] md:pl-4">
-    verify ↗
-  </span>
+
+  <div class="flex items-baseline justify-between gap-4 md:flex-col md:items-end md:gap-2">
+    <span class="font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--muted)]">
+      {date}
+    </span>
+    <span
+      class="inline-flex items-center gap-1.5 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-[var(--fg)] transition-colors duration-200 group-hover:text-[var(--accent)]"
+    >
+      Verify &#8599;
+    </span>
+  </div>
 </a>
+
+<style>
+  .cert-row {
+    grid-template-columns: auto 1fr;
+  }
+  .cert-row > :last-child {
+    grid-column: 1 / -1;
+  }
+  @media (min-width: 768px) {
+    .cert-row {
+      grid-template-columns: 2.5rem 1fr 9rem;
+    }
+    .cert-row > :last-child {
+      grid-column: auto;
+    }
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
-import TerminalWindow from '../../components/TerminalWindow.astro';
+import Panel from '../../components/Panel.astro';
 
 const techStack = ['Next.js', 'React', 'Tailwind CSS', 'Responsive Web Design', 'SEO', 'Vercel'];
 
@@ -80,8 +80,8 @@ const built = [
     <ul class="mt-5 grid list-none gap-2.5 p-0 sm:grid-cols-2">
       {
         built.map((b) => (
-          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
             <span>{b}</span>
           </li>
         ))
@@ -94,14 +94,22 @@ const built = [
     <div class="mt-1 flex flex-wrap gap-2">
       {techStack.map((t) => <span class="chip">{t}</span>)}
     </div>
-    <TerminalWindow title="deploy — evaa-enterprises" class="mt-5">
-      <div class="flex flex-col gap-1.5 font-mono text-sm">
-        <p class="prompt">next build &amp;&amp; deploy</p>
-        <p class="out text-[var(--fg-dim)]">framework: Next.js · React · Tailwind CSS</p>
-        <p class="out text-[var(--fg-dim)]">scope: 1 parent brand · 4 ventures</p>
-        <p class="out text-[var(--accent)]">status: live ✓</p>
+    <Panel title="Deployment" class="mt-5">
+      <div class="flex flex-col gap-3.5">
+        <div class="spec">
+          <span class="spec-key">Framework</span>
+          <span class="spec-val">Next.js · React · Tailwind CSS</span>
+        </div>
+        <div class="spec">
+          <span class="spec-key">Scope</span>
+          <span class="spec-val">1 parent brand · 4 ventures</span>
+        </div>
+        <div class="spec">
+          <span class="spec-key">Status</span>
+          <span class="spec-val text-[var(--signal)]">Live in production</span>
+        </div>
       </div>
-    </TerminalWindow>
+    </Panel>
   </section>
 
   <section>

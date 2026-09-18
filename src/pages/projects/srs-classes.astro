@@ -1,6 +1,6 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
-import TerminalWindow from '../../components/TerminalWindow.astro';
+import Panel from '../../components/Panel.astro';
 
 const techStack = [
   'Next.js v16',
@@ -78,14 +78,26 @@ const features = [
         ))
       }
     </div>
-    <TerminalWindow title="lighthouse — srs-classes" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./optimise --report</span>
-
-  page load time   ████████████░░░░░░░░   -30%
-  SSR first paint  ██████████████████░░   fast
-  daily users      ████████████████████   1,500+
-  cross-device     ██████████████████░░   stable</pre>
-    </TerminalWindow>
+    <Panel title="Performance" class="mt-5">
+      <dl class="m-0 flex flex-col gap-4">
+        <div class="flex items-baseline justify-between gap-4 border-b border-[var(--border)] pb-3">
+          <dt class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--muted)]">Page load time</dt>
+          <dd class="numeral m-0 text-xl text-[var(--accent)]">&minus;30%</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 border-b border-[var(--border)] pb-3">
+          <dt class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--muted)]">Daily active users</dt>
+          <dd class="numeral m-0 text-xl text-[var(--fg)]">1,500+</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 border-b border-[var(--border)] pb-3">
+          <dt class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--muted)]">SSR first paint</dt>
+          <dd class="m-0 font-mono text-xs uppercase tracking-[0.14em] text-[var(--signal)]">Fast</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4">
+          <dt class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--muted)]">Cross-device</dt>
+          <dd class="m-0 font-mono text-xs uppercase tracking-[0.14em] text-[var(--signal)]">Stable</dd>
+        </div>
+      </dl>
+    </Panel>
   </section>
 
   <section>
@@ -103,8 +115,8 @@ const features = [
     <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
       {
         features.map((f) => (
-          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
             <span>{f}</span>
           </li>
         ))

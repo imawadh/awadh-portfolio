@@ -2,22 +2,27 @@
 interface Props {
   index: string;
   category: string;
-  command: string;
+  note: string;
   skills: string[];
 }
 
-const { index, category, command, skills } = Astro.props;
+const { index, category, note, skills } = Astro.props;
 ---
 
-<div class="card p-6">
-  <div class="flex items-baseline justify-between gap-3">
-    <h3 class="m-0 text-base">
-      <span class="text-[var(--muted)]">{index}</span> {category}
+<div class="card p-6 md:p-7">
+  <div class="flex items-baseline justify-between gap-4 border-b border-[var(--border)] pb-4">
+    <h3 class="m-0 flex items-baseline gap-3 text-xl">
+      <span class="font-mono text-[0.66rem] tracking-[0.19em] text-[var(--accent)]">{index}</span>
+      {category}
     </h3>
-    <span class="font-mono text-[0.7rem] text-[var(--muted)]">{skills.length} items</span>
+    <span class="shrink-0 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[var(--muted)]">
+      {skills.length} items
+    </span>
   </div>
-  <p class="prompt mt-1 text-xs">{command}</p>
-  <div class="mt-4 flex flex-wrap gap-2">
+
+  <p class="m-0 mt-3.5 text-sm leading-relaxed text-[var(--muted)]">{note}</p>
+
+  <div class="mt-5 flex flex-wrap gap-2">
     {skills.map((skill) => <span class="chip">{skill}</span>)}
   </div>
 </div>

@@ -1,6 +1,6 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
-import TerminalWindow from '../../components/TerminalWindow.astro';
+import Panel from '../../components/Panel.astro';
 
 const frontendStack = [
   'Next.js',
@@ -100,10 +100,8 @@ const built = [
       class-validator, persisted via Prisma, and delivered to the institute over email with
       Nodemailer.
     </p>
-    <TerminalWindow title="stack — axiora-learning" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./describe --stack</span>
-
-  ┌──────────────────────────┐
+    <Panel title="Stack" class="mt-5">
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm">  ┌──────────────────────────┐
   │  Next.js + TypeScript    │   front end (Tailwind)
   └────────────┬─────────────┘
                │ REST / JSON
@@ -113,7 +111,7 @@ const built = [
   └────────────┬─────────────┘
                ├──▶ Prisma ORM ──▶ PostgreSQL
                └──▶ Nodemailer ──▶ enquiry emails</pre>
-    </TerminalWindow>
+    </Panel>
   </section>
 
   <section>
@@ -125,8 +123,8 @@ const built = [
     <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
       {
         built.map((b) => (
-          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
             <span>{b}</span>
           </li>
         ))

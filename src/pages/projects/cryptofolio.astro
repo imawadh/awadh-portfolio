@@ -1,6 +1,6 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
-import TerminalWindow from '../../components/TerminalWindow.astro';
+import Panel from '../../components/Panel.astro';
 
 const frontendStack = [
   'Next.js 14',
@@ -45,7 +45,7 @@ const security = [
 const features = [
   'Live cryptocurrency prices via the CoinGecko API',
   'Interactive TradingView charts embedded client-side',
-  'Virtual demo trading — every user starts at 10,000',
+  'Virtual demo trading — every user starts at $10,000',
   'Holdings replayed from buy/sell transaction history',
   'JWT auth with bcrypt-hashed credentials',
   'Light and dark theme support via next-themes',
@@ -67,7 +67,7 @@ const features = [
     <p>
       Cryptofolio is a cryptocurrency portfolio platform where users track digital assets and
       practice trading without risking real money. It pairs live market data with a virtual
-      trading engine — every account starts with a 10,000 balance, and holdings are derived
+      trading engine — every account starts with a $10,000 balance, and holdings are derived
       entirely from the user's recorded buy and sell history.
     </p>
   </section>
@@ -91,10 +91,8 @@ const features = [
       MongoDB accessed through Mongoose. The two talk over HTTP/JSON via Axios, while CoinGecko
       prices and TradingView charts are pulled straight into the browser to keep the backend lean.
     </p>
-    <TerminalWindow title="architecture — cryptofolio" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm"><span class="text-[var(--accent)]">$ ./describe --stack</span>
-
-  monorepo/
+    <Panel title="Architecture" class="mt-5">
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm">  monorepo/
   ├── client/   Next.js 14 · App Router        (Vercel)
   │      │  HTTP / JSON via Axios
   │      │  └──▶ CoinGecko (prices) · TradingView (charts)
@@ -103,7 +101,7 @@ const features = [
   │      │  models → routes → controllers
   │      ▼
   └── MongoDB  +  Mongoose</pre>
-    </TerminalWindow>
+    </Panel>
   </section>
 
   <section>
@@ -139,8 +137,8 @@ const features = [
     <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
       {
         features.map((f) => (
-          <li class="flex items-start gap-2.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-0.5 font-mono text-[var(--accent)]">▸</span>
+          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
+            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
             <span>{f}</span>
           </li>
         ))

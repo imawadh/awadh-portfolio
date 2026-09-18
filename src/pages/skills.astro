@@ -6,31 +6,46 @@ const skillsData = [
   {
     index: '01',
     category: 'Languages',
-    command: 'ls ./languages',
-    skills: ['Python', 'C++', 'Java', 'JavaScript (ES6+)', 'SQL', 'HTML5', 'CSS3'],
+    note: 'The languages I write day to day, across web, systems, and data work.',
+    skills: ['Python', 'C++', 'Java', 'JavaScript (ES6+)', 'TypeScript', 'SQL', 'HTML5', 'CSS3'],
   },
   {
     index: '02',
     category: 'Frontend',
-    command: 'ls ./frontend',
-    skills: ['React.js', 'Next.js', 'Tailwind CSS', 'Responsive Web Design'],
+    note: 'Component systems, routing, and interface work that stays fast on real devices.',
+    skills: [
+      'React.js',
+      'Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Framer Motion',
+      'Responsive Web Design',
+    ],
   },
   {
     index: '03',
     category: 'Backend',
-    command: 'ls ./backend',
-    skills: ['Node.js', 'Express.js', 'Django', 'Flask', 'REST API Development'],
+    note: 'APIs, services, and the server-side architecture products actually run on.',
+    skills: [
+      'Node.js',
+      'Express.js',
+      'NestJS',
+      'Django',
+      'Flask',
+      'Socket.io',
+      'REST API Development',
+    ],
   },
   {
     index: '04',
     category: 'Databases',
-    command: 'ls ./databases',
-    skills: ['MongoDB', 'MySQL', 'PostgreSQL'],
+    note: 'Relational and document stores, modelled for the queries a product needs.',
+    skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Prisma', 'Mongoose'],
   },
   {
     index: '05',
     category: 'Core CS',
-    command: 'ls ./fundamentals',
+    note: 'The fundamentals behind every architectural decision I make.',
     skills: [
       'Data Structures & Algorithms',
       'OOP',
@@ -41,50 +56,82 @@ const skillsData = [
   },
   {
     index: '06',
-    category: 'Monitoring & Analytics',
-    command: 'ls ./observability',
-    skills: ['Mixpanel', 'PostHog', 'Google Analytics', 'Sentry'],
+    category: 'Machine Learning & AI',
+    note: 'Applied machine learning — training and shipping models that drive product features.',
+    skills: ['Python', 'scikit-learn', 'Applied ML model training', 'LLMs'],
   },
   {
     index: '07',
+    category: 'Monitoring & Analytics',
+    note: 'How I know a product works once it leaves my machine.',
+    skills: ['Mixpanel', 'PostHog', 'Google Analytics', 'Sentry'],
+  },
+  {
+    index: '08',
     category: 'Tools & Platforms',
-    command: 'ls ./tools',
-    skills: ['Git', 'GitHub', 'Postman', 'Linux', 'VS Code', 'Vercel', 'Render'],
+    note: 'Where the code is written, deployed, paid for, and kept alive.',
+    skills: [
+      'Git',
+      'GitHub',
+      'Postman',
+      'Linux',
+      'VS Code',
+      'Vercel',
+      'Render',
+      'AWS Amplify',
+      'AWS EC2',
+      'Razorpay',
+    ],
+  },
+  {
+    index: '09',
+    category: 'Currently learning',
+    note: 'Extending the same end-to-end approach to mobile — first app in development.',
+    skills: ['Android', 'iOS', 'Mobile development'],
   },
 ];
 
-const allSkills = skillsData.flatMap((c) => c.skills);
+const allSkills = [...new Set(skillsData.flatMap((c) => c.skills))];
 ---
 
 <PageLayout
   title="Skills & Technologies — Awadh Kishor Singh"
-  description="The full tech stack of Awadh Kishor Singh — React, Next.js, Node.js, Express, MongoDB, PostgreSQL, Python, and the tools behind production web apps."
+  description="The full tech stack of Awadh Kishor Singh — React, Next.js, TypeScript, Node.js, Express, NestJS, MongoDB, PostgreSQL, Python, scikit-learn, AWS, and the tools behind production web apps."
 >
-  <section class="wrap pt-14 md:pt-20">
-    <span class="eyebrow reveal reveal-1">skills</span>
-    <h1 class="reveal reveal-2 mt-4">./stack --all</h1>
-    <p class="reveal reveal-2 mt-4 max-w-[60ch] text-base md:text-lg">
-      The languages, frameworks, and tools I reach for across full-stack development — from
-      shipping UI to securing APIs to monitoring what happens in production.
+  <section class="wrap band band-a band-lead">
+    <span class="eyebrow reveal reveal-1">Skills</span>
+    <h1 class="reveal reveal-2 mt-6 max-w-[11ch]">The working stack</h1>
+    <p
+      class="reveal reveal-2 mt-7 max-w-[48ch] text-2xl leading-[1.3] text-[var(--fg-dim)] md:text-[1.9rem]"
+      style="font-family:var(--font-display);font-weight:400;letter-spacing:-0.028em;"
+    >
+      The languages, frameworks, and tools I reach for across full-stack development — from shipping
+      UI to securing APIs to monitoring what happens in production.
     </p>
 
-    <div class="reveal reveal-3 mt-12 grid gap-4 md:grid-cols-2">
+  </section>
+
+  <section class="wrap band band-b">
+    <div class="reveal reveal-3 grid gap-6 md:grid-cols-2">
       {
         skillsData.map((group) => (
           <SkillCard
             index={group.index}
             category={group.category}
-            command={group.command}
+            note={group.note}
             skills={group.skills}
           />
         ))
       }
     </div>
 
+  </section>
+
+  <section class="wrap band band-c">
     <!-- Marquee -->
-    <div class="reveal reveal-4 mt-14">
-      <p class="prompt mb-3 text-xs">echo $PATH</p>
-      <div class="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-2)] py-4">
+    <div class="reveal reveal-4">
+      <p class="kicker mb-4">Everything, in one line</p>
+      <div class="overflow-hidden border-y border-[var(--border)] py-5">
         <div class="marquee-track flex gap-3">
           {allSkills.map((skill) => <span class="chip shrink-0 whitespace-nowrap">{skill}</span>)}
           {allSkills.map((skill) => <span class="chip shrink-0 whitespace-nowrap">{skill}</span>)}
@@ -97,7 +144,7 @@ const allSkills = skillsData.flatMap((c) => c.skills);
 <style>
   .marquee-track {
     width: max-content;
-    animation: marquee 38s linear infinite;
+    animation: marquee 46s linear infinite;
   }
   @keyframes marquee {
     0% {

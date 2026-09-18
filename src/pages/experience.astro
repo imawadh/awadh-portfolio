@@ -9,14 +9,30 @@ const experiences = [
     title: 'Full Stack Developer Intern',
     company: 'IAVerse',
     meta: 'Remote',
-    date: 'Feb 2026 — Present',
-    current: true,
+    date: 'Feb 2026 — Aug 2026',
+    current: false,
     points: [
-      'Led the full migration of a 1,600-page WordPress site to a custom-built Next.js application — rebuilding content architecture, routing, and UI components from scratch with zero data loss.',
-      'Engineered a scalable page and component system to support 1,600+ content pages, delivering measurable gains in performance, SEO, and long-term maintainability over the WordPress baseline.',
-      'Instrumented the platform with Mixpanel and Sentry for product analytics and error monitoring, enabling proactive issue resolution and data-driven product decisions.',
+      'Migrated a 1,200+ page WordPress site to a custom-built Next.js application — rebuilding content architecture, routing, and UI components from scratch with zero data loss.',
+      'Engineered a scalable page and component system to support 1,200+ content pages, delivering measurable gains in performance, SEO, and long-term maintainability over the WordPress baseline.',
+      'Instrumented the platform with Mixpanel and Sentry, using step-level error tracking to resolve 5–6 recurring production issues and drive data-informed product decisions.',
+      'Developed a doctor–patient booking and management module with supporting REST APIs, handling appointment scheduling, patient records, and provider workflows.',
+      'Led SEO, GEO (Generative Engine Optimization), and AEO (Answer Engine Optimization) work, increasing organic traffic by 5–6%.',
     ],
-    tags: ['Next.js', 'React', 'Mixpanel', 'Sentry', 'SEO'],
+    tags: ['Next.js', 'React', 'Tailwind CSS', 'NestJS', 'Mixpanel', 'Sentry'],
+  },
+  {
+    type: 'work' as const,
+    title: 'Full Stack AI Engineer',
+    company: 'KaiKa AI',
+    meta: 'Remote',
+    date: 'Nov 2025 — Feb 2026',
+    current: false,
+    points: [
+      "Engineered the full-stack web application for KaiKa AI's workforce alignment platform, from the React front end through to the Node.js and Express API layer.",
+      "Trained a machine learning model in Python and scikit-learn to generate employee alignment scores, powering the platform's core scoring engine.",
+      'Deployed the application across AWS Amplify (frontend) and AWS EC2 (backend), handling environment configuration for production.',
+    ],
+    tags: ['Next.js', 'React', 'Node.js', 'Express.js', 'Python', 'scikit-learn', 'AWS'],
   },
   {
     type: 'work' as const,
@@ -28,9 +44,9 @@ const experiences = [
     points: [
       'Built and shipped a responsive educational web application with Next.js and React, supporting 1,500+ daily active users with stable cross-device performance.',
       'Reduced page load times by ~30% through server-side rendering optimisations, asset compression, and SEO best practices.',
-      'Owned the full product lifecycle solo — feature development, cloud deployment, monitoring, and post-launch maintenance.',
+      'Owned the full product lifecycle solo — feature development, cloud deployment, monitoring, and post-launch maintenance — as a solo contractor over one month.',
     ],
-    tags: ['Next.js', 'React', 'Node.js', 'MongoDB'],
+    tags: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'MongoDB', 'Vercel'],
   },
   {
     type: 'education' as const,
@@ -38,7 +54,7 @@ const experiences = [
     company: 'IIT Madras',
     meta: 'Chennai, India',
     date: 'Apr 2024 — Jun 2028',
-    current: false,
+    current: true,
     points: [
       'Undergraduate degree focused on data science, statistics, programming, and applied machine learning.',
       'Current CGPA: 8.27.',
@@ -60,16 +76,38 @@ const experiences = [
 
 <PageLayout
   title="Experience & Education — Awadh Kishor Singh"
-  description="Work experience and education of Awadh Kishor Singh — Full Stack Developer Intern at IAVerse, freelance work for SRS Classes, and a BS in Data Science at IIT Madras."
+  description="Work experience and education of Awadh Kishor Singh — Full Stack Developer Intern at IAVerse, Full Stack AI Engineer at KaiKa AI, freelance work for SRS Classes, and a BS in Data Science at IIT Madras."
 >
-  <section class="wrap pt-14 md:pt-20">
-    <span class="eyebrow reveal reveal-1">experience</span>
-    <h1 class="reveal reveal-2 mt-4">git log --career</h1>
-    <p class="reveal reveal-2 mt-4 max-w-[58ch] text-base md:text-lg">
-      A timeline of professional work and academic background — most recent first.
+  <section class="wrap band band-a band-lead">
+    <span class="eyebrow reveal reveal-1">Experience</span>
+    <h1 class="reveal reveal-2 mt-6 max-w-[12ch]">A record of shipped work</h1>
+    <p
+      class="reveal reveal-2 mt-7 max-w-[46ch] text-2xl leading-[1.3] text-[var(--fg-dim)] md:text-[1.9rem]"
+      style="font-family:var(--font-display);font-weight:400;letter-spacing:-0.028em;"
+    >
+      Professional work and academic background — most recent first.
     </p>
 
-    <div class="reveal reveal-3 mt-14 flex flex-col gap-10">
+    <!-- Availability band -->
+    <div
+      class="reveal reveal-3 mt-10 flex flex-col gap-3 border-y border-[var(--fg)] py-5 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="m-0 inline-flex items-center gap-3 text-[0.97rem] text-[var(--fg)]">
+        <span class="pulse"></span>
+        Open to internships and freelance opportunities — software engineering, full-stack and AI/ML.
+      </p>
+      <a
+        href="/contact"
+        class="shrink-0 font-mono text-[0.64rem] uppercase tracking-[0.16em] text-[var(--accent)] transition-opacity hover:opacity-70"
+      >
+        Get in touch &rarr;
+      </a>
+    </div>
+
+  </section>
+
+  <section class="wrap band band-b">
+    <div class="reveal reveal-4 flex flex-col gap-12">
       {
         experiences.map((exp) => (
           <TimelineItem
@@ -86,19 +124,24 @@ const experiences = [
       }
     </div>
 
+  </section>
+
+  <section class="wrap band band-c">
     <!-- Resume CTA -->
-    <div class="mt-16 card flex flex-col gap-4 p-7 md:flex-row md:items-center md:justify-between">
+    <div
+      class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+    >
       <div>
-        <p class="prompt text-xs">cat resume.pdf</p>
-        <p class="m-0 mt-1 text-sm text-[var(--fg-dim)]">
+        <span class="eyebrow">Résumé</span>
+        <p class="m-0 mt-4 max-w-md text-[1.05rem] text-[var(--fg-dim)]">
           Want the full picture in one page? Grab the PDF.
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
         <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          ↓ download resume
+          Download résumé
         </a>
-        <a href="/projects" class="btn">view projects →</a>
+        <a href="/projects" class="btn btn-ghost">View work</a>
       </div>
     </div>
   </section>
