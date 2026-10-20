@@ -1,0 +1,150 @@
+import CaseStudy from '@/components/CaseStudy';
+import Panel from '@/components/Panel';
+import { pageMetadata } from '@/utils/metadata';
+
+const techStack = [
+  'Next.js v16',
+  'React v19',
+  'Tailwind CSS v4',
+  'Framer Motion v12',
+  'PostCSS',
+  'Mongoose v9',
+  'MongoDB',
+  'Vercel Analytics',
+  'ESLint v9',
+  'Babel (React Compiler Plugin)',
+];
+
+const perf = [
+  { k: 'SSR', v: 'Server-side rendering for fast first paint' },
+  { k: 'Assets', v: 'Compressed images and bundles' },
+  { k: 'SEO', v: 'Semantic markup and metadata best practices' },
+  { k: 'Result', v: 'About 30% faster page loads' },
+];
+
+const results = [
+  { k: 'Page load time', v: '−30%', numeral: true, accent: true },
+  { k: 'Daily active users', v: '1,500+', numeral: true },
+  { k: 'SSR first paint', v: 'Fast' },
+  { k: 'Cross-device', v: 'Stable' },
+];
+
+const features = [
+  'Responsive learning experience across all devices',
+  'Structured course content for competitive exams',
+  'Server-side rendered pages for speed and SEO',
+  'Stable performance at 1,500+ daily active users',
+  'Cloud deployment with post-launch monitoring',
+  'Solo end-to-end build, delivery, and maintenance',
+];
+
+export const metadata = pageMetadata({
+  title: 'The SRS Classes — Awadh Kishor Singh',
+  description: 'Case study of The SRS Classes, a responsive ed-tech web application built with Next.js and React, serving 1,500+ daily active users.',
+  path: '/projects/srs-classes/',
+});
+
+export default function SrsClassesPage() {
+  return (
+    <CaseStudy
+      name="The SRS Classes"
+      tagline="A responsive ed-tech platform for competitive-exam aspirants, shipped solo as a freelance contractor and serving 1,500+ daily active users with ~30% faster page loads."
+      role="Freelance Full Stack Developer"
+      status="Live in production"
+      stackSummary="Next.js, React, MongoDB"
+      live="https://srsclasses.com/"
+      code="https://github.com/imawadh/srs-website"
+    >
+      <section>
+        <h2>Overview</h2>
+        <p>
+          The SRS Classes is an educational web application for students preparing for competitive
+          exams. I built and shipped it as a solo freelance contractor, from first feature to live
+          deployment, and it now serves 1,500+ daily active users with stable, cross-device
+          performance.
+        </p>
+      </section>
+
+      <section>
+        <h2>The challenge</h2>
+        <p>
+          Exam aspirants browse on whatever device they have, often on slow connections — and a sluggish
+          learning platform quietly costs engagement. The site needed to feel fast and stay reliable as
+          daily traffic climbed into the thousands, all delivered on a freelance timeline by one
+          developer.
+        </p>
+      </section>
+
+      <section>
+        <h2>Performance work</h2>
+        <p>
+          The headline result was a ~30% reduction in page load times. That came from a deliberate set
+          of optimisations rather than one trick.
+        </p>
+        <Panel title="Optimisations">
+          <div className="flex flex-col gap-3.5">
+            {
+              perf.map((p, i) => (
+                <div key={i} className="spec">
+                  <span className="spec-key">{p.k}</span>
+                  <span className="spec-val">{p.v}</span>
+                </div>
+              ))
+            }
+          </div>
+        </Panel>
+        <Panel title="Results">
+          <dl className="m-0 flex flex-col">
+            {
+              results.map((r, i) => (
+                <div key={i} className="flex items-baseline justify-between gap-4 border-t border-[var(--border)] py-3 first:border-t-0 first:pt-0 last:pb-0">
+                  <dt className="ui text-[0.98rem] text-[var(--fg-dim)]">{r.k}</dt>
+                  {r.numeral ? (
+                    <dd className={['numeral m-0 text-[1.6rem]', r.accent ? 'text-[var(--accent)]' : 'text-[var(--fg)]'].filter(Boolean).join(' ')}>
+                      {r.v}
+                    </dd>
+                  ) : (
+                    <dd className="ui m-0 font-semibold text-[var(--signal)]">{r.v}</dd>
+                  )}
+                </div>
+              ))
+            }
+          </dl>
+        </Panel>
+      </section>
+
+      <section>
+        <h2>Owning the lifecycle</h2>
+        <p>
+          As the sole contractor, I owned every stage: feature development, cloud deployment,
+          monitoring, and post-launch maintenance. There was no team to hand off to — which meant
+          decisions had to be sound the first time, and the codebase had to stay maintainable for the
+          person who’d return to it: me.
+        </p>
+      </section>
+
+      <section>
+        <h2>Key features</h2>
+        <ul className="prose-serif grid gap-x-8 sm:grid-cols-2">
+          {features.map((f, i) => <li key={i} className="border-t border-[var(--border)] py-3">{f}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Tech stack</h2>
+        <ul className="flex flex-wrap gap-2">
+          {techStack.map((t, i) => <li key={i} className="chip">{t}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Outcome</h2>
+        <p>
+          The SRS Classes is live and used daily by 1,500+ aspirants in their exam preparation. As a
+          solo freelance engagement, it proved I can take a product from brief to production — and keep
+          it fast and dependable once real users arrive.
+        </p>
+      </section>
+    </CaseStudy>
+  );
+}

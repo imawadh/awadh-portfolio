@@ -1,6 +1,6 @@
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{astro,html,js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       boxShadow: {

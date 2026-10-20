@@ -1,0 +1,228 @@
+/*
+ * Component styles. In Astro these were scoped <style> blocks inside each
+ * component; the class names are unique, so they live here as plain CSS.
+ */
+
+/* ── Navbar ── */
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    font-variation-settings: 'wdth' 80;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    transition: color 0.2s ease;
+  }
+  .wordmark:hover {
+    color: var(--accent);
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 520;
+    color: var(--fg-dim);
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: var(--fg);
+    background: var(--bg-2);
+  }
+  .nav-link.is-active {
+    color: var(--fg);
+    background: var(--bg-2);
+  }
+
+  .menu-link {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 700;
+    font-variation-settings: 'wdth' 78;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .nav-toggle .bar-top {
+    transform: translateY(-3px);
+  }
+  .nav-toggle .bar-bot {
+    transform: translateY(3px);
+  }
+  .nav-toggle[aria-expanded='true'] .bar-top {
+    transform: translateY(0) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded='true'] .bar-bot {
+    transform: translateY(0) rotate(-45deg);
+  }
+  .nav-toggle[aria-expanded='true'] .toggle-label-closed {
+    display: none;
+  }
+  .nav-toggle[aria-expanded='false'] .toggle-label-open {
+    display: none;
+  }
+
+  .nav-menu.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+/* ── Footer ── */
+  .footer-title {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 700;
+    font-variation-settings: 'wdth' 78;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+  }
+  .footer-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3.4vw, 2.1rem);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.18em;
+  }
+  .footer-email:hover {
+    text-decoration-thickness: 3px;
+  }
+  .foot-link {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--fg-dim);
+    transition: color 0.2s ease;
+  }
+  .foot-link:hover {
+    color: var(--accent);
+  }
+
+/* ── ProjectCard ── */
+  .project-row {
+    position: relative;
+  }
+  .project-name {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    font-variation-settings: 'wdth' 78;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    transition: color 0.2s ease;
+  }
+  /* The whole row is clickable through the name's link; the right column's
+     own links sit above it. */
+  .project-hit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .project-row:hover .project-name {
+    color: var(--accent);
+  }
+  .row-link {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 560;
+    color: var(--fg-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--border-bright);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+  .row-link-main {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  .row-link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  @media (pointer: coarse) {
+    .row-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+    }
+  }
+
+/* ── SkillCard ── */
+  /* Skills read as a run of names, each in its own soft pill. */
+  .skill-list li {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--fg);
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+/* ── CertCard ── */
+  @media (min-width: 768px) {
+    .cert-row {
+      grid-template-columns: 1fr 13rem;
+    }
+  }
+
+/* ── CaseStudy ── */
+  .back-link {
+    font-size: 1rem;
+    font-weight: 560;
+    color: var(--muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-bright);
+    text-underline-offset: 0.22em;
+  }
+  .back-link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  .case-title {
+    font-size: clamp(3.4rem, 12vw, 9rem);
+    font-variation-settings: 'wdth' 75;
+    letter-spacing: -0.03em;
+    line-height: 0.86;
+  }
+  .case-tagline {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    line-height: 1.3;
+    color: var(--fg);
+  }
+  /* Case study sections: margin heading on wide screens, stacked on narrow. */
+  @media (min-width: 900px) {
+    .case-body > section {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      column-gap: 4rem;
+    }
+    .case-body > section > h2 {
+      grid-column: 1;
+      grid-row: 1 / span 20;
+      align-self: start;
+      position: sticky;
+      top: 6.5rem;
+    }
+    .case-body > section > :not(h2) {
+      grid-column: 2;
+    }
+  }
+  .case-body section > h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin-bottom: 1.25rem;
+  }
+  .case-body section > :not(h2) + * {
+    margin-top: 1.1rem;
+  }
+  .case-body section > p {
+    max-width: 64ch;
+  }

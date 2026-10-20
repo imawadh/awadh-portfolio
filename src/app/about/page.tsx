@@ -1,0 +1,157 @@
+import { pageMetadata } from '@/utils/metadata';
+
+const facts = [
+  { key: 'Stack', value: 'Next.js, React, NestJS, Node, Express, PostgreSQL, MongoDB' },
+  { key: 'Currently', value: 'Open to internships and freelance work' },
+  { key: 'Building', value: 'My first mobile app, for Android and iOS, releasing soon' },
+  { key: 'Recently', value: 'Full Stack Developer Intern at IAVerse (remote)' },
+  { key: 'Education', value: 'BS in Data Science, IIT Madras (CGPA 8.27)' },
+  { key: 'Algorithms', value: '1,000+ DSA problems on LeetCode and Codeforces' },
+];
+
+const principles = [
+  {
+    title: 'Ship end to end',
+    body: 'I work across the whole stack, from UI and API to database and deployment, so a feature is done when it’s live and working, not when the PR merges.',
+  },
+  {
+    title: 'Build for scale',
+    body: 'Scalable architecture, clean component systems and API security are decisions I make early, not patches I add when something breaks.',
+  },
+  {
+    title: 'Mind the invisible',
+    body: 'Analytics, error monitoring and performance budgets matter as much as the visible UI. They’re how you actually know a product works.',
+  },
+];
+
+const quickNav = [
+  { label: 'Experience', href: '/experience' },
+  { label: 'Work', href: '/projects' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Contact', href: '/contact' },
+];
+
+export const metadata = pageMetadata({
+  title: 'About — Awadh Kishor Singh',
+  description: 'About Awadh Kishor Singh — Full Stack AI Developer in Bengaluru and Data Science undergraduate at IIT Madras, building production-ready web applications end-to-end, with applied ML experience and a first mobile app in progress.',
+  path: '/about/',
+});
+
+export default function AboutPage() {
+  return (
+    <>
+      {/* ───────────── LEAD ───────────── */}
+      <section className="wrap band-lead pb-12 md:pb-16">
+        <h1 className="page-title reveal reveal-1">About</h1>
+        <p className="page-lede reveal reveal-2 mt-6 max-w-[40ch]">
+          Full Stack AI Developer based in Bengaluru, building web apps that hold up with real users,
+          real traffic and real deadlines.
+        </p>
+      </section>
+
+      {/* ───────────── BIO ───────────── */}
+      <section className="wrap band band-b">
+        <div className="grid gap-12 md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] md:items-start md:gap-16">
+          <figure className="m-0 md:sticky md:top-28">
+            <div className="plate">
+              <img
+                src="https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/sitting-image.webp"
+                alt="Awadh Kishor Singh"
+                loading="eager"
+                width="600"
+                height="800"
+                className="aspect-[3/4] object-cover object-top" />
+            </div>
+            <figcaption className="plate-caption">
+              <span>Awadh Kishor Singh</span>
+              <span className="inline-flex items-center gap-2 text-[var(--fg)]">
+                <span className="pulse"></span>
+                Open to work
+              </span>
+            </figcaption>
+          </figure>
+
+          <div className="flex max-w-[64ch] flex-col gap-6">
+            <p className="m-0 text-[1.25rem] leading-[1.6] text-[var(--fg)]">
+              I&rsquo;m a Full Stack AI Developer and a Data Science undergraduate at IIT Madras. I
+              design, build and ship production-ready web applications, most recently as a Full Stack
+              Developer Intern at IAVerse.
+            </p>
+            <p className="m-0">
+              My recent work spans a 1,200+ page WordPress-to-Next.js migration at IAVerse, a workforce
+              alignment platform at KaiKa AI where I also trained the machine learning model behind its
+              scoring engine, a freelance ed-tech platform serving 1,500+ daily active users, and a
+              peer-to-peer marketplace live across four Indian cities. I work the whole stack: React and
+              Next.js on the front, Node.js and Express REST APIs on the back, MongoDB and PostgreSQL for
+              data, deployed on Vercel, Render and AWS.
+            </p>
+            <p className="m-0">
+              I care about the parts users never see: product analytics with Mixpanel and PostHog, error
+              monitoring with Sentry, API security, and architecture that scales. Alongside building,
+              I&rsquo;ve solved 1,000+ Data Structures &amp; Algorithms problems on LeetCode and
+              Codeforces, with a focus on trees, graphs and dynamic programming.
+            </p>
+            <p className="m-0">
+              Right now I&rsquo;m extending that into mobile, learning Android and iOS development with
+              a first app in progress and a release planned soon. I&rsquo;m open to software
+              engineering, full-stack and AI/ML roles, and to internship and freelance opportunities.
+            </p>
+
+            <dl className="m-0 mt-6 border-t border-[var(--border-bright)]">
+              {
+                facts.map((f, i) => (
+                  <div key={i} className="grid gap-1 border-b border-[var(--border)] py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                    <dt className="ui text-[1rem] font-semibold text-[var(--fg)]">{f.key}</dt>
+                    <dd className="serif m-0 text-[1.05rem] text-[var(--fg-dim)]">{f.value}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────── HOW I WORK ───────────── */}
+      <section className="wrap band band-a">
+        <div className="split">
+          <div className="split-head">
+            <h2 className="m-0">How I work</h2>
+            <p>Three habits that shape every project I take on.</p>
+          </div>
+
+          <div className="border-b border-[var(--border-bright)]">
+            {
+              principles.map((p, i) => (
+                <div key={i} className="border-t border-[var(--border-bright)] py-7 md:py-9">
+                  <h3 className="m-0 text-[1.7rem]">{p.title}</h3>
+                  <p className="m-0 mt-3 max-w-[60ch]">{p.body}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────── KEEP READING ───────────── */}
+      <section className="wrap band band-b">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="m-0">Keep reading</h2>
+            <p className="m-0 mt-3 max-w-[48ch] text-[var(--muted)]">
+              Where I&rsquo;ve worked, what I&rsquo;ve built, and how to reach me.
+            </p>
+          </div>
+          <nav aria-label="More about Awadh" className="flex flex-wrap gap-3">
+            {
+              quickNav.map((n, i) => (
+                <a key={i} href={n.href} className={i === quickNav.length - 1 ? 'btn btn-primary' : 'btn btn-ghost'}>
+                  {n.label}
+                </a>
+              ))
+            }
+          </nav>
+        </div>
+      </section>
+    </>
+  );
+}
