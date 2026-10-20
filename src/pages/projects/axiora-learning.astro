@@ -40,25 +40,25 @@ const built = [
   'A NestJS REST API backing the site, written in TypeScript',
   'PostgreSQL data layer modelled through Prisma ORM',
   'Enquiry capture with Nodemailer email notifications',
-  'Validated, secured API — class-validator, Helmet — with Jest tests',
+  'A validated, secured API (class-validator, Helmet) with Jest tests',
 ];
 ---
 
 <CaseStudyLayout
   name="Axiora Learning"
-  tagline="A full-stack site for Axiora Learning — a Bengaluru academic coaching institute — pairing a Next.js front end with a typed NestJS API to present its programs and capture student enquiries."
+  tagline="A full-stack site for Axiora Learning, a Bengaluru academic coaching institute, pairing a Next.js front end with a typed NestJS API to present its programs and capture student enquiries."
   description="Case study of Axiora Learning — a full-stack site (Next.js + NestJS + Prisma + PostgreSQL) for a Bengaluru academic coaching institute offering IGCSE, O Level, and A Level preparation."
   role="Freelance Full Stack Developer"
-  status="Live · axioralearning.com"
-  stackSummary="Next.js · NestJS · PostgreSQL"
+  status="Live at axioralearning.com"
+  stackSummary="Next.js, NestJS, PostgreSQL"
   live="https://www.axioralearning.com/"
 >
   <section>
     <h2>Overview</h2>
     <p>
-      Axiora Learning is a Bengaluru-based academic coaching institute built around one promise —
-      "System-Driven Academic Excellence." I built it end-to-end: a fast Next.js front end that
-      explains the institute's international-curriculum programs, backed by a typed NestJS API
+      Axiora Learning is a Bengaluru-based academic coaching institute built around one promise:
+      “System-Driven Academic Excellence.” I built it end to end: a fast Next.js front end that
+      explains the institute’s international-curriculum programs, backed by a typed NestJS API
       that captures and routes student enquiries.
     </p>
   </section>
@@ -76,15 +76,13 @@ const built = [
 
   <section>
     <h2>Programs showcased</h2>
-    <p>
-      The site organises Axiora's offering into clear, self-contained program areas:
-    </p>
+    <p>The site organises Axiora’s offering into clear, self-contained program areas.</p>
     <div class="grid gap-3 sm:grid-cols-2">
       {
         programs.map((p) => (
-          <div class="card p-5">
-            <h3 class="text-base text-[var(--accent)]">{p.name}</h3>
-            <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.desc}</p>
+          <div class="card p-5 md:p-6">
+            <h3 class="text-[1.15rem]">{p.name}</h3>
+            <p class="m-0 mt-2 text-base">{p.desc}</p>
           </div>
         ))
       }
@@ -100,56 +98,61 @@ const built = [
       class-validator, persisted via Prisma, and delivered to the institute over email with
       Nodemailer.
     </p>
-    <Panel title="Stack" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm">  ┌──────────────────────────┐
-  │  Next.js + TypeScript    │   front end (Tailwind)
-  └────────────┬─────────────┘
-               │ REST / JSON
-               ▼
-  ┌──────────────────────────┐
-  │  NestJS API  (TypeScript)│   class-validator · Helmet
-  └────────────┬─────────────┘
-               ├──▶ Prisma ORM ──▶ PostgreSQL
-               └──▶ Nodemailer ──▶ enquiry emails</pre>
+    <Panel title="How the pieces connect">
+      <ol class="m-0 flex list-none flex-col p-0">
+        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+          <p class="ui m-0 font-semibold text-[var(--fg)]">Next.js + TypeScript</p>
+          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Front end, styled with Tailwind</p>
+        </li>
+        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
+          REST over JSON
+        </li>
+        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+          <p class="ui m-0 font-semibold text-[var(--fg)]">NestJS API (TypeScript)</p>
+          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Validated with class-validator, hardened with Helmet</p>
+        </li>
+        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
+          Writes records and sends mail
+        </li>
+        <li class="grid gap-3 sm:grid-cols-2">
+          <div class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+            <p class="ui m-0 font-semibold text-[var(--fg)]">Prisma ORM, PostgreSQL</p>
+            <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Persisted enquiries</p>
+          </div>
+          <div class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+            <p class="ui m-0 font-semibold text-[var(--fg)]">Nodemailer</p>
+            <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Enquiry emails to the institute</p>
+          </div>
+        </li>
+      </ol>
     </Panel>
   </section>
 
   <section>
     <h2>What I built</h2>
     <p>
-      I designed and developed both ends of the application — frontend and API — as a single,
+      I designed and developed both ends of the application, front end and API, as a single,
       consistent TypeScript codebase.
     </p>
-    <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
-      {
-        built.map((b) => (
-          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
-            <span>{b}</span>
-          </li>
-        ))
-      }
+    <ul class="prose-serif grid gap-x-8 sm:grid-cols-2">
+      {built.map((b) => <li class="border-t border-[var(--border)] py-3">{b}</li>)}
     </ul>
   </section>
 
   <section>
     <h2>Tech stack</h2>
-    <div class="space-y-4">
+    <div class="flex flex-col gap-6">
       <div>
-        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
-          frontend
-        </p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          {frontendStack.map((t) => <span class="chip">{t}</span>)}
-        </div>
+        <h3 class="text-[1.05rem]">Front end</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {frontendStack.map((t) => <li class="chip">{t}</li>)}
+        </ul>
       </div>
       <div>
-        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
-          backend
-        </p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          {backendStack.map((t) => <span class="chip">{t}</span>)}
-        </div>
+        <h3 class="text-[1.05rem]">Back end</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {backendStack.map((t) => <li class="chip">{t}</li>)}
+        </ul>
       </div>
     </div>
   </section>
@@ -159,7 +162,7 @@ const built = [
     <p>
       Axiora Learning now has a professional, fast-loading web presence that mirrors its
       system-driven brand — and a tested, secured backend behind it, so every prospective
-      student's enquiry actually lands where it should.
+      student’s enquiry actually lands where it should.
     </p>
   </section>
 </CaseStudyLayout>

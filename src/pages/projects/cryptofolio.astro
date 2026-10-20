@@ -37,16 +37,16 @@ const security = [
   { k: 'JWT', v: 'Stateless token-based authentication' },
   { k: 'bcrypt', v: 'Salted password hashing at rest' },
   { k: 'Helmet', v: 'Hardened HTTP security headers' },
-  { k: 'rate-limit', v: 'express-rate-limit guards API abuse' },
-  { k: 'validation', v: 'express-validator sanitises every input' },
+  { k: 'Rate limiting', v: 'express-rate-limit guards against API abuse' },
+  { k: 'Validation', v: 'express-validator sanitises every input' },
   { k: 'CORS', v: 'Scoped cross-origin access control' },
 ];
 
 const features = [
   'Live cryptocurrency prices via the CoinGecko API',
   'Interactive TradingView charts embedded client-side',
-  'Virtual demo trading — every user starts at $10,000',
-  'Holdings replayed from buy/sell transaction history',
+  'Virtual demo trading, with every user starting at $10,000',
+  'Holdings replayed from buy and sell transaction history',
   'JWT auth with bcrypt-hashed credentials',
   'Light and dark theme support via next-themes',
 ];
@@ -54,11 +54,11 @@ const features = [
 
 <CaseStudyLayout
   name="Cryptofolio"
-  tagline="A decoupled MERN-stack crypto portfolio platform — Next.js 14 frontend, Express REST API, and a virtual demo-trading engine that computes holdings by replaying transaction history."
+  tagline="A decoupled MERN-stack crypto portfolio platform: a Next.js 14 front end, an Express REST API, and a virtual demo-trading engine that computes holdings by replaying transaction history."
   description="Case study of Cryptofolio, a cryptocurrency portfolio management platform built with Next.js 14, Express, MongoDB, and the CoinGecko API."
   role="Full Stack Developer"
-  status="Live · Vercel + Render"
-  stackSummary="Next.js 14 · Express · MongoDB"
+  status="Live on Vercel and Render"
+  stackSummary="Next.js 14, Express, MongoDB"
   live="https://crytofolio.vercel.app/"
   code="https://github.com/imawadh/crytofolio"
 >
@@ -66,9 +66,9 @@ const features = [
     <h2>Overview</h2>
     <p>
       Cryptofolio is a cryptocurrency portfolio platform where users track digital assets and
-      practice trading without risking real money. It pairs live market data with a virtual
+      practise trading without risking real money. It pairs live market data with a virtual
       trading engine — every account starts with a $10,000 balance, and holdings are derived
-      entirely from the user's recorded buy and sell history.
+      entirely from the user’s recorded buy and sell history.
     </p>
   </section>
 
@@ -86,21 +86,36 @@ const features = [
     <h2>Architecture</h2>
     <p>
       Cryptofolio is a monorepo with separate <code>client/</code> and <code>server/</code>
-      directories. The client is a Next.js 14 App Router frontend on Vercel; the server is an
-      Express REST API on Render following an MVC structure — models → routes → controllers — with
+      directories. The client is a Next.js 14 App Router front end on Vercel; the server is an
+      Express REST API on Render following an MVC structure (models, routes, controllers), with
       MongoDB accessed through Mongoose. The two talk over HTTP/JSON via Axios, while CoinGecko
       prices and TradingView charts are pulled straight into the browser to keep the backend lean.
     </p>
-    <Panel title="Architecture" class="mt-5">
-      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-[var(--fg-dim)] md:text-sm">  monorepo/
-  ├── client/   Next.js 14 · App Router        (Vercel)
-  │      │  HTTP / JSON via Axios
-  │      │  └──▶ CoinGecko (prices) · TradingView (charts)
-  │      ▼
-  ├── server/   Express REST API · MVC         (Render)
-  │      │  models → routes → controllers
-  │      ▼
-  └── MongoDB  +  Mongoose</pre>
+    <Panel title="Monorepo layout">
+      <ol class="m-0 flex list-none flex-col p-0">
+        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+          <p class="ui m-0 font-semibold text-[var(--fg)]">client/: Next.js 14, App Router</p>
+          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">
+            Deployed on Vercel. CoinGecko prices and TradingView charts load in the browser.
+          </p>
+        </li>
+        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
+          HTTP and JSON via Axios
+        </li>
+        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+          <p class="ui m-0 font-semibold text-[var(--fg)]">server/: Express REST API</p>
+          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">
+            Deployed on Render. MVC structure: models, routes, controllers.
+          </p>
+        </li>
+        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
+          Mongoose schemas
+        </li>
+        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
+          <p class="ui m-0 font-semibold text-[var(--fg)]">MongoDB</p>
+          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Users and immutable transactions</p>
+        </li>
+      </ol>
     </Panel>
   </section>
 
@@ -108,7 +123,7 @@ const features = [
     <h2>The demo trading engine</h2>
     <p>
       Rather than storing a mutable balance that can drift out of sync, the engine treats every
-      buy and sell as an immutable transaction in MongoDB. A user's current coin holdings and
+      buy and sell as an immutable transaction in MongoDB. A user’s current coin holdings and
       portfolio value are computed dynamically by replaying that transaction history — so the
       portfolio is always a provable function of what the user actually did, and never a number
       that can quietly go wrong.
@@ -117,53 +132,42 @@ const features = [
 
   <section>
     <h2>Security</h2>
-    <p>
-      The API is treated as a public surface and hardened accordingly.
-    </p>
-    <div class="grid gap-3 sm:grid-cols-2">
-      {
-        security.map((s) => (
-          <div class="card flex gap-3 p-4">
-            <span class="shrink-0 font-mono text-sm font-semibold text-[var(--accent)]">{s.k}</span>
-            <span class="text-sm text-[var(--muted)]">{s.v}</span>
-          </div>
-        ))
-      }
-    </div>
+    <p>The API is treated as a public surface and hardened accordingly.</p>
+    <Panel title="API hardening">
+      <div class="flex flex-col gap-3.5">
+        {
+          security.map((s) => (
+            <div class="spec">
+              <span class="spec-key">{s.k}</span>
+              <span class="spec-val">{s.v}</span>
+            </div>
+          ))
+        }
+      </div>
+    </Panel>
   </section>
 
   <section>
     <h2>Key features</h2>
-    <ul class="grid list-none gap-2.5 p-0 sm:grid-cols-2">
-      {
-        features.map((f) => (
-          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
-            <span>{f}</span>
-          </li>
-        ))
-      }
+    <ul class="prose-serif grid gap-x-8 sm:grid-cols-2">
+      {features.map((f) => <li class="border-t border-[var(--border)] py-3">{f}</li>)}
     </ul>
   </section>
 
   <section>
     <h2>Tech stack</h2>
-    <div class="space-y-4">
+    <div class="flex flex-col gap-6">
       <div>
-        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
-          frontend
-        </p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          {frontendStack.map((t) => <span class="chip">{t}</span>)}
-        </div>
+        <h3 class="text-[1.05rem]">Front end</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {frontendStack.map((t) => <li class="chip">{t}</li>)}
+        </ul>
       </div>
       <div>
-        <p class="m-0 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--accent)]">
-          backend
-        </p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          {backendStack.map((t) => <span class="chip">{t}</span>)}
-        </div>
+        <h3 class="text-[1.05rem]">Back end</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {backendStack.map((t) => <li class="chip">{t}</li>)}
+        </ul>
       </div>
     </div>
   </section>

@@ -5,10 +5,10 @@ import Panel from '../../components/Panel.astro';
 const techStack = ['Next.js', 'React', 'Tailwind CSS', 'Responsive Web Design', 'SEO', 'Vercel'];
 
 const ventures = [
-  { name: 'MetaKitchen', area: 'Food Tech', desc: 'Engineered food products and an AI health companion.' },
-  { name: 'Omnis', area: 'Health Tech', desc: 'A research platform for metabolic and longevity science.' },
-  { name: 'Virtual Promoter', area: 'Conversational Commerce', desc: 'A voice-first, multilingual AI sales assistant.' },
-  { name: 'OpenRift', area: 'AI Operations', desc: 'Slack-integrated automation for small, specialised teams.' },
+  { name: 'MetaKitchen', area: 'Food tech', desc: 'Engineered food products and an AI health companion.' },
+  { name: 'Omnis', area: 'Health tech', desc: 'A research platform for metabolic and longevity science.' },
+  { name: 'Virtual Promoter', area: 'Conversational commerce', desc: 'A voice-first, multilingual AI sales assistant.' },
+  { name: 'OpenRift', area: 'AI operations', desc: 'Slack-integrated automation for small, specialised teams.' },
 ];
 
 const built = [
@@ -22,18 +22,18 @@ const built = [
 
 <CaseStudyLayout
   name="EVAA Enterprises"
-  tagline="The corporate website for EVAA — a Singapore-based AI research and venture studio — presenting the parent brand and its four autonomous ventures under one cohesive identity."
+  tagline="The corporate website for EVAA, a Singapore-based AI research and venture studio, presenting the parent brand and its four autonomous ventures under one cohesive identity."
   description="Case study of the EVAA Enterprises website — a Next.js corporate site for a Singapore-based AI research and venture studio housing four ventures."
   role="Freelance Web Developer"
-  status="Live · evaa.enterprises"
-  stackSummary="Next.js · React · Tailwind"
+  status="Live at evaa.enterprises"
+  stackSummary="Next.js, React, Tailwind"
   live="https://www.evaa.enterprises/"
 >
   <section>
     <h2>Overview</h2>
     <p>
       EVAA is a Singapore-based AI research and venture studio — a holding company that builds
-      "what doesn't exist yet." I built its corporate website: the public face that ties the
+      “what doesn’t exist yet.” I built its corporate website: the public face that ties the
       parent brand together with its four independent ventures and communicates a single,
       research-driven identity.
     </p>
@@ -42,7 +42,7 @@ const built = [
   <section>
     <h2>The brief</h2>
     <p>
-      A venture studio has a hard story to tell — one parent brand, several very different
+      A venture studio has a hard story to tell: one parent brand, several very different
       products, none of which should look like an afterthought. The site needed to present EVAA
       as a credible research-led company, give each venture room to stand on its own, and still
       feel like one coherent whole rather than a directory of links.
@@ -51,20 +51,14 @@ const built = [
 
   <section>
     <h2>The four ventures</h2>
-    <p>
-      The site gives each EVAA venture its own clearly defined space:
-    </p>
-    <div class="mt-5 grid gap-3 sm:grid-cols-2">
+    <p>The site gives each EVAA venture its own clearly defined space.</p>
+    <div class="grid gap-3 sm:grid-cols-2">
       {
         ventures.map((v) => (
-          <div class="card p-5">
-            <div class="flex items-baseline justify-between gap-2">
-              <h3 class="text-base text-[var(--accent)]">{v.name}</h3>
-              <span class="font-mono text-[0.68rem] uppercase tracking-wider text-[var(--muted)]">
-                {v.area}
-              </span>
-            </div>
-            <p class="m-0 mt-2 text-sm leading-relaxed text-[var(--muted)]">{v.desc}</p>
+          <div class="card p-5 md:p-6">
+            <span class="kicker">{v.area}</span>
+            <h3 class="mt-1 text-[1.15rem]">{v.name}</h3>
+            <p class="m-0 mt-2 text-base">{v.desc}</p>
           </div>
         ))
       }
@@ -77,36 +71,32 @@ const built = [
       I designed and developed the corporate site with Next.js and React, balancing a unified
       brand layer with distinct, well-structured venture sections.
     </p>
-    <ul class="mt-5 grid list-none gap-2.5 p-0 sm:grid-cols-2">
-      {
-        built.map((b) => (
-          <li class="flex items-start gap-2.5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] p-3.5 text-sm text-[var(--fg-dim)]">
-            <span class="mt-[0.55em] h-px w-3 shrink-0 bg-[var(--border-bright)]"></span>
-            <span>{b}</span>
-          </li>
-        ))
-      }
+    <ul class="prose-serif grid gap-x-8 sm:grid-cols-2">
+      {built.map((b) => <li class="border-t border-[var(--border)] py-3">{b}</li>)}
     </ul>
   </section>
 
   <section>
     <h2>Tech stack</h2>
-    <div class="mt-1 flex flex-wrap gap-2">
-      {techStack.map((t) => <span class="chip">{t}</span>)}
-    </div>
-    <Panel title="Deployment" class="mt-5">
+    <ul class="flex flex-wrap gap-2">
+      {techStack.map((t) => <li class="chip">{t}</li>)}
+    </ul>
+    <Panel title="Deployment">
       <div class="flex flex-col gap-3.5">
         <div class="spec">
           <span class="spec-key">Framework</span>
-          <span class="spec-val">Next.js · React · Tailwind CSS</span>
+          <span class="spec-val">Next.js, React, Tailwind CSS</span>
         </div>
         <div class="spec">
           <span class="spec-key">Scope</span>
-          <span class="spec-val">1 parent brand · 4 ventures</span>
+          <span class="spec-val">One parent brand, four ventures</span>
         </div>
         <div class="spec">
           <span class="spec-key">Status</span>
-          <span class="spec-val text-[var(--signal)]">Live in production</span>
+          <span class="spec-val inline-flex items-center gap-2.5">
+            <span class="pulse" aria-hidden="true"></span>
+            Live in production
+          </span>
         </div>
       </div>
     </Panel>

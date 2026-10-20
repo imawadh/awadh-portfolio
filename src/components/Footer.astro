@@ -3,75 +3,58 @@ import { socials } from '../utils/socials';
 import { resumeUrl } from '../utils/site';
 
 const navItems = [
+  { label: 'Work', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Experience', href: '/experience' },
-  { label: 'Work', href: '/projects' },
   { label: 'Skills', href: '/skills' },
   { label: 'Credentials', href: '/certifications' },
   { label: 'Contact', href: '/contact' },
 ];
 
+const email = 'awadhkishorsingh241@gmail.com';
 const year = new Date().getFullYear();
+// The contact page already leads with the email, so the footer skips its CTA there.
+const showCta = !Astro.url.pathname.startsWith('/contact');
 ---
 
-<footer class="on-brand mt-28 bg-[var(--bg-2)]">
-  <!-- ───────── CTA ───────── -->
-  <div class="wrap py-16 md:py-24">
-    <div class="grid gap-10 md:grid-cols-[1.35fr_1fr] md:items-end">
-      <div>
-        <span class="eyebrow">Let&rsquo;s build</span>
-        <h2 class="mt-5 max-w-[14ch]">
-          Got a project or a role <span class="italic text-[var(--accent)]">in mind?</span>
-        </h2>
-      </div>
-      <div class="md:pb-2">
-        <p class="max-w-sm text-[0.97rem] leading-relaxed">
-          I&rsquo;m open to software engineering, full-stack and AI/ML roles, and to internship
-          and freelance opportunities.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href="/contact" class="btn btn-primary">Say hello</a>
-          <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn">Résumé</a>
-        </div>
-      </div>
+<footer class="on-brand mt-24 rounded-t-[28px] bg-[var(--bg)] md:mt-32 md:rounded-t-[40px]">
+  <!-- CTA -->
+  {showCta && (
+  <div class="wrap pb-14 pt-16 md:pb-20 md:pt-24">
+    <h2 class="footer-title max-w-[16ch]">Have something to build?</h2>
+    <p class="mt-6 max-w-[52ch]">
+      I&rsquo;m open to software engineering, full-stack and AI/ML roles, and to internships and
+      freelance work. Email is the quickest way to reach me.
+    </p>
+    <a href={`mailto:${email}`} class="footer-email mt-8 inline-block break-all">{email}</a>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href="/contact" class="btn btn-primary">Get in touch</a>
+      <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="btn">Download résumé</a>
     </div>
   </div>
+  )}
 
-  <!-- ───────── COLOPHON ───────── -->
-  <div class="wrap">
-    <div class="grid gap-10 border-t border-[var(--border)] py-14 md:grid-cols-[1.7fr_1fr_1fr]">
-      <div>
-        <p
-          class="m-0 text-lg text-[var(--fg)]"
-          style="font-family:var(--font-display);font-weight:600;letter-spacing:-0.024em;"
-        >
-          Awadh Kishor Singh
-        </p>
-        <p class="mt-4 max-w-sm text-sm leading-relaxed">
-          Full Stack AI Developer building production-ready web applications from Bengaluru.
-          Most recently Full Stack Developer Intern at IAVerse, a Data Science undergraduate at
-          IIT Madras, and currently building my first mobile app.
-        </p>
-        <div
-          class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-[var(--border-bright)] bg-[var(--surface)] px-3.5 py-1.5"
-        >
+  <!-- Colophon -->
+  <div class:list={["wrap", !showCta && "pt-4"]}>
+    <div class="grid gap-10 border-t border-[var(--border)] py-12 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr]">
+      <div class="sm:col-span-2 md:col-span-1">
+        <p class="m-0 inline-flex items-center gap-2.5 text-[1rem] text-[var(--fg)] ui">
           <span class="pulse"></span>
-          <span class="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--fg-dim)]">
-            Open to internships &amp; freelance
-          </span>
-        </div>
+          Open to internships and freelance work
+        </p>
+        <p class="mt-3 max-w-sm text-[0.98rem]">
+          Full Stack AI Developer in Bengaluru. Data Science undergraduate at IIT Madras, building
+          my first mobile app.
+        </p>
       </div>
 
       <div>
-        <p class="kicker mb-4">Pages</p>
-        <ul class="flex flex-col gap-2.5">
+        <p class="kicker mb-3">Pages</p>
+        <ul class="flex flex-col gap-1.5">
           {
             navItems.map((item) => (
               <li>
-                <a
-                  href={item.href}
-                  class="text-sm text-[var(--fg-dim)] transition-colors duration-200 hover:text-[var(--accent)]"
-                >
+                <a href={item.href} class="foot-link">
                   {item.label}
                 </a>
               </li>
@@ -81,21 +64,13 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <p class="kicker mb-4">Elsewhere</p>
-        <ul class="flex flex-col gap-2.5">
+        <p class="kicker mb-3">Elsewhere</p>
+        <ul class="flex flex-col gap-1.5">
           {
             socials.map((social) => (
               <li>
-                <a
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group inline-flex items-center gap-1.5 text-sm text-[var(--fg-dim)] transition-colors duration-200 hover:text-[var(--accent)]"
-                >
+                <a href={social.url} target="_blank" rel="noopener noreferrer" class="foot-link">
                   {social.label}
-                  <span class="text-[var(--muted)] opacity-0 transition-opacity group-hover:opacity-100">
-                    &#8599;
-                  </span>
                 </a>
               </li>
             ))
@@ -105,10 +80,42 @@ const year = new Date().getFullYear();
     </div>
 
     <div
-      class="flex flex-col gap-2 border-t border-[var(--border)] py-7 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col gap-1 border-t border-[var(--border)] py-6 text-[0.88rem] text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"
     >
-      <p class="m-0">&copy; {year} Awadh Kishor Singh</p>
-      <p class="m-0">Bengaluru, India &middot; Set in Inter Tight &amp; Inter</p>
+      <span>&copy; {year} Awadh Kishor Singh</span>
+      <span>Set in Bricolage Grotesque and Newsreader</span>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-title {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    font-weight: 700;
+    font-variation-settings: 'wdth' 78;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+  }
+  .footer-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3.4vw, 2.1rem);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.18em;
+  }
+  .footer-email:hover {
+    text-decoration-thickness: 3px;
+  }
+  .foot-link {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--fg-dim);
+    transition: color 0.2s ease;
+  }
+  .foot-link:hover {
+    color: var(--accent);
+  }
+</style>

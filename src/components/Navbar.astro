@@ -4,16 +4,14 @@ import { socials } from '../utils/socials';
 interface NavItem {
   label: string;
   href: string;
-  index: string;
 }
 
 const navItems: NavItem[] = [
-  { label: 'About', href: '/about', index: '01' },
-  { label: 'Experience', href: '/experience', index: '02' },
-  { label: 'Work', href: '/projects', index: '03' },
-  { label: 'Skills', href: '/skills', index: '04' },
-  { label: 'Credentials', href: '/certifications', index: '05' },
-  { label: 'Contact', href: '/contact', index: '06' },
+  { label: 'Work', href: '/projects' },
+  { label: 'About', href: '/about' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Credentials', href: '/certifications' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -21,17 +19,10 @@ const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
-<nav
-  id="siteNav"
-  class="sticky top-0 z-50 border-b border-[var(--fg)] bg-[rgba(241,244,248,0.88)] backdrop-blur-md"
->
-  <div class="wrap flex items-center justify-between gap-6 py-4">
-    <!-- Masthead -->
-    <a href="/" class="group min-w-0 shrink-0" aria-label="Awadh Kishor Singh — home">
-      <span class="masthead">Awadh Kishor Singh</span>
-      <span class="block font-mono text-[0.58rem] uppercase tracking-[0.24em] text-[var(--muted)]">
-        Full Stack AI Developer
-      </span>
+<nav id="siteNav" class="sticky top-0 z-50 bg-[rgba(232,235,227,0.86)] backdrop-blur-md">
+  <div class="wrap flex items-center justify-between gap-6 py-3.5">
+    <a href="/" class="wordmark shrink-0" aria-label="Awadh Kishor Singh, home">
+      Awadh Kishor Singh
     </a>
 
     <!-- Desktop nav -->
@@ -49,10 +40,10 @@ const isActive = (href: string) =>
       }
       <a
         href="/contact"
-        class="ml-3 inline-flex items-center gap-2 rounded-full border border-[var(--border-bright)] py-1.5 pl-2.5 pr-3.5 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[var(--fg-dim)] transition-colors duration-300 hover:border-[var(--fg)] hover:text-[var(--fg)]"
+        aria-current={isActive('/contact') ? 'page' : undefined}
+        class="btn btn-primary ml-4 !min-h-0 !px-5 !py-2 !text-[0.95rem]"
       >
-        <span class="pulse"></span>
-        Internships &amp; freelance
+        Contact
       </a>
     </div>
 
@@ -60,16 +51,16 @@ const isActive = (href: string) =>
     <button
       id="navToggle"
       type="button"
-      aria-label="Toggle navigation"
+      aria-label="Open menu"
       aria-expanded="false"
       aria-controls="navMenu"
-      class="nav-toggle inline-flex h-9 items-center gap-2.5 rounded-full border border-[var(--border-bright)] px-4 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[var(--fg)] transition-colors duration-300 hover:border-[var(--fg)] lg:hidden"
+      class="nav-toggle inline-flex h-11 items-center gap-2.5 rounded-full border-[1.5px] border-[var(--fg)] px-4 text-[0.95rem] font-semibold text-[var(--fg)] lg:hidden"
     >
       <span class="toggle-label-closed">Menu</span>
       <span class="toggle-label-open">Close</span>
-      <span class="relative flex h-3 w-3.5 flex-col items-center justify-center">
-        <span class="bar bar-top absolute h-px w-3.5 bg-current transition-transform duration-300"></span>
-        <span class="bar bar-bot absolute h-px w-3.5 bg-current transition-transform duration-300"></span>
+      <span class="relative flex h-3 w-4 flex-col items-center justify-center">
+        <span class="bar bar-top absolute h-[1.5px] w-4 bg-current transition-transform duration-300"></span>
+        <span class="bar bar-bot absolute h-[1.5px] w-4 bg-current transition-transform duration-300"></span>
       </span>
     </button>
   </div>
@@ -77,103 +68,79 @@ const isActive = (href: string) =>
   <!-- Mobile menu -->
   <div
     id="navMenu"
-    class="nav-menu invisible absolute left-0 right-0 top-full max-h-[calc(100dvh-4.5rem)] origin-top -translate-y-2 overflow-y-auto border-b border-[var(--fg)] bg-[var(--bg-2)] opacity-0 transition-all duration-300 ease-out lg:hidden"
+    class="nav-menu invisible absolute left-0 right-0 top-full max-h-[calc(100dvh-4.5rem)] -translate-y-2 overflow-y-auto bg-[var(--bg)] opacity-0 transition-all duration-300 ease-out lg:hidden"
   >
-    <div class="wrap py-7">
+    <div class="wrap pb-10 pt-4">
       <ul class="flex flex-col">
         {
-          navItems.map((item) => (
-            <li class="border-t border-[var(--border)] last:border-b">
+          [...navItems, { label: 'Contact', href: '/contact' }].map((item) => (
+            <li>
               <a
                 href={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                class={`group/item flex items-baseline justify-between gap-4 py-4 transition-colors duration-200 ${
-                  isActive(item.href) ? 'text-[var(--accent)]' : 'text-[var(--fg)]'
-                }`}
+                class={`menu-link block py-2 ${isActive(item.href) ? 'text-[var(--accent)]' : 'text-[var(--fg)]'}`}
               >
-                <span class="flex items-baseline gap-3">
-                  <span class="font-mono text-[0.62rem] tracking-[0.16em] text-[var(--muted)]">
-                    {item.index}
-                  </span>
-                  <span
-                    class="text-2xl"
-                    style="font-family:var(--font-display);letter-spacing:-0.024em;"
-                  >
-                    {item.label}
-                  </span>
-                </span>
-                <span class="text-[var(--accent)] opacity-45 transition-opacity group-hover/item:opacity-100">
-                  &rarr;
-                </span>
+                {item.label}
               </a>
             </li>
           ))
         }
       </ul>
 
-      <div class="mt-7">
-        <p class="kicker mb-3">Elsewhere</p>
-        <div class="flex flex-wrap gap-2">
-          {
-            socials.map((social) => (
-              <a href={social.url} target="_blank" rel="noopener noreferrer" class="chip">
-                {social.label}
-              </a>
-            ))
-          }
-        </div>
+      <div class="mt-8 flex flex-wrap gap-2">
+        {
+          socials.map((social) => (
+            <a href={social.url} target="_blank" rel="noopener noreferrer" class="chip">
+              {social.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>
 </nav>
 
 <style>
-  .masthead {
-    display: block;
+  .wordmark {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: -0.012em;
-    line-height: 1.15;
+    font-weight: 700;
+    font-size: 1.15rem;
+    font-variation-settings: 'wdth' 80;
+    letter-spacing: -0.02em;
     color: var(--fg);
-    transition: color 0.25s ease;
+    transition: color 0.2s ease;
   }
-  .group:hover .masthead {
+  .wordmark:hover {
     color: var(--accent);
   }
 
   .nav-link {
-    position: relative;
-    padding: 0.35rem 0.7rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 520;
     color: var(--fg-dim);
-    transition: color 0.2s ease;
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0.7rem;
-    right: 0.7rem;
-    bottom: 0.05rem;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s ease;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
   }
   .nav-link:hover {
     color: var(--fg);
-  }
-  .nav-link:hover::after,
-  .nav-link.is-active::after {
-    transform: scaleX(1);
+    background: var(--bg-2);
   }
   .nav-link.is-active {
-    color: var(--accent);
+    color: var(--fg);
+    background: var(--bg-2);
+  }
+
+  .menu-link {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 700;
+    font-variation-settings: 'wdth' 78;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
 
   .nav-toggle .bar-top {
@@ -200,12 +167,6 @@ const isActive = (href: string) =>
     opacity: 1;
     transform: translateY(0);
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .nav-link::after {
-      transition: none;
-    }
-  }
 </style>
 
 <script>
@@ -216,6 +177,7 @@ const isActive = (href: string) =>
   const setOpen = (open: boolean) => {
     if (!navToggle || !navMenu) return;
     navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     navMenu.classList.toggle('is-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
   };
