@@ -6,6 +6,8 @@ export interface Project {
   index: string;
   name: string;
   tagline: string;
+  /** What I personally owned — mirrors the case study's Role field. */
+  role: string;
   description: string;
   tags: string[];
   status: string;
@@ -23,6 +25,7 @@ export const projects: Project[] = [
     index: '01',
     name: 'Prescripto',
     tagline: 'Multi-portal hospital prescription system',
+    role: 'Solo Full Stack Developer',
     description:
       'A full-stack healthcare platform with three independent Next.js portals — Patient, Doctor, and Admin — running on a shared Node/Express REST API, with role-based access control enforced across every portal.',
     tags: ['Next.js', 'React', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
@@ -38,6 +41,7 @@ export const projects: Project[] = [
     index: '02',
     name: 'Cryptofolio',
     tagline: 'Crypto portfolio management platform',
+    role: 'Full Stack Developer',
     description:
       'A decoupled MERN platform — Next.js 14 frontend, Express REST API — with live CoinGecko prices, TradingView charts, and a virtual demo-trading engine that computes holdings by replaying buy/sell history.',
     tags: ['Next.js 14', 'React 18', 'Express', 'MongoDB', 'JWT', 'CoinGecko API'],
@@ -55,6 +59,7 @@ export const projects: Project[] = [
     index: '01',
     name: 'Axiora Learning',
     tagline: 'System-driven academic coaching institute',
+    role: 'Freelance Full Stack Developer',
     description:
       'A full-stack site for Axiora Learning, a Bengaluru coaching institute (IGCSE, O Level, AS & A Level). A Next.js + TypeScript front end backed by a typed NestJS API on PostgreSQL via Prisma.',
     tags: ['Next.js', 'TypeScript', 'NestJS', 'Prisma', 'PostgreSQL', 'Tailwind CSS'],
@@ -69,6 +74,7 @@ export const projects: Project[] = [
     index: '02',
     name: 'EVAA Enterprises',
     tagline: 'AI research & ventures holding company',
+    role: 'Freelance Web Developer',
     description:
       'The corporate site for EVAA, a Singapore-based AI research and venture studio. It presents the parent brand and its four autonomous ventures — MetaKitchen, Omnis, Virtual Promoter, and OpenRift — under one identity.',
     tags: ['Next.js', 'React', 'Tailwind CSS', 'Responsive Design', 'Vercel'],
@@ -83,6 +89,7 @@ export const projects: Project[] = [
     index: '03',
     name: 'The SRS Classes',
     tagline: 'Ed-tech platform · 1,500+ daily users',
+    role: 'Freelance Full Stack Developer',
     description:
       'A responsive ed-tech web app built with Next.js and React for BPSC and competitive-exam aspirants, serving 1,500+ daily active users. SSR optimisations and asset compression cut page load times by ~30%.',
     tags: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'Mongoose', 'MongoDB'],
@@ -98,8 +105,9 @@ export const projects: Project[] = [
     index: '04',
     name: 'Prsnn',
     tagline: 'Peer-to-peer companion marketplace',
+    role: 'Sole Full Stack Developer',
     description:
-      'A peer-to-peer companion platform live across four Indian cities with a 4.9/5 rating. Multi-mode discovery, verified profiles with Comfort Zones, availability booking, and secure Razorpay payments.',
+      'A peer-to-peer companion platform live across four Indian cities with 500+ users and a 4.9/5 rating. Multi-mode discovery, verified profiles with Comfort Zones, availability booking, and secure Razorpay payments.',
     tags: ['Next.js', 'React', 'Express', 'MongoDB', 'Socket.io', 'Razorpay'],
     status: 'live',
     featured: true,

@@ -227,6 +227,7 @@ const profile = [
             index={p.index}
             name={p.name}
             tagline={p.tagline}
+            role={p.role}
             description={p.description}
             tags={p.tags}
             status={p.status}
@@ -244,6 +245,15 @@ const profile = [
     >
       All work &rarr;
     </a>
+
+    <!-- Post-work CTA: catch interest while the projects are fresh. -->
+    <div class="mt-14 flex flex-col gap-6 border-t border-[var(--border)] pt-10 md:flex-row md:items-center md:justify-between">
+      <p class="m-0 max-w-[48ch] text-[1.02rem] leading-[1.75]">
+        Building something similar? I&rsquo;m open to internships and freelance work &mdash; tell
+        me what you&rsquo;re working on.
+      </p>
+      <a href="/contact" class="btn btn-primary shrink-0">Let&rsquo;s work together</a>
+    </div>
   </section>
 </PageLayout>
 
