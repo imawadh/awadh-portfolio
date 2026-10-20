@@ -1,106 +1,429 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
 import { personalProjects, freelanceProjects, projects } from '../../data/projects';
+import { shots, SIZE } from '../../data/shots';
 
-const tally = [
-  { label: 'Projects', value: projects.length, accent: false },
-  { label: 'Personal', value: personalProjects.length, accent: false },
-  { label: 'Freelance', value: freelanceProjects.length, accent: false },
-  { label: 'Live now', value: projects.filter((p) => p.status === 'live').length, accent: true },
-];
+// The sheet: every project that has screens, as one run of frames each.
+const sheetOrder = ['prsnn', 'prescripto', 'axiora-learning', 'evaa', 'cryptofolio'];
+const sheet = sheetOrder.map((slug) => {
+  const p = projects.find((x) => x.slug === slug)!;
+  return { ...p, frames: shots[slug] ?? [] };
+});
+
+const client = freelanceProjects;
+const own = personalProjects;
+const liveCount = projects.filter((p) => p.status === 'live').length;
 ---
 
 <PageLayout
   title="Projects — Awadh Kishor Singh"
   description="Projects by Awadh Kishor Singh — personal builds (Prescripto, Cryptofolio) and freelance client work (Axiora Learning, EVAA Enterprises, The SRS Classes, Prsnn)."
 >
-  <section class="wrap band-lead pb-12 md:pb-16">
-    <h1 class="page-title reveal reveal-1 max-w-[12ch]">Products, shipped end to end</h1>
-    <p class="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
-      Full-stack applications and client websites built end to end, most of them live in production
-      with real users. Each has its own architecture, build and deployment story.
-    </p>
+  <!-- ───────────── LEAD + SHEET: every screen, small, in order ───────────── -->
+  <section class="lead-sec wrap" aria-labelledby="work-title">
+    <div class="lead-row">
+      <h1 id="work-title" class="page-title is-long reveal reveal-1">Products, shipped end to end</h1>
+      <p class="page-lede reveal reveal-2 max-w-[38ch]">
+        Full-stack applications and client websites built end-to-end — most live in production with
+        real users. Each ships its own architecture, build, and deployment story.
+      </p>
+    </div>
 
-    <dl
-      class="reveal reveal-3 mt-12 grid grid-cols-2 gap-y-6 border-t border-[var(--border-bright)] pt-6 sm:grid-cols-4"
-    >
+    <dl class="reveal reveal-3 mt-10 flex flex-wrap gap-x-12 gap-y-4">
+      <div>
+        <dd class="lead figures">{projects.length}</dd>
+        <dt class="small muted">Projects</dt>
+      </div>
+      <div>
+        <dd class="lead figures">{personalProjects.length}</dd>
+        <dt class="small muted">Personal</dt>
+      </div>
+      <div>
+        <dd class="lead figures">{freelanceProjects.length}</dd>
+        <dt class="small muted">Freelance</dt>
+      </div>
+      <div>
+        <dd class="lead figures">{liveCount}</dd>
+        <dt class="small muted">Live</dt>
+      </div>
+    </dl>
+
+    <p class="sheet-caption small reveal reveal-3" data-caption aria-live="polite"></p>
+
+    <div class="sheet reveal reveal-3" data-sheet>
       {
-        tally.map((t) => (
-          <div class="flex flex-col-reverse">
-            <dt class="ui mt-1.5 text-[0.98rem] text-[var(--muted)]">{t.label}</dt>
-            <dd
-              class:list={[
-                'numeral m-0 text-[2.6rem]',
-                t.accent ? 'text-[var(--accent)]' : 'text-[var(--fg)]',
-              ]}
-            >
-              {t.value}
-            </dd>
+        sheet.map((p) => (
+          <div class="run" data-run data-line={`${p.name}: ${p.tagline}`}>
+            <a href={p.caseStudy} class="run-name">
+              {p.name}
+            </a>
+            <div class="run-frames">
+              {p.frames.map((f, i) => (
+                <a href={p.caseStudy} class={`frame frame-${f.kind}`} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={f.src}
+                    alt={f.alt}
+                    width={SIZE[f.kind].width}
+                    height={SIZE[f.kind].height}
+                    loading={i < 4 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                </a>
+              ))}
+            </div>
           </div>
         ))
       }
-    </dl>
-  </section>
-
-  <!-- ───────────── PERSONAL ───────────── -->
-  <section class="wrap band band-b">
-    <h2 class="m-0">Built to learn and ship</h2>
-    <p class="m-0 mt-3 max-w-[52ch] text-[var(--muted)]">
-      Personal projects: self-directed full-stack builds where I owned every architectural decision.
-    </p>
-
-    <div class="mt-10 border-b border-[var(--border-bright)]">
-      {
-        personalProjects.map((p) => (
-          <ProjectCard
-            name={p.name}
-            tagline={p.tagline}
-            role={p.role}
-            description={p.description}
-            tags={p.tags}
-            status={p.status}
-            live={p.live}
-            code={p.code}
-            caseStudy={p.caseStudy}
-          />
-        ))
-      }
     </div>
   </section>
 
-  <!-- ───────────── FREELANCE ───────────── -->
-  <section class="wrap band band-a">
-    <h2 class="m-0">Shipped for clients</h2>
-    <p class="m-0 mt-3 max-w-[52ch] text-[var(--muted)]">
-      Freelance and contract work: production websites and platforms delivered for real businesses
-      and live users.
-    </p>
+  <!-- ───────────── CLIENT WORK: margin heading, facts on the right ───────────── -->
+  <section class="wrap section" aria-labelledby="client-title">
+    <div class="grid-12 group-grid">
+      <div class="group-head">
+        <h2 id="client-title" data-rise>Shipped for clients</h2>
+        <p class="small muted mt-2" data-rise>Freelance &amp; client work</p>
+        <p class="muted mt-4 max-w-[30ch]" data-rise style="--i: 1">
+          Independent contract work — production websites and platforms delivered for real businesses
+          and live users.
+        </p>
+      </div>
 
-    <div class="mt-10 border-b border-[var(--border-bright)]">
-      {
-        freelanceProjects.map((p) => (
-          <ProjectCard
-            name={p.name}
-            tagline={p.tagline}
-            role={p.role}
-            description={p.description}
-            tags={p.tags}
-            status={p.status}
-            live={p.live}
-            code={p.code}
-            caseStudy={p.caseStudy}
-          />
-        ))
-      }
+      <div class="group-list">
+        {
+          client.map((p, i) => (
+            <article class="entry" aria-labelledby={`f-${p.slug}`} data-rise style={`--i: ${i % 2}`}>
+              <div class="entry-name">
+                <h3 id={`f-${p.slug}`}>{p.name}</h3>
+                <p class="small muted mt-1">{p.tagline}</p>
+                <p class="small mt-2 inline-flex items-center gap-2 capitalize"><span class="pulse"></span>{p.status}</p>
+              </div>
+              <div class="entry-body">
+                <p>{p.description}</p>
+                <dl class="facts small">
+                  <div>
+                    <dt class="muted">Role</dt>
+                    <dd>{p.role}</dd>
+                  </div>
+                </dl>
+                <ul class="tags">
+                  {p.tags.map((tag) => <li class="chip">{tag}</li>)}
+                </ul>
+                <p class="links">
+                  <a href={p.caseStudy} class="link">Read case study &rarr;</a>
+                  {p.live && (
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" class="link">Live &#8599;</a>
+                  )}
+                  {p.code && (
+                    <a href={p.code} target="_blank" rel="noopener noreferrer" class="link">Code &#8599;</a>
+                  )}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
+  </section>
 
-    <div class="mt-12 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-      <p class="m-0 max-w-[52ch]">
-        Have something to build? I&rsquo;m open to internships and freelance engagements across
-        full-stack and AI/ML work.
+  <!-- ───────────── OWN PRODUCTS: a tone-step band, two side by side ───────────── -->
+  <section class="own section" aria-labelledby="own-title">
+    <div class="wrap">
+      <h2 id="own-title" data-rise>Built to learn &amp; ship</h2>
+      <p class="small muted mt-2" data-rise>Personal projects</p>
+      <p class="muted mt-4 max-w-[44ch]" data-rise style="--i: 1">
+        Self-directed full-stack builds where I owned every architectural decision end-to-end.
       </p>
-      <a href="/contact" class="btn btn-primary shrink-0">Start a conversation</a>
+
+      <div class="own-grid">
+        {
+          own.map((p, i) => (
+            <article class="own-item" aria-labelledby={`f-${p.slug}`} data-rise style={`--i: ${i}`}>
+              <h3 id={`f-${p.slug}`}>{p.name}</h3>
+              <p class="small muted mt-1">{p.tagline}</p>
+              <p class="small mt-2 inline-flex items-center gap-2 capitalize"><span class="pulse"></span>{p.status}</p>
+              <p class="mt-5">{p.description}</p>
+              <dl class="facts small">
+                <div>
+                  <dt class="muted">Role</dt>
+                  <dd>{p.role}</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                {p.tags.map((tag) => <li class="chip">{tag}</li>)}
+              </ul>
+              <p class="links">
+                <a href={p.caseStudy} class="link">Read case study &rarr;</a>
+                {p.live && (
+                  <a href={p.live} target="_blank" rel="noopener noreferrer" class="link">Live &#8599;</a>
+                )}
+                {p.code && (
+                  <a href={p.code} target="_blank" rel="noopener noreferrer" class="link">Code &#8599;</a>
+                )}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── CLOSE ───────────── -->
+  <section class="wrap section close" aria-labelledby="close-title">
+    <div class="close-h" data-rise>
+      <h2 id="close-title">Have something to build?</h2>
+      <p class="small muted mt-2">Open for work</p>
+    </div>
+    <div class="close-body" data-rise style="--i: 1">
+      <a href="/contact" class="btn btn-primary">Start a conversation</a>
+      <p class="mt-6 max-w-[44ch]">
+        I&rsquo;m open to internships and freelance engagements across full-stack and AI/ML work.
+      </p>
     </div>
   </section>
 </PageLayout>
+
+<style>
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  /* ── LEAD ── */
+  .lead-sec {
+    padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
+  }
+  .lead-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 3rem;
+  }
+  .lead-row .page-title {
+    margin-left: -0.04em;
+  }
+
+  /* ── SHEET ── */
+  .sheet-caption {
+    min-height: 2.9em;
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    margin-bottom: 0.75rem;
+  }
+  .sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .run {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
+    column-gap: 20px;
+    align-items: start;
+  }
+  .run-name {
+    font-size: var(--step-body);
+    font-weight: 500;
+    line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+  .run-name:hover {
+    color: var(--accent);
+  }
+  /* One fixed frame height for the whole sheet, sized so the longest run
+     (five desktop and two phone screens, 8.93 frame-heights wide) fits on one
+     line; below 96px tall the frames wrap onto the next line instead. */
+  .run-frames {
+    --gap: 8px;
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+  }
+  .frame {
+    --frame-h: max(96px, min(130px, (100cqw - 6 * var(--gap)) / 8.93));
+    height: var(--frame-h);
+  }
+  .frame {
+    display: block;
+    flex: none;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .frame-desktop {
+    width: calc(var(--frame-h) * 1440 / 900);
+  }
+  .frame-phone {
+    width: calc(var(--frame-h) * 390 / 844);
+  }
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: filter 0.35s var(--ease-out);
+  }
+  /* Pointing at a run dims every other run. */
+  .sheet:has(.run:hover) .run:not(:hover) img,
+  .sheet:has(.run:focus-within) .run:not(:focus-within) img {
+    filter: brightness(0.35);
+  }
+  .sheet:has(.run:hover) .run:not(:hover) .run-name,
+  .sheet:has(.run:focus-within) .run:not(:focus-within) .run-name {
+    color: var(--muted);
+  }
+
+  /* ── CLIENT WORK ── */
+  .group-grid {
+    row-gap: 3rem;
+    align-items: start;
+  }
+  .group-head {
+    grid-column: 1 / span 4;
+  }
+  .group-list {
+    grid-column: 5 / span 8;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 2rem + 2vw, 4.5rem);
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 5fr);
+    column-gap: 20px;
+    row-gap: 1rem;
+  }
+  .entry-body {
+    max-width: 62ch;
+  }
+  .facts {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1.25rem;
+  }
+
+  /* ── OWN PRODUCTS ── */
+  .own {
+    background: var(--surface);
+    padding-top: calc(var(--section-gap) / 2);
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+  .own-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 3.5rem;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+  .own-item {
+    max-width: 58ch;
+  }
+
+  /* ── CLOSE ── */
+  .close {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 2rem;
+    align-items: end;
+  }
+  .close-h {
+    grid-column: 1 / span 6;
+  }
+  .close-body {
+    grid-column: 7 / span 6;
+  }
+
+  /* ── TABLET AND PHONE ── */
+  @media (max-width: 1099px) {
+    .group-head {
+      grid-column: 1 / -1;
+    }
+    .group-list {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 899px) {
+    .sheet {
+      gap: 28px;
+    }
+    .run {
+      grid-template-columns: 1fr;
+      row-gap: 0.6rem;
+    }
+    .run-frames {
+      --gap: 6px;
+    }
+    /* Two desktop screens fill a line exactly; the phone screens follow. */
+    .frame {
+      --frame-h: min(130px, (100cqw - var(--gap)) / 3.2);
+    }
+    .own-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 639px) {
+    .close-h,
+    .close-body {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .entry {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (pointer: coarse) {
+    .links a,
+    .run-name {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .frame img {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Pointing at (or tabbing into) a run puts its one-line description in the caption.
+  const caption = document.querySelector<HTMLElement>('[data-caption]');
+  const sheet = document.querySelector<HTMLElement>('[data-sheet]');
+  if (caption && sheet) {
+    const resting = caption.innerHTML;
+    const show = (text: string) => {
+      caption.textContent = text;
+    };
+    const rest = () => {
+      caption.innerHTML = resting;
+    };
+    sheet.querySelectorAll<HTMLElement>('[data-run]').forEach((run) => {
+      const line = run.dataset.line ?? '';
+      run.addEventListener('mouseenter', () => show(line));
+      run.addEventListener('focusin', () => show(line));
+    });
+    sheet.addEventListener('mouseleave', rest);
+    sheet.addEventListener('focusout', (e) => {
+      if (!sheet.contains(e.relatedTarget as Node)) rest();
+    });
+  }
+</script>

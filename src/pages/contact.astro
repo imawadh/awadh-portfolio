@@ -2,13 +2,24 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import { socials } from '../utils/socials';
 import { resumeUrl } from '../utils/site';
+import { projects } from '../data/projects';
+import { shots, SIZE } from '../data/shots';
 
 const email = 'awadhkishorsingh241@gmail.com';
+const [emailUser, emailHost] = email.split('@');
 
+// Ways to reach me, as two-ended rows: label left, value right.
 const channels = [
-  { key: 'Phone', value: '+91 79850 00241', href: 'tel:+917985000241' },
-  { key: 'Location', value: 'Bengaluru, Karnataka, India', href: null },
+  { key: 'Email', value: email, href: `mailto:${email}`, external: false },
+  { key: 'Phone', value: '+91 79850 00241', href: 'tel:+917985000241', external: false },
+  { key: 'Location', value: 'Bengaluru, Karnataka, India', href: null, external: false },
 ];
+
+// One screen from each live product, for a last look before writing.
+const recent = ['prsnn', 'prescripto', 'axiora-learning', 'evaa', 'cryptofolio'].map((slug) => {
+  const p = projects.find((x) => x.slug === slug)!;
+  return { name: p.name, href: p.caseStudy, shot: shots[slug][0] };
+});
 
 const mailtoCompose = `mailto:${email}?subject=Let%27s%20work%20together&body=Hi%20Awadh%2C%0A%0A`;
 ---
@@ -17,146 +28,270 @@ const mailtoCompose = `mailto:${email}?subject=Let%27s%20work%20together&body=Hi
   title="Contact — Awadh Kishor Singh"
   description="Get in touch with Awadh Kishor Singh — Full Stack AI Developer in Bengaluru — for full-stack roles, freelance projects, or collaborations."
 >
-  <section class="wrap band-lead pb-14 md:pb-20">
-    <h1 class="page-title reveal reveal-1">Say hello</h1>
-    <p class="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
-      Open to internships, freelance work and good conversations across full-stack, software
-      engineering and AI/ML. Email is the fastest way to reach me; I usually reply within a day.
-    </p>
+  <!-- ───────────── LEAD: the address is the page ───────────── -->
+  <section class="wrap lead-sec" aria-labelledby="contact-title">
+    <h1 id="contact-title" class="email-h reveal reveal-1">
+      <span class="lead block">Say hello</span>
+      <a href={`mailto:${email}`} class="email mt-4 inline-block">{emailUser}<wbr />@{emailHost}</a>
+    </h1>
 
-    <div class="reveal reveal-3 mt-12 md:mt-16">
-      <a href={`mailto:${email}`} class="contact-email">{email}</a>
-    </div>
+    <div class="grid-12 lead-grid">
+      <div class="lead-main">
+        <p class="page-lede reveal reveal-2 max-w-[40ch]">
+          Open to internships, freelance work, and good conversations — full-stack, software
+          engineering and AI/ML. The fastest way to reach me is email — I usually reply within a day.
+        </p>
 
-    <div class="reveal reveal-4 mt-8 flex flex-wrap items-center gap-3">
-      <a href={mailtoCompose} class="btn btn-primary">Open mail client</a>
-      <button type="button" class="copy-btn btn btn-ghost" data-copy={email}>
-        Copy address
-      </button>
-      <p class="ui m-0 inline-flex items-center gap-2.5 text-[1rem] text-[var(--signal)] sm:ml-3">
-        <span class="pulse"></span>
-        Accepting messages
-      </p>
+        <div class="compose reveal reveal-3 mt-8">
+          <h2 class="lead">Compose a message</h2>
+          <dl class="mt-2">
+            <div class="row"><dt>To</dt><dd class="muted">{email}</dd></div>
+            <div class="row"><dt>Subject</dt><dd class="muted">Let&rsquo;s work together</dd></div>
+          </dl>
+        </div>
+
+        <div class="reveal reveal-3 mt-6 flex flex-wrap items-center gap-3">
+          <a href={mailtoCompose} class="btn btn-primary">Open mail client</a>
+          <button type="button" class="copy-btn btn" data-copy={email}>Copy</button>
+          <span class="copy-status small muted" aria-live="polite" data-copy-status></span>
+        </div>
+      </div>
+
+      <div class="lead-side reveal reveal-3">
+        <img
+          class="studio"
+          src="https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/awadh-about.webp"
+          alt="Portrait of Awadh Kishor Singh"
+          width="320"
+          height="320"
+          loading="eager"
+        />
+        <div class="availability">
+          <h2 class="lead">Availability</h2>
+          <p class="small mt-2 inline-flex items-center gap-2.5">
+            <span class="pulse"></span>Accepting messages
+          </p>
+          <p class="mt-3">
+            Currently available for internships and freelance work — full-stack, software
+            engineering and AI/ML. Based in Bengaluru, happy to work remotely.
+          </p>
+          <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="link mt-4 inline-flex">
+            Download résumé &darr;
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="wrap band band-b">
-    <div class="split">
-      <div class="split-head">
-        <h2 class="m-0">Other ways to reach me</h2>
-        <p>If email isn&rsquo;t your thing.</p>
-      </div>
-
-      <dl class="m-0 border-t border-[var(--border-bright)]">
+  <!-- ───────────── OTHER CHANNELS: two-ended rows ───────────── -->
+  <section class="wrap section grid-12 channels" aria-labelledby="channels-title">
+    <div class="channels-head">
+      <h2 id="channels-title" data-rise>Elsewhere</h2>
+      <div class="mt-6 flex flex-wrap gap-2" data-rise style="--i: 1">
         {
-          channels.map((c) => (
-            <div class="grid gap-1 border-b border-[var(--border)] py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
-              <dt class="ui text-[1rem] font-semibold text-[var(--fg)]">{c.key}</dt>
-              <dd class="ui m-0 text-[1.05rem] text-[var(--fg-dim)]">
-                {c.href ? (
-                  <a href={c.href} class="channel-link">
-                    {c.value}
-                  </a>
-                ) : (
-                  c.value
-                )}
-              </dd>
-            </div>
-          ))
+          socials.map((social) => (
+              <a href={social.url} target="_blank" rel="noopener noreferrer" class="chip">
+                {social.label}
+              </a>
+            ))
         }
-        <div class="grid gap-1 border-b border-[var(--border)] py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
-          <dt class="ui text-[1rem] font-semibold text-[var(--fg)]">Elsewhere</dt>
-          <dd class="ui m-0">
-            <ul class="flex flex-wrap gap-x-6 gap-y-1">
-              {
-                socials.map((social) => (
-                  <li>
-                    <a
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="channel-link text-[1.05rem]"
-                    >
-                      {social.label}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </dd>
-        </div>
-        <div class="grid gap-1 border-b border-[var(--border)] py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
-          <dt class="ui text-[1rem] font-semibold text-[var(--fg)]">Résumé</dt>
-          <dd class="ui m-0 text-[1.05rem]">
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="channel-link">
-              Download my résumé
-            </a>
-          </dd>
-        </div>
-      </dl>
+      </div>
     </div>
+
+    <dl class="rows" data-rise style="--i: 2">
+      {
+        channels.map((c) => (
+          <div class="row">
+            <dt>{c.key}</dt>
+            <dd class="muted">
+              {c.href ? (
+                <a
+                  href={c.href}
+                  class="row-link"
+                  {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {c.value}
+                </a>
+              ) : (
+                c.value
+              )}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 
-  <section class="wrap band band-a">
-    <div class="split">
-      <div class="split-head">
-        <h2 class="m-0">Availability</h2>
-        <p>What I&rsquo;m open to right now.</p>
-      </div>
-
-      <p class="m-0 max-w-[56ch] text-[1.2rem] leading-[1.65] text-[var(--fg)]">
-        Currently available for internships and freelance work across full-stack, software
-        engineering and AI/ML. Based in Bengaluru and happy to work remotely.
-      </p>
+  <!-- ───────────── RECENT WORK: one frame per product ───────────── -->
+  <section class="wrap section recent" aria-labelledby="recent-title">
+    <div class="recent-head">
+      <h2 id="recent-title" data-rise>Selected work</h2>
+      <a href="/projects" class="link" data-rise style="--i: 1">All work &rarr;</a>
     </div>
+    <ul class="recent-row">
+      {
+        recent.map((r, i) => (
+          <li data-rise style={`--i: ${i}`}>
+            <a href={r.href} aria-label={`${r.name} case study`}>
+              <img
+                src={r.shot.src}
+                alt={r.shot.alt}
+                width={SIZE.desktop.width}
+                height={SIZE.desktop.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </PageLayout>
 
 <style>
-  /* The address is the page: big Bricolage, cherry, underlined. */
-  .contact-email {
-    display: inline-block;
-    max-width: 100%;
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 5.6vw, 4rem);
-    font-weight: 600;
-    font-variation-settings: 'wdth' 82;
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  /* ── LEAD ── */
+  .lead-sec {
+    padding-top: clamp(2rem, 1.5rem + 3vw, 5rem);
+  }
+  /* The address at display size, breaking before the @ if it must;
+     on a phone it drops to the head size so it never splits mid-name. */
+  .email-h {
+    font-size: var(--step-display);
+    line-height: 1;
     letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--accent);
+    overflow-wrap: anywhere;
+  }
+  .email {
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-underline-offset: 0.16em;
-    overflow-wrap: anywhere;
-    transition: text-decoration-thickness 0.15s ease;
-  }
-  .contact-email:hover {
-    text-decoration-thickness: 4px;
-  }
-  .channel-link {
-    color: var(--fg);
-    text-decoration: underline;
-    text-decoration-color: var(--border-bright);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.22em;
+    text-underline-offset: 0.14em;
+    text-decoration-color: var(--muted);
     transition:
       color 0.2s ease,
       text-decoration-color 0.2s ease;
   }
-  .channel-link:hover {
+  .email:hover {
     color: var(--accent);
     text-decoration-color: currentColor;
   }
-  @media (pointer: coarse) {
-    .channel-link {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
+  .lead-grid {
+    row-gap: 3rem;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+    align-items: start;
+  }
+  .lead-main {
+    grid-column: 1 / span 6;
+  }
+  .lead-side {
+    grid-column: 8 / span 5;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .studio {
+    flex: none;
+    width: 160px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+  .copy-status:empty {
+    display: none;
+  }
+
+  /* ── CHANNELS ── */
+  .channels {
+    align-items: start;
+    row-gap: 2.5rem;
+  }
+  .channels-head {
+    grid-column: 1 / span 5;
+  }
+  .rows {
+    grid-column: 7 / span 6;
+  }
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 48px;
+    padding: 8px 0;
+  }
+  .row dd {
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+  .row-link {
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .row-link:hover {
+    color: var(--accent);
+  }
+
+  /* ── TABLET AND PHONE ── */
+  @media (max-width: 899px) {
+    .lead-main,
+    .lead-side,
+    .channels-head,
+    .rows {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 599px) {
+    .email-h {
+      font-size: var(--step-head);
+    }
+  }
+  @media (max-width: 479px) {
+    .studio {
+      width: 96px;
+    }
+  }
+
+  /* ── RECENT WORK ── */
+  .recent-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 3rem;
+  }
+  .recent-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+  .recent-row img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    background: var(--surface);
+    transition: filter 0.35s var(--ease-out);
+  }
+  .recent-row:has(a:hover) a:not(:hover) img {
+    filter: brightness(0.4);
+  }
+  @media (max-width: 899px) {
+    .recent-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .recent-row li:first-child {
+      grid-column: 1 / -1;
     }
   }
 </style>
 
 <script>
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
   document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const text = btn.dataset.copy;
@@ -165,8 +300,10 @@ const mailtoCompose = `mailto:${email}?subject=Let%27s%20work%20together&body=Hi
         await navigator.clipboard.writeText(text);
         const original = btn.textContent;
         btn.textContent = 'Copied';
+        if (status) status.textContent = 'Copied';
         setTimeout(() => {
           btn.textContent = original;
+          if (status) status.textContent = '';
         }, 1600);
       } catch {
         /* clipboard unavailable — no-op */

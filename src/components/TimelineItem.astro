@@ -8,18 +8,25 @@ interface Props {
   current?: boolean;
   points?: string[];
   tags?: string[];
+  i?: number;
 }
 
-const { title, company, meta, date, current = false, points = [], tags = [] } = Astro.props;
+const { type, title, company, meta, date, current = false, points = [], tags = [] } = Astro.props;
+const isWork = type === 'work';
 ---
 
-<article class="grid gap-x-12 gap-y-4 border-t border-[var(--border-bright)] py-9 md:grid-cols-[13rem_1fr] md:py-11">
-  <!-- Left rail: when -->
-  <div class="md:sticky md:top-24 md:self-start ui">
-    <p class="m-0 text-[1rem] font-semibold text-[var(--fg)] ui">{date}</p>
+<!-- One role across the 12-column grid: when and where on the left track, the
+     title and outcomes in the middle, the stack on the right. Space separates
+     entries; there are no rules or timeline lines. -->
+<article class="entry grid-12">
+  <div class="e-when small" data-rise>
+    <p class="small figures">{date}</p>
+    <p class="small muted">{isWork ? 'Work' : 'Education'}</p>
+    <p class="small mt-1">{company}</p>
+    <p class="small muted">{meta}</p>
     {
       current && (
-        <p class="m-0 mt-3 inline-flex items-center gap-2 text-[0.95rem] text-[var(--signal)] ui">
+        <p class="small mt-3 inline-flex items-center gap-2">
           <span class="pulse" />
           Current
         </p>
@@ -27,31 +34,92 @@ const { title, company, meta, date, current = false, points = [], tags = [] } = 
     }
   </div>
 
-  <!-- The entry itself -->
-  <div class="min-w-0">
-    <h3 class="m-0 text-[1.9rem] md:text-[2.2rem]">{title}</h3>
-    <p class="m-0 mt-2 text-[1.08rem] text-[var(--fg)] ui">
-      {company}<span class="text-[var(--muted)]">, {meta}</span>
-    </p>
-
+  <div class="e-main" data-rise style="--i: 1">
+    <h3>{title}</h3>
     {
       points.length > 0 && (
-        <ul class="prose-serif mt-5 flex max-w-[66ch] list-disc flex-col gap-2.5 pl-5 marker:text-[var(--accent)]">
+        <ul class="e-points">
           {points.map((point) => (
             <li>{point}</li>
           ))}
         </ul>
       )
     }
-
-    {
-      tags.length > 0 && (
-        <div class="mt-6 flex flex-wrap gap-1.5">
-          {tags.map((tag) => (
-            <span class="chip">{tag}</span>
-          ))}
-        </div>
-      )
-    }
   </div>
+
+  {
+    tags.length > 0 && (
+      <div class="e-stack" data-rise style="--i: 2">
+        <ul>
+          {tags.map((tag) => (
+            <li class="small">{tag}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </article>
+
+<style>
+  .entry {
+    align-items: start;
+    row-gap: 1rem;
+  }
+  .entry + :global(.entry) {
+    margin-top: clamp(4rem, 3rem + 3vw, 6.5rem);
+  }
+  .e-when {
+    grid-column: 1 / span 3;
+  }
+  .e-main {
+    grid-column: 4 / span 6;
+  }
+  .e-stack {
+    grid-column: 10 / span 3;
+  }
+  .e-points {
+    margin-top: 1.25rem;
+    padding-left: 1.1em;
+    list-style: disc;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 66ch;
+  }
+  .e-points li {
+    font-size: var(--step-body);
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .e-points li::marker {
+    color: var(--muted);
+  }
+  .e-stack li {
+    padding: 3px 0;
+  }
+
+  @media (max-width: 899px) {
+    .e-when {
+      grid-column: 1 / span 4;
+    }
+    .e-main {
+      grid-column: 5 / span 8;
+    }
+    .e-stack {
+      grid-column: 5 / span 8;
+      margin-top: 0.5rem;
+    }
+    .e-stack ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 1.25rem;
+    }
+  }
+  @media (max-width: 599px) {
+    .e-when,
+    .e-main,
+    .e-stack {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

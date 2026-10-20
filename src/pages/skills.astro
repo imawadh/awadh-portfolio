@@ -1,16 +1,18 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import SkillCard from '../components/SkillCard.astro';
+import { projects } from '../data/projects';
+import { shots, SIZE } from '../data/shots';
 
 const skillsData = [
   {
     category: 'Languages',
-    note: 'The languages I write day to day, across web, systems and data work.',
+    note: 'The languages I write day to day, across web, systems, and data work.',
     skills: ['Python', 'C++', 'Java', 'JavaScript (ES6+)', 'TypeScript', 'SQL', 'HTML5', 'CSS3'],
   },
   {
     category: 'Frontend',
-    note: 'Component systems, routing and interface work that stays fast on real devices.',
+    note: 'Component systems, routing, and interface work that stays fast on real devices.',
     skills: [
       'React.js',
       'Next.js',
@@ -22,7 +24,7 @@ const skillsData = [
   },
   {
     category: 'Backend',
-    note: 'APIs, services and the server-side architecture products actually run on.',
+    note: 'APIs, services, and the server-side architecture products actually run on.',
     skills: [
       'Node.js',
       'Express.js',
@@ -51,7 +53,7 @@ const skillsData = [
   },
   {
     category: 'Machine Learning & AI',
-    note: 'Applied machine learning: training and shipping models that drive product features.',
+    note: 'Applied machine learning — training and shipping models that drive product features.',
     skills: ['Python', 'scikit-learn', 'Applied ML model training', 'LLMs'],
   },
   {
@@ -61,7 +63,7 @@ const skillsData = [
   },
   {
     category: 'Tools & Platforms',
-    note: 'Where the code is written, deployed, paid for and kept alive.',
+    note: 'Where the code is written, deployed, paid for, and kept alive.',
     skills: [
       'Git',
       'GitHub',
@@ -77,11 +79,29 @@ const skillsData = [
   },
   {
     category: 'Currently learning',
-    note: 'Extending the same end-to-end approach to mobile, with a first app in development.',
+    note: 'Extending the same end-to-end approach to mobile — first app in development.',
     skills: ['Android', 'iOS', 'Mobile development'],
   },
 ];
 
+// The product-building groups read as two-ended rows; the rest become a dense index.
+const building = skillsData.filter((g) =>
+  ['Languages', 'Frontend', 'Backend', 'Databases', 'Core CS'].includes(g.category)
+);
+const around = skillsData.filter((g) =>
+  ['Machine Learning & AI', 'Monitoring & Analytics', 'Tools & Platforms'].includes(g.category)
+);
+const learning = skillsData.find((g) => g.category === 'Currently learning')!;
+const index = around.flatMap((g) => g.skills.map((name) => ({ name, area: g.category })));
+const allSkills = [...new Set(skillsData.flatMap((c) => c.skills))];
+const half = Math.ceil(index.length / 2);
+const indexCols = [index.slice(0, half), index.slice(half)];
+
+// The stack at work: one screen from each of four live products, with what it runs on.
+const inUse = ['prsnn', 'prescripto', 'axiora-learning', 'evaa'].map((slug) => {
+  const p = projects.find((x) => x.slug === slug)!;
+  return { slug, name: p.name, href: p.caseStudy, tagline: p.tagline, shot: shots[slug][0] };
+});
 ---
 
 <PageLayout
@@ -89,39 +109,191 @@ const skillsData = [
   description="The full tech stack of Awadh Kishor Singh — React, Next.js, TypeScript, Node.js, Express, NestJS, MongoDB, PostgreSQL, Python, scikit-learn, AWS, and the tools behind production web apps."
 >
   <!-- ───────────── LEAD ───────────── -->
-  <section class="wrap band-lead pb-12 md:pb-16">
+  <section class="wrap band-lead">
     <h1 class="page-title reveal reveal-1">Skills</h1>
-    <p class="page-lede reveal reveal-2 mt-6 max-w-[40ch]">
-      The languages, frameworks and tools I reach for across full-stack development, from shipping
+    <p class="page-lede reveal reveal-2 mt-8 max-w-[44ch]">
+      The languages, frameworks, and tools I reach for across full-stack development — from shipping
       UI to securing APIs to monitoring what happens in production.
     </p>
   </section>
 
-  <!-- ───────────── THE WORKING STACK ───────────── -->
-  <section class="wrap band band-b">
-    <h2 class="m-0">The working stack</h2>
-    <p class="m-0 mt-3 max-w-[48ch] text-[var(--muted)]">
-      Grouped by where each one sits in a product.
-    </p>
-    <div class="mt-10 border-b border-[var(--border-bright)]">
-      {
-        skillsData.map((group) => (
-          <SkillCard category={group.category} note={group.note} skills={group.skills} />
-        ))
-      }
+  <!-- ───────────── THE WORKING STACK: one two-ended row per group ───────────── -->
+  <section class="wrap section" aria-labelledby="stack-title">
+    <div class="grid-12 sec-head">
+      <h2 id="stack-title" class="sec-h" data-rise>The working stack</h2>
+    </div>
+    <div class="mt-16 flex flex-col gap-12 md:gap-14">
+      {building.map((group) => <SkillCard category={group.category} note={group.note} skills={group.skills} />)}
     </div>
   </section>
 
-  <!-- ───────────── NEXT ───────────── -->
-  <section class="wrap band band-a">
-    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-      <p class="m-0 max-w-[48ch]">
-        See these tools at work in shipped products, or tell me what you&rsquo;re building.
-      </p>
-      <div class="flex flex-wrap gap-3">
-        <a href="/contact" class="btn btn-primary">Start a conversation</a>
-        <a href="/projects" class="btn btn-ghost">See my work</a>
+  <!-- ───────────── AROUND THE PRODUCT: group notes beside a dense index ───────────── -->
+  <section class="section around">
+    <div class="wrap grid-12 around-grid">
+      <div class="around-head">
+        <dl class="flex flex-col gap-6">
+          {
+            around.map((g, i) => (
+              <div data-rise style={`--i: ${i + 1}`}>
+                <dt>{g.category} <span class="small muted">{g.skills.length} items</span></dt>
+                <dd class="muted mt-1 max-w-[38ch]">{g.note}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="index-cols">
+        {
+          indexCols.map((col, c) => (
+            <ul class="index" data-rise style={`--i: ${c + 1}`}>
+              {col.map((s) => (
+                <li>
+                  <span>{s.name}</span>
+                  <span class="small muted">{s.area}</span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
       </div>
     </div>
   </section>
+
+  <!-- ───────────── IN USE: the stack in four live products ───────────── -->
+  <section class="wrap section" aria-labelledby="use-title">
+    <h2 id="use-title" class="sec-h-wide" data-rise>Selected work</h2>
+    <ul class="use-grid mt-12">
+      {
+        inUse.map((u, i) => (
+          <li data-rise style={`--i: ${i}`}>
+            <a href={u.href} class="use group">
+              <img
+                src={u.shot.src}
+                alt={u.shot.alt}
+                width={SIZE.desktop.width}
+                height={SIZE.desktop.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="mt-4 block group-hover:text-[var(--accent)]">{u.name}</span>
+              <span class="small muted mt-1 block">{u.tagline}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ───────────── LEARNING, AND NEXT ───────────── -->
+  <section class="wrap section next last grid-12" aria-labelledby="learning-title">
+    <div class="next-text">
+      <h2 id="learning-title" class="sec-h-wide" data-rise>{learning.category}</h2>
+      <p class="lead mt-6 max-w-[34ch]" data-rise style="--i: 1">{learning.note}</p>
+      <p class="mt-4" data-rise style="--i: 2">{learning.skills.join(', ')}</p>
+    </div>
+    <div class="next-actions" data-rise style="--i: 2">
+      <p class="small muted">Everything, in one line</p>
+      <p class="mt-3">{allSkills.join(' · ')}</p>
+    </div>
+  </section>
 </PageLayout>
+
+<style>
+  .section {
+    margin-top: var(--section-gap);
+  }
+  .sec-head {
+    align-items: end;
+    row-gap: 1rem;
+  }
+  .sec-h {
+    grid-column: 1 / span 7;
+    font-size: var(--step-head);
+  }
+  .sec-h-wide {
+    font-size: var(--step-head);
+  }
+  .sec-note {
+    grid-column: 9 / span 4;
+  }
+
+  .around {
+    background: var(--surface);
+    padding-top: calc(var(--section-gap) / 2);
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+  .around-grid {
+    align-items: start;
+    row-gap: 3rem;
+  }
+  .around-head {
+    grid-column: 1 / span 4;
+  }
+  .index-cols {
+    grid-column: 5 / span 8;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+  .index li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 44px;
+    padding: 8px 0;
+  }
+  .index li span:last-child {
+    text-align: right;
+  }
+
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .use {
+    display: block;
+  }
+  .use img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    background: var(--surface);
+  }
+  .last {
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+
+  .next {
+    align-items: end;
+    row-gap: 3rem;
+  }
+  .next-text {
+    grid-column: 1 / span 6;
+  }
+  .next-actions {
+    grid-column: 8 / span 5;
+  }
+
+  @media (max-width: 899px) {
+    .use-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 16px;
+    }
+    .sec-h,
+    .sec-note,
+    .around-head,
+    .index-cols,
+    .next-text,
+    .next-actions {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 559px) {
+    .index-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

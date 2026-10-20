@@ -1,6 +1,10 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Panel from '../../components/Panel.astro';
+import { shots, SIZE } from '../../data/shots';
+
+const wide = shots['axiora-learning'][2];
+const tall = shots['axiora-learning'].filter((s) => s.kind === 'phone')[0];
 
 const frontendStack = [
   'Next.js',
@@ -40,129 +44,152 @@ const built = [
   'A NestJS REST API backing the site, written in TypeScript',
   'PostgreSQL data layer modelled through Prisma ORM',
   'Enquiry capture with Nodemailer email notifications',
-  'A validated, secured API (class-validator, Helmet) with Jest tests',
+  'Validated, secured API — class-validator, Helmet — with Jest tests',
 ];
 ---
 
 <CaseStudyLayout
   name="Axiora Learning"
-  tagline="A full-stack site for Axiora Learning, a Bengaluru academic coaching institute, pairing a Next.js front end with a typed NestJS API to present its programs and capture student enquiries."
+  slug="axiora-learning"
+  tagline="A full-stack site for Axiora Learning — a Bengaluru academic coaching institute — pairing a Next.js front end with a typed NestJS API to present its programs and capture student enquiries."
   description="Case study of Axiora Learning — a full-stack site (Next.js + NestJS + Prisma + PostgreSQL) for a Bengaluru academic coaching institute offering IGCSE, O Level, and A Level preparation."
   role="Freelance Full Stack Developer"
-  status="Live at axioralearning.com"
-  stackSummary="Next.js, NestJS, PostgreSQL"
+  status="Live · axioralearning.com"
+  stackSummary="Next.js · NestJS · PostgreSQL"
   live="https://www.axioralearning.com/"
 >
-  <section>
-    <h2>Overview</h2>
-    <p>
-      Axiora Learning is a Bengaluru-based academic coaching institute built around one promise:
-      “System-Driven Academic Excellence.” I built it end to end: a fast Next.js front end that
-      explains the institute’s international-curriculum programs, backed by a typed NestJS API
-      that captures and routes student enquiries.
-    </p>
-  </section>
-
-  <section>
-    <h2>The brief</h2>
-    <p>
-      A coaching institute lives or dies on trust. The site had to make a structured, systematic
-      approach feel credible at a glance, present a range of curricula without overwhelming
-      visitors, and load quickly for families browsing on mobile. Just as importantly, every
-      enquiry had to reliably reach the institute — so the public site needed a real backend, not
-      just static pages.
-    </p>
-  </section>
-
-  <section>
-    <h2>Programs showcased</h2>
-    <p>The site organises Axiora’s offering into clear, self-contained program areas.</p>
-    <div class="grid gap-3 sm:grid-cols-2">
-      {
-        programs.map((p) => (
-          <div class="card p-5 md:p-6">
-            <h3 class="text-[1.15rem]">{p.name}</h3>
-            <p class="m-0 mt-2 text-base">{p.desc}</p>
-          </div>
-        ))
-      }
+  <section class="cs-open">
+    <h2 data-rise>Overview</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        Axiora Learning is a Bengaluru-based academic coaching institute built around one promise —
+        "System-Driven Academic Excellence." I built it end-to-end: a fast Next.js front end that
+        explains the institute's international-curriculum programs, backed by a typed NestJS API
+        that captures and routes student enquiries.
+      </p>
+    </div>
+    <div class="cs-plates">
+      <figure class="cs-plate-wide" data-rise style="--i: 2">
+        <img src={wide.src} alt={wide.alt} width={SIZE.desktop.width} height={SIZE.desktop.height} loading="lazy" decoding="async" />
+      </figure>
+      <figure class="cs-plate-tall" data-rise style="--i: 3">
+        <img src={tall.src} alt={tall.alt} width={SIZE.phone.width} height={SIZE.phone.height} loading="lazy" decoding="async" />
+      </figure>
     </div>
   </section>
 
-  <section>
-    <h2>Architecture</h2>
-    <p>
-      Axiora is a decoupled full-stack app. The front end is a Next.js + TypeScript site styled
-      with Tailwind CSS; the back end is a NestJS REST API, also in TypeScript, with PostgreSQL as
-      the database accessed through Prisma ORM. Incoming enquiries are validated with
-      class-validator, persisted via Prisma, and delivered to the institute over email with
-      Nodemailer.
-    </p>
-    <Panel title="How the pieces connect">
-      <ol class="m-0 flex list-none flex-col p-0">
-        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-          <p class="ui m-0 font-semibold text-[var(--fg)]">Next.js + TypeScript</p>
-          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Front end, styled with Tailwind</p>
-        </li>
-        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
-          REST over JSON
-        </li>
-        <li class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-          <p class="ui m-0 font-semibold text-[var(--fg)]">NestJS API (TypeScript)</p>
-          <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Validated with class-validator, hardened with Helmet</p>
-        </li>
-        <li class="ui ml-5 border-l-2 border-[var(--border-bright)] py-3 pl-4 text-[0.9rem] text-[var(--muted)]">
-          Writes records and sends mail
-        </li>
-        <li class="grid gap-3 sm:grid-cols-2">
-          <div class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-            <p class="ui m-0 font-semibold text-[var(--fg)]">Prisma ORM, PostgreSQL</p>
-            <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Persisted enquiries</p>
-          </div>
-          <div class="rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-            <p class="ui m-0 font-semibold text-[var(--fg)]">Nodemailer</p>
-            <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">Enquiry emails to the institute</p>
-          </div>
-        </li>
-      </ol>
-    </Panel>
+  <section class="cs-split">
+    <h2 data-rise>The brief</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        A coaching institute lives or dies on trust. The site had to make a structured, systematic
+        approach feel credible at a glance, present a range of curricula without overwhelming
+        visitors, and load quickly for families browsing on mobile. Just as importantly, every
+        enquiry had to reliably reach the institute — so the public site needed a real backend, not
+        just static pages.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>What I built</h2>
-    <p>
-      I designed and developed both ends of the application, front end and API, as a single,
-      consistent TypeScript codebase.
-    </p>
-    <ul class="prose-serif grid gap-x-8 sm:grid-cols-2">
-      {built.map((b) => <li class="border-t border-[var(--border)] py-3">{b}</li>)}
+  <section class="cs-stage">
+    <div class="cs-top">
+      <h2 data-rise>Programs showcased</h2>
+      <p class="cs-intro" data-rise style="--i: 1">
+        The site organises Axiora's offering into clear, self-contained program areas:
+      </p>
+    </div>
+    <ul class="cs-figure cs-items cs-items-4">
+      {
+        programs.map((p, i) => (
+          <li data-rise style={`--i: ${i + 1}`}>
+            <h3>{p.name}</h3>
+            <p>{p.desc}</p>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
-  <section>
-    <h2>Tech stack</h2>
-    <div class="flex flex-col gap-6">
-      <div>
-        <h3 class="text-[1.05rem]">Front end</h3>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {frontendStack.map((t) => <li class="chip">{t}</li>)}
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-[1.05rem]">Back end</h3>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {backendStack.map((t) => <li class="chip">{t}</li>)}
-        </ul>
-      </div>
+  <section class="cs-aside">
+    <div class="cs-side">
+      <h2 data-rise>Architecture</h2>
+      <p data-rise style="--i: 1">
+        Axiora is a decoupled full-stack app. The front end is a Next.js + TypeScript site styled
+        with Tailwind CSS; the back end is a NestJS REST API, also in TypeScript, with PostgreSQL as
+        the database accessed through Prisma ORM. Incoming enquiries are validated with
+        class-validator, persisted via Prisma, and delivered to the institute over email with
+        Nodemailer.
+      </p>
+    </div>
+    <div class="cs-main">
+      <Panel title="Stack">
+        <ol class="flow">
+          <li class="flow-step">
+            <div class="flow-box">
+              <p class="flow-name">Next.js + TypeScript</p>
+              <p class="flow-note">front end (Tailwind)</p>
+            </div>
+          </li>
+          <li class="flow-link">REST / JSON</li>
+          <li class="flow-step">
+            <div class="flow-box">
+              <p class="flow-name">NestJS API (TypeScript)</p>
+              <p class="flow-note">class-validator · Helmet</p>
+            </div>
+          </li>
+          <li class="flow-link" aria-hidden="true"></li>
+          <li class="flow-step flow-step-2">
+            <div class="flow-box">
+              <p class="flow-name">Prisma ORM</p>
+              <p class="flow-note">→ PostgreSQL</p>
+            </div>
+            <div class="flow-box">
+              <p class="flow-name">Nodemailer</p>
+              <p class="flow-note">→ enquiry emails</p>
+            </div>
+          </li>
+        </ol>
+      </Panel>
     </div>
   </section>
 
-  <section>
-    <h2>Outcome</h2>
-    <p>
-      Axiora Learning now has a professional, fast-loading web presence that mirrors its
-      system-driven brand — and a tested, secured backend behind it, so every prospective
-      student’s enquiry actually lands where it should.
-    </p>
+  <section class="cs-stage">
+    <div class="cs-top">
+      <h2 data-rise>What I built</h2>
+      <p class="cs-intro" data-rise style="--i: 1">
+        I designed and developed both ends of the application — frontend and API — as a single,
+        consistent TypeScript codebase.
+      </p>
+    </div>
+    <ul class="cs-figure cs-points cs-points-3" data-rise style="--i: 2">
+      {built.map((b) => <li>{b}</li>)}
+    </ul>
+  </section>
+
+  <section class="band band-b cs-stack">
+    <h2 data-rise>Tech stack</h2>
+    <div class="cs-group" data-rise style="--i: 1">
+      <h3>Front end</h3>
+      <ul>
+        {frontendStack.map((t) => <li class="chip">{t}</li>)}
+      </ul>
+    </div>
+    <div class="cs-group" data-rise style="--i: 2">
+      <h3>Back end</h3>
+      <ul>
+        {backendStack.map((t) => <li class="chip">{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cs-open">
+    <h2 data-rise>Outcome</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        Axiora Learning now has a professional, fast-loading web presence that mirrors its
+        system-driven brand — and a tested, secured backend behind it, so every prospective
+        student's enquiry actually lands where it should.
+      </p>
+    </div>
   </section>
 </CaseStudyLayout>

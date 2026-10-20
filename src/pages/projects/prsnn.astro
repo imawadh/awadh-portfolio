@@ -1,6 +1,10 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import Panel from '../../components/Panel.astro';
+import { shots, SIZE } from '../../data/shots';
+
+const wide = shots['prsnn'][2];
+const tall = shots['prsnn'].filter((s) => s.kind === 'phone')[1];
 
 const frontendStack = [
   'Next.js 16',
@@ -39,25 +43,16 @@ const backendStack = [
 ];
 
 const modes = [
-  { name: 'Don’t Go Alone', desc: 'Find a companion for an outing you’d rather not do solo.' },
-  { name: 'Sit With Me', desc: 'Quiet company: someone to simply be present alongside you.' },
+  { name: "Don't Go Alone", desc: "Find a companion for an outing you'd rather not do solo." },
+  { name: 'Sit With Me', desc: 'Quiet company — someone to simply be present alongside you.' },
   { name: 'Be Around', desc: 'Low-key presence nearby without a structured plan.' },
   { name: 'Explore Together', desc: 'Pair up to discover places and experiences in the city.' },
 ];
 
 const stats = [
-  { value: '4', label: 'Cities live' },
-  { value: '500+', label: 'Users' },
-  { value: '4.9/5', label: 'User rating' },
-];
-
-const bookingFlow = [
-  { step: 'Discover by mode', note: 'The user picks one of the four discovery modes.' },
-  { step: 'Open a verified profile', note: 'Only vetted companions are bookable.' },
-  { step: 'Pick a live slot', note: 'Slots reflect current availability.' },
-  { step: 'Pay with Razorpay', note: 'Payment runs inside a secure, compliant flow.' },
-  { step: 'Availability updates in real time', note: 'Socket.io removes the slot for everyone.' },
-  { step: 'Booking confirmed', note: 'Both sides see the confirmed booking.' },
+  { value: '4', label: 'cities live' },
+  { value: '500+', label: 'users' },
+  { value: '4.9/5', label: 'user rating' },
 ];
 
 const features = [
@@ -72,131 +67,178 @@ const features = [
 
 <CaseStudyLayout
   name="Prsnn"
-  tagline="A peer-to-peer companion marketplace live across four Indian cities, with 500+ users, a 4.9/5 rating, and a real-time availability system, built end to end as the sole developer."
+  slug="prsnn"
+  tagline="A peer-to-peer companion marketplace live across four Indian cities — 500+ users, a 4.9/5 rating, and a real-time availability system, built end-to-end as the sole developer."
   description="Case study of Prsnn, a peer-to-peer companion marketplace built with Next.js, Node.js, MongoDB, and Razorpay — live across Mumbai, Bangalore, Delhi, and Hyderabad."
   role="Sole Full Stack Developer"
-  status="Live in four cities"
-  stackSummary="Next.js, Node, MongoDB, Razorpay"
+  status="Live · 4 cities"
+  stackSummary="Next.js · Node · MongoDB · Razorpay"
   live="https://www.prsnn.com/"
 >
-  <section>
-    <h2>Overview</h2>
-    <p>
-      Prsnn is a peer-to-peer companion marketplace. It connects people who want company for an
-      outing, an errand, or simply for presence with verified companions available near them. It
-      is live across four Indian cities (Mumbai, Bangalore, Delhi, and Hyderabad) and has grown
-      to 500+ users with a 4.9/5 rating.
-    </p>
+  <section class="cs-open">
+    <h2 data-rise>Overview</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        Prsnn is a peer-to-peer companion marketplace — it connects people who want company for an
+        outing, an errand, or simply for presence, with verified companions available near them. It
+        is live across four Indian cities — Mumbai, Bangalore, Delhi, and Hyderabad — and has grown
+        to 500+ users with a 4.9/5 rating.
+      </p>
+    </div>
+    <div class="cs-plates">
+      <figure class="cs-plate-wide" data-rise style="--i: 2">
+        <img src={wide.src} alt={wide.alt} width={SIZE.desktop.width} height={SIZE.desktop.height} loading="lazy" decoding="async" />
+      </figure>
+      <figure class="cs-plate-tall" data-rise style="--i: 3">
+        <img src={tall.src} alt={tall.alt} width={SIZE.phone.width} height={SIZE.phone.height} loading="lazy" decoding="async" />
+      </figure>
+    </div>
   </section>
 
-  <section>
-    <h2>By the numbers</h2>
-    <dl class="grid grid-cols-3 gap-4 border-t border-[var(--border-bright)] pt-5">
+  <section class="cs-stage">
+    <div class="cs-top">
+      <h2 data-rise>By the numbers</h2>
+    </div>
+    <dl class="cs-figure stats">
       {
-        stats.map((s) => (
-          <div class="flex flex-col-reverse justify-end">
-            <dt class="ui mt-2 text-[0.95rem] text-[var(--muted)]">{s.label}</dt>
-            <dd class="numeral m-0 text-[clamp(1.9rem,6vw,3.2rem)] text-[var(--fg)]">{s.value}</dd>
+        stats.map((s, i) => (
+          <div data-rise style={`--i: ${i + 1}`}>
+            <dt class="small muted">{s.label}</dt>
+            <dd class="numeral">{s.value}</dd>
           </div>
         ))
       }
     </dl>
   </section>
 
-  <section>
-    <h2>The challenge</h2>
-    <p>
-      “Companionship” is not one need. Sometimes people want an active partner to explore a
-      city, sometimes just quiet presence. A single generic “book a person” flow flattens all of
-      that. Prsnn needed discovery that respects those different intents, and — because it puts
-      strangers in contact — trust and safety built in from the first screen.
-    </p>
-  </section>
-
-  <section>
-    <h2>Multi-mode discovery</h2>
-    <p>
-      Instead of one search box, Prsnn offers four distinct modes, each shaping how companions are
-      matched and presented.
-    </p>
-    <div class="grid gap-3 sm:grid-cols-2">
-      {
-        modes.map((m) => (
-          <div class="card p-5 md:p-6">
-            <h3 class="text-[1.15rem]">{m.name}</h3>
-            <p class="m-0 mt-2 text-base">{m.desc}</p>
-          </div>
-        ))
-      }
+  <section class="cs-split">
+    <h2 data-rise>The challenge</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        "Companionship" is not one need — sometimes people want an active partner to explore a
+        city, sometimes just quiet presence. A single generic "book a person" flow flattens all of
+        that. Prsnn needed discovery that respects those different intents, and — because it puts
+        strangers in contact — trust and safety built in from the first screen.
+      </p>
     </div>
   </section>
 
-  <section>
-    <h2>Real-time availability</h2>
-    <p>
-      Bookings only work if availability is honest. I built a real-time availability system on
-      Socket.io so companion slots reflect the current state — when a slot is taken it disappears
-      for everyone instantly, and users book against live data rather than a stale calendar.
-      Verified profiles sit on top of this, so every bookable companion has been vetted.
-    </p>
-    <Panel title="Booking flow">
-      <ol class="m-0 flex list-none flex-col p-0">
-        {
-          bookingFlow.map((b, i) => (
-            <li class="flex gap-4 border-t border-[var(--border)] py-3 first:border-t-0 first:pt-0 last:pb-0">
-              <span class="numeral w-6 shrink-0 text-[1.25rem] text-[var(--accent)]">{i + 1}</span>
-              <div>
-                <p class="ui m-0 font-semibold text-[var(--fg)]">{b.step}</p>
-                <p class="ui m-0 text-[0.92rem] text-[var(--muted)]">{b.note}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-    </Panel>
-  </section>
-
-  <section>
-    <h2>Payments and onboarding</h2>
-    <p>
-      Payments are handled through a secure Razorpay integration, so money changes hands inside a
-      trusted, compliant flow. On the supply side, I built the full companion onboarding journey
-      end to end (sign-up, verification, and going live) alongside user authentication for the
-      people booking them.
-    </p>
-  </section>
-
-  <section>
-    <h2>Key features</h2>
-    <ul class="prose-serif grid gap-x-8 sm:grid-cols-2">
-      {features.map((f) => <li class="border-t border-[var(--border)] py-3">{f}</li>)}
+  <section class="cs-stage">
+    <div class="cs-top">
+      <h2 data-rise>Multi-mode discovery</h2>
+      <p class="cs-intro" data-rise style="--i: 1">
+        Instead of one search box, Prsnn offers four distinct modes, each shaping how companions are
+        matched and presented:
+      </p>
+    </div>
+    <ul class="cs-figure cs-items cs-items-4">
+      {
+        modes.map((m, i) => (
+          <li data-rise style={`--i: ${i + 1}`}>
+            <h3>{m.name}</h3>
+            <p>{m.desc}</p>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
-  <section>
-    <h2>Tech stack</h2>
-    <div class="flex flex-col gap-6">
-      <div>
-        <h3 class="text-[1.05rem]">Front end</h3>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {frontendStack.map((t) => <li class="chip">{t}</li>)}
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-[1.05rem]">Back end</h3>
-        <ul class="mt-3 flex flex-wrap gap-2">
-          {backendStack.map((t) => <li class="chip">{t}</li>)}
-        </ul>
-      </div>
+  <section class="cs-aside">
+    <div class="cs-side">
+      <h2 data-rise>Real-time availability</h2>
+      <p data-rise style="--i: 1">
+        Bookings only work if availability is honest. I built a real-time availability system on
+        Socket.io so companion slots reflect the current state — when a slot is taken it disappears
+        for everyone instantly, and users book against live data rather than a stale calendar.
+        Verified profiles sit on top of this, so every bookable companion has been vetted.
+      </p>
+    </div>
+    <div class="cs-main">
+      <Panel title="Booking flow">
+        <ol class="flow">
+          {
+            ['discover (mode)', 'verified profile', 'pick live slot', 'Razorpay payment', 'real-time availability', 'confirmed booking'].map((step, i) => (
+              <>
+                {i > 0 && <li class="flow-link" aria-hidden="true" />}
+                <li class="flow-step">
+                  <div class="flow-box">
+                    <p class="flow-name">{step}</p>
+                  </div>
+                </li>
+              </>
+            ))
+          }
+        </ol>
+      </Panel>
     </div>
   </section>
 
-  <section>
-    <h2>Outcome</h2>
-    <p>
-      Built solo and shipped to production, Prsnn reached 500+ users across four cities with a
-      4.9/5 rating — evidence that thoughtful, intent-aware discovery and trust-first design
-      resonate with real people, not just in a spec.
-    </p>
+  <section class="cs-split">
+    <h2 data-rise>Payments &amp; onboarding</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        Payments are handled through a secure Razorpay integration, so money changes hands inside a
+        trusted, compliant flow. On the supply side, I built the full companion onboarding journey
+        end-to-end — sign-up, verification, and going live — alongside user authentication for the
+        people booking them.
+      </p>
+    </div>
+  </section>
+
+  <section class="cs-stage">
+    <div class="cs-top">
+      <h2 data-rise>Key features</h2>
+    </div>
+    <ul class="cs-figure cs-points cs-points-3" data-rise style="--i: 1">
+      {features.map((f) => <li>{f}</li>)}
+    </ul>
+  </section>
+
+  <section class="band band-b cs-stack">
+    <h2 data-rise>Tech stack</h2>
+    <div class="cs-group" data-rise style="--i: 1">
+      <h3>Front end</h3>
+      <ul>
+        {frontendStack.map((t) => <li class="chip">{t}</li>)}
+      </ul>
+    </div>
+    <div class="cs-group" data-rise style="--i: 2">
+      <h3>Back end</h3>
+      <ul>
+        {backendStack.map((t) => <li class="chip">{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cs-open">
+    <h2 data-rise>Outcome</h2>
+    <div class="cs-main">
+      <p data-rise style="--i: 1">
+        Built solo and shipped to production, Prsnn reached 500+ users across four cities with a
+        4.9/5 rating — evidence that thoughtful, intent-aware discovery and trust-first design
+        resonate with real people, not just in a spec.
+      </p>
+    </div>
   </section>
 </CaseStudyLayout>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 20px;
+  }
+  .stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+  .stats dd {
+    font-size: var(--step-display);
+  }
+  @media (max-width: 899px) {
+    .stats dd {
+      font-size: var(--step-head);
+    }
+  }
+</style>

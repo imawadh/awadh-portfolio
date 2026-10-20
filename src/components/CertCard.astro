@@ -11,32 +11,62 @@ interface Props {
 const { date, title, issuer, details, url } = Astro.props;
 ---
 
-<a
-  href={url}
-  target="_blank"
-  rel="noopener noreferrer"
-  class="cert-row group grid items-baseline gap-x-10 gap-y-2 border-t border-[var(--border-bright)] py-8 last:border-b"
->
-  <div class="min-w-0">
-    <h3 class="m-0 text-[1.6rem] transition-colors duration-200 group-hover:text-[var(--accent)]">
-      {title}
-    </h3>
-    <p class="m-0 mt-1 text-[1.02rem] text-[var(--fg)] ui">{issuer}</p>
-    <p class="m-0 mt-2 max-w-[60ch] text-[1rem]">{details}</p>
+<!-- A two-ended row linking to the certificate's verification page: title and
+     issuer on the left, what it covered in the middle, the date on the right. -->
+<a href={url} target="_blank" rel="noopener noreferrer" class="cert grid-12 group">
+  <div class="c-title">
+    <h3 class="transition-colors duration-200 group-hover:text-[var(--accent)]">{title}</h3>
+    <p class="small muted mt-1">{issuer}</p>
   </div>
-
-  <div class="flex items-baseline justify-between gap-4 md:flex-col md:items-end md:gap-1.5 ui">
-    <span class="text-[0.95rem] text-[var(--muted)]">{date}</span>
-    <span class="text-[0.98rem] font-semibold text-[var(--accent)] underline decoration-1 underline-offset-[0.22em] group-hover:decoration-2">
-      Verify the certificate
-    </span>
-  </div>
+  <p class="c-details">
+    {details}
+    <span class="c-verify">Verify &#8599;<span class="sr-only"> (opens in a new tab)</span></span>
+  </p>
+  <p class="c-date small muted figures">{date}</p>
 </a>
 
 <style>
-  @media (min-width: 768px) {
-    .cert-row {
-      grid-template-columns: 1fr 13rem;
+  .cert {
+    align-items: baseline;
+    row-gap: 0.5rem;
+    padding: 1.6rem 0;
+  }
+  .c-title {
+    grid-column: 1 / span 6;
+  }
+  .c-details {
+    grid-column: 7 / span 4;
+    max-width: 44ch;
+  }
+  .c-verify {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: var(--step-small);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: var(--muted);
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+  .cert:hover .c-verify {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  .c-date {
+    grid-column: 11 / span 2;
+    text-align: right;
+  }
+
+  @media (max-width: 899px) {
+    .c-title {
+      grid-column: 1 / span 9;
+    }
+    .c-date {
+      grid-column: 10 / span 3;
+      grid-row: 1;
+    }
+    .c-details {
+      grid-column: 1 / -1;
     }
   }
 </style>

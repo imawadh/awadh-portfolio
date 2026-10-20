@@ -9,27 +9,49 @@ interface Props {
 const { category, note, skills } = Astro.props;
 ---
 
-<div class="grid gap-x-12 gap-y-4 border-t border-[var(--border-bright)] py-8 md:grid-cols-[5fr_7fr] md:py-10">
-  <div>
-    <h3 class="m-0 text-[1.7rem]">{category}</h3>
-    <p class="m-0 mt-2 max-w-[36ch] text-[1rem] text-[var(--muted)]">{note}</p>
+<!-- A two-ended row: the group and what it is for on the left, the names
+     themselves running across the right of the grid. -->
+<div class="skill-row grid-12" data-rise>
+  <div class="s-head">
+    <h3>{category}</h3>
+    <p class="small muted mt-1">{skills.length} items</p>
+    <p class="muted mt-2 max-w-[36ch]">{note}</p>
   </div>
-
-  <ul class="skill-list m-0 flex flex-wrap content-start gap-x-1 gap-y-1">
+  <ul class="s-list">
     {skills.map((skill) => <li>{skill}</li>)}
   </ul>
 </div>
 
 <style>
-  /* Skills read as a run of names, each in its own soft pill. */
-  .skill-list li {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--fg);
-    padding: 0.3rem 0.85rem;
-    border-radius: 999px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  .skill-row {
+    align-items: baseline;
+    row-gap: 1rem;
+  }
+  .s-head {
+    grid-column: 1 / span 4;
+  }
+  .s-list {
+    grid-column: 6 / span 7;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0;
+  }
+  /* Names set in the lead size, separated by a comma rather than a pill. */
+  .s-list li {
+    font-size: var(--step-lead);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .s-list li:not(:last-child)::after {
+    content: ',';
+    margin-right: 0.4em;
+    color: var(--muted);
+  }
+
+  @media (max-width: 899px) {
+    .s-head,
+    .s-list {
+      grid-column: 1 / -1;
+    }
   }
 </style>

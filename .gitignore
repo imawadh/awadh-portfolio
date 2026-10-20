@@ -25,3 +25,5 @@ pnpm-debug.log*
 .idea/
 
 .early.coverage
+# design-skill working files
+.taste-skill/

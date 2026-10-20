@@ -1,8 +1,10 @@
 ---
 import PageLayout from './PageLayout.astro';
+import { shots, SIZE } from '../data/shots';
 
 interface Props {
   name: string;
+  slug?: string;
   tagline: string;
   description: string;
   role: string;
@@ -14,123 +16,621 @@ interface Props {
 }
 
 const { name, tagline, description, role, status, stackSummary, live, code, links } = Astro.props;
+const slug = Astro.props.slug ?? Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
+const frames = shots[slug] ?? [];
 
 const meta = [
   { key: 'Role', value: role },
   { key: 'Status', value: status },
   { key: 'Stack', value: stackSummary },
 ];
+
+// Secondary links sit with the facts; the gold button is kept for the close.
+const outLinks = [
+  ...(links && links.length > 0
+    ? links
+    : live
+      ? [{ label: 'Visit live site ↗', url: live }]
+      : []),
+  ...(code ? [{ label: 'View code ↗', url: code }] : []),
+];
 ---
 
 <PageLayout title={`${name} — Awadh Kishor Singh`} description={description}>
-  <article class="wrap band-lead">
-    <a href="/projects" class="back-link ui">All projects</a>
+  <!-- ───────────── FIRST SCREEN: the name, the facts, the screens ───────────── -->
+  <section class="case-lead" aria-labelledby="case-title">
+    <div class="wrap">
+      <h1 id="case-title" class="case-title reveal reveal-1">{name}</h1>
 
-    <h1 class="case-title reveal reveal-1 mt-6">{name}</h1>
-    <p class="case-tagline reveal reveal-2 mt-5 max-w-[30ch]">{tagline}</p>
-
-    <dl class="reveal reveal-3 mt-12 grid gap-y-6 rounded-[var(--radius)] bg-[var(--surface)] p-6 sm:grid-cols-3 sm:gap-x-8 md:p-8">
-      {
-        meta.map((m) => (
-          <div>
-            <dt class="ui text-[0.95rem] text-[var(--muted)]">{m.key}</dt>
-            <dd class="ui m-0 mt-1 text-[1.08rem] font-medium leading-snug text-[var(--fg)]">{m.value}</dd>
-          </div>
-        ))
-      }
-    </dl>
-
-    <div class="case-body mt-16 flex flex-col gap-16 md:mt-20 md:gap-20">
-      <slot />
-    </div>
-
-    <div class="mt-16 flex flex-wrap gap-3 border-t border-[var(--border-bright)] pt-10">
-      {
-        links && links.length > 0
-          ? links.map((l) => (
-              <a href={l.url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                {l.label}
-              </a>
+      <div class="case-facts grid-12 small reveal reveal-2">
+        <p class="cf-tagline">{tagline}</p>
+        <dl class="cf-meta">
+          {
+            meta.map((m) => (
+              <div>
+                <dt class="muted">{m.key}</dt>
+                <dd>{m.value}</dd>
+              </div>
             ))
-          : live && (
-              <a href={live} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                Visit the live site
-              </a>
-            )
-      }
-      {
-        code && (
-          <a href={code} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
-            Source on GitHub
-          </a>
-        )
-      }
-      <a href="/projects" class="btn btn-ghost">All projects</a>
+          }
+        </dl>
+        {
+          outLinks.length > 0 && (
+            <ul class="cf-links">
+              {outLinks.map((l) => (
+                <li>
+                  <a class="link" href={l.url} target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
     </div>
 
-    <div class="mt-12 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-      <p class="m-0 max-w-[48ch]">
-        Need something built like {name}? Tell me what you&rsquo;re working on.
-      </p>
-      <a href="/contact" class="btn btn-primary shrink-0">Start a conversation</a>
-    </div>
+    {
+      frames.length > 0 ? (
+        <div class="case-shots reveal reveal-3" data-view="desktop" data-view-root>
+          <div class="film" data-film tabindex="0" aria-label={`${name} screens, scroll sideways`}>
+            {frames.map((f, i) => (
+              <figure class={`slide slide-${f.kind}`}>
+                <img
+                  src={f.src}
+                  alt={f.alt}
+                  width={SIZE[f.kind].width}
+                  height={SIZE[f.kind].height}
+                  loading={i < 3 || f.kind === 'phone' ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </figure>
+            ))}
+          </div>
+          <div class="wrap shots-foot">
+            <div class="view-switch" role="group" aria-label="Show the screens as">
+              <button type="button" class="view-btn" data-view-btn="desktop" aria-pressed="true">
+                Desktop
+              </button>
+              <button type="button" class="view-btn" data-view-btn="phone" aria-pressed="false">
+                Phone
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="wrap reveal reveal-3">
+          <slot name="lead" />
+        </div>
+      )
+    }
+  </section>
+
+  <article class="wrap case-body">
+    <slot />
+
+    <!-- ───────────── CLOSE: one line, one gold button ───────────── -->
+    <section class="cs-close grid-12" aria-labelledby="close-title">
+      <h2 id="close-title" class="close-line" data-rise>Need something built like {name}?</h2>
+      <div class="close-side" data-rise style="--i: 1">
+        <p>I&rsquo;m open to internships and freelance work &mdash; tell me what you&rsquo;re working on.</p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href="/contact" class="btn btn-primary">Let&rsquo;s work together</a>
+          <a href="/projects" class="link">All work</a>
+        </div>
+      </div>
+    </section>
   </article>
 </PageLayout>
 
 <style>
-  .back-link {
-    font-size: 1rem;
-    font-weight: 560;
-    color: var(--muted);
-    text-decoration: underline;
-    text-decoration-color: var(--border-bright);
-    text-underline-offset: 0.22em;
-  }
-  .back-link:hover {
-    color: var(--accent);
-    text-decoration-color: currentColor;
+  /* ── FIRST SCREEN ── */
+  .case-lead {
+    overflow-x: clip;
+    padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
   }
   .case-title {
-    font-size: clamp(3.4rem, 12vw, 9rem);
-    font-variation-settings: 'wdth' 75;
+    font-size: var(--step-display);
+    line-height: 0.88;
     letter-spacing: -0.03em;
-    line-height: 0.86;
+    margin-left: -0.04em;
   }
-  .case-tagline {
-    font-family: var(--font-serif);
-    font-size: clamp(1.4rem, 2.8vw, 2rem);
-    line-height: 1.3;
-    color: var(--fg);
+  .case-facts {
+    margin-top: clamp(1.25rem, 1rem + 1vw, 2rem);
+    row-gap: 1.25rem;
+  }
+  .case-facts p,
+  .case-facts dt,
+  .case-facts dd,
+  .case-facts li {
+    font-size: var(--step-small);
+    line-height: 1.45;
+  }
+  .case-facts p.cf-tagline {
+    grid-column: 1 / span 5;
+    max-width: 46ch;
+    font-size: var(--step-body);
+  }
+  .cf-meta {
+    grid-column: 7 / span 6;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 1rem;
+  }
+  .cf-links {
+    grid-column: 7 / span 6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .case-shots {
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  }
+
+  /* The filmstrip: a centred slide with its neighbours cut by the screen edges. */
+  .film {
+    --slide-w: 73vw;
+    --slide-h: calc(var(--slide-w) * 600 / 1046);
+    display: flex;
+    gap: 20px;
+    padding-inline: calc((100vw - var(--slide-w)) / 2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    cursor: grab;
+  }
+  .film::-webkit-scrollbar {
+    display: none;
+  }
+  .film.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+  .film.is-dragging img {
+    pointer-events: none;
+  }
+  .slide {
+    flex: none;
+    height: var(--slide-h);
+    scroll-snap-align: center;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .slide-desktop {
+    width: var(--slide-w);
+  }
+  .slide-phone {
+    width: calc(var(--slide-h) * 390 / 844);
+  }
+  /* Phone captures are narrower, so the strip pads to centre one of them. */
+  .case-shots[data-view='phone'] .film {
+    padding-inline: calc((100vw - var(--slide-h) * 390 / 844) / 2);
+  }
+  .case-shots[data-view='desktop'] .slide-phone,
+  .case-shots[data-view='phone'] .slide-desktop {
+    display: none;
+  }
+
+  .shots-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem 2rem;
+    margin-top: 20px;
+  }
+  .view-switch {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--surface);
+  }
+  .view-btn {
+    min-height: 44px;
+    padding: 0 1.1rem;
+    font: inherit;
+    font-size: var(--step-small);
+    font-weight: 500;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .view-btn:hover {
+    color: var(--ink);
+  }
+  .view-btn[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* ── CLOSE ── */
+  .cs-close {
+    align-items: end;
+    row-gap: 2rem;
+  }
+  .close-line {
+    grid-column: 1 / span 7;
+  }
+  .close-side {
+    grid-column: 9 / span 4;
+  }
+
+  @media (max-width: 899px) {
+    .cf-tagline {
+      grid-column: 1 / -1;
+    }
+    .case-facts p.cf-tagline,
+    .cf-meta,
+    .cf-links {
+      grid-column: 1 / -1;
+    }
+    .film {
+      --slide-w: 78vw;
+      --slide-h: calc(var(--slide-w) * 5 / 4);
+      gap: 10px;
+    }
+    .slide-desktop img {
+      object-position: left top;
+    }
+    .close-line,
+    .close-side {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 559px) {
+    .cf-meta {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .close-line {
+      font-size: var(--step-lead);
+      line-height: 1.2;
+    }
   }
 </style>
 
 <style is:global>
-  /* Case study sections: margin heading on wide screens, stacked on narrow. */
-  @media (min-width: 900px) {
-    .case-body > section {
-      display: grid;
-      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-      column-gap: 4rem;
+  /* ── CASE STUDY SECTIONS ──
+     Each section takes one of a few compositions so neighbours differ:
+       cs-open   heading on its own line, a lead paragraph set in from the left
+       cs-split  heading on the left, running text on the right
+       cs-aside  heading and text on the left, a figure on the right
+       cs-stage  heading beside a short intro, then a full-width figure
+       cs-pair   two short sections side by side
+     The tech stack sits on a tone-step band (global .band .band-b). */
+  .case-body {
+    padding-bottom: 6rem;
+  }
+  .case-body > section {
+    margin-top: var(--section-gap);
+  }
+  .case-body > section:not(.band) {
+    /* Keeps the tight-leaded headings' glyphs inside their section box. */
+    padding-top: 12px;
+  }
+  .case-body > section.band {
+    isolation: isolate;
+    padding-top: clamp(3rem, 2rem + 3vw, 5.5rem);
+    padding-bottom: clamp(3rem, 2rem + 3vw, 5.5rem);
+  }
+
+  /* Two screens side by side: a desktop capture and a phone capture. */
+  .cs-plates {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 20px;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+  .cs-plates figure {
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .cs-plates img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .cs-plate-wide {
+    grid-column: 1 / span 9;
+    aspect-ratio: 1440 / 900;
+  }
+  .cs-plate-tall {
+    grid-column: 10 / span 3;
+  }
+  @media (max-width: 899px) {
+    .cs-plate-wide {
+      grid-column: 1 / span 8;
     }
-    .case-body > section > h2 {
-      grid-column: 1;
-      grid-row: 1 / span 20;
-      align-self: start;
-      position: sticky;
-      top: 6.5rem;
+    .cs-plate-tall {
+      grid-column: 9 / span 4;
     }
-    .case-body > section > :not(h2) {
-      grid-column: 2;
+    .cs-plate-wide img {
+      object-position: left top;
     }
   }
-  .case-body section > h2 {
-    font-size: clamp(1.7rem, 3vw, 2.3rem);
-    margin-bottom: 1.25rem;
+  @media (max-width: 639px) {
+    .cs-plate-wide {
+      grid-column: 1 / -1;
+    }
+    .cs-plate-tall {
+      display: none;
+    }
   }
-  .case-body section > :not(h2) + * {
-    margin-top: 1.1rem;
+  .case-body .cs-main > * + *,
+  .case-body .cs-side > * + * {
+    margin-top: 1.25rem;
   }
-  .case-body section > p {
+  .case-body p {
     max-width: 64ch;
   }
+
+  .cs-open .cs-main {
+    margin-top: 2rem;
+  }
+  .cs-open .cs-main > p:first-child {
+    font-size: var(--step-lead);
+    line-height: 1.35;
+    max-width: 46ch;
+  }
+
+  .cs-stage .cs-intro {
+    margin-top: 1.25rem;
+  }
+  .cs-stage .cs-figure {
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  }
+
+  .cs-pair {
+    display: grid;
+    row-gap: var(--section-gap);
+  }
+  .cs-pair h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .cs-split .cs-main,
+  .cs-aside .cs-main {
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .cs-open .cs-main {
+      margin-left: calc(100% / 12 * 4);
+    }
+    .cs-split,
+    .cs-aside,
+    .cs-stage .cs-top,
+    .cs-pair {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 20px;
+    }
+    .cs-split > h2,
+    .cs-aside > .cs-side {
+      grid-column: 1 / span 5;
+    }
+    .cs-split > .cs-main {
+      grid-column: 7 / span 6;
+      margin-top: 0;
+    }
+    .cs-aside > .cs-main {
+      grid-column: 7 / span 6;
+      margin-top: 0;
+    }
+    .cs-stage .cs-top > h2 {
+      grid-column: 1 / span 6;
+    }
+    .cs-stage .cs-intro {
+      grid-column: 8 / span 5;
+      align-self: end;
+      margin-top: 0;
+    }
+    .cs-pair > :first-child {
+      grid-column: 1 / span 5;
+    }
+    .cs-pair > :last-child {
+      grid-column: 7 / span 6;
+    }
+  }
+
+  /* Tech stack on the tone band. */
+  .cs-stack {
+    display: grid;
+    gap: 2rem 20px;
+  }
+  .cs-stack h3 {
+    text-transform: capitalize;
+  }
+  .cs-stack ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  @media (min-width: 900px) {
+    .cs-stack {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+    .cs-stack > h2 {
+      grid-column: 1 / span 4;
+    }
+    .cs-stack > .cs-group {
+      grid-column: span 4;
+    }
+    .cs-stack > .cs-group-wide {
+      grid-column: 5 / span 8;
+    }
+  }
+
+  /* A list of points in columns, separated by space only. */
+  .cs-points {
+    display: grid;
+    gap: 1rem 20px;
+  }
+  @media (min-width: 640px) {
+    .cs-points {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .cs-points-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* Named items in columns (programs, ventures, modes): words, no boxes. */
+  .cs-items {
+    display: grid;
+    gap: 2.5rem 20px;
+  }
+  .cs-items p {
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .cs-items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1100px) {
+    .cs-items-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* Diagram: a --surface panel with --surface-2 boxes, joined by words. */
+  .flow {
+    display: flex;
+    flex-direction: column;
+  }
+  .flow-step {
+    display: grid;
+    gap: 8px;
+  }
+  .flow-step-2 {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+  .flow-box {
+    background: var(--surface-2);
+    padding: 0.9rem 1.1rem;
+  }
+  .flow-box p {
+    max-width: none;
+  }
+  .flow-name {
+    font-weight: 500;
+  }
+  .flow-note,
+  .flow-link {
+    font-size: var(--step-small);
+    color: var(--muted);
+  }
+  .flow-link {
+    padding: 0.75rem 1.1rem;
+  }
+  .flow-link::before {
+    content: '↓';
+    margin-right: 0.5rem;
+    color: var(--ink);
+  }
+  @media (min-width: 900px) {
+    .flow-row {
+      flex-direction: row;
+      align-items: center;
+    }
+    .flow-row .flow-step {
+      flex: 1 1 0;
+    }
+    .flow-row .flow-link {
+      flex: 0 0 8.5rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .flow-row .flow-link::before {
+      content: '→';
+      display: block;
+      margin: 0 0 0.25rem;
+    }
+  }
+
+  /* A true sequence, numbered by its own list. */
+  .flow-seq {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    counter-reset: seq;
+  }
+  .flow-seq li {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    counter-increment: seq;
+  }
+  .flow-seq li::before {
+    content: counter(seq);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
 </style>
+
+<script>
+  // Filmstrip: open on the second slide so a neighbour shows on each side,
+  // and let a mouse drag it sideways the way a touch screen does.
+  const films = document.querySelectorAll<HTMLElement>('[data-film]');
+  const centre = (film: HTMLElement) => {
+    const visible = [...film.children].filter((c) => (c as HTMLElement).offsetWidth > 0) as HTMLElement[];
+    const target = visible[1] ?? visible[0];
+    if (target) film.scrollLeft = target.offsetLeft + target.offsetWidth / 2 - film.clientWidth / 2;
+  };
+  films.forEach((film) => {
+    centre(film);
+    let down = false;
+    let startX = 0;
+    let startLeft = 0;
+    film.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      down = true;
+      startX = e.clientX;
+      startLeft = film.scrollLeft;
+      film.classList.add('is-dragging');
+      film.setPointerCapture(e.pointerId);
+    });
+    film.addEventListener('pointermove', (e) => {
+      if (down) film.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    const end = () => {
+      if (!down) return;
+      down = false;
+      film.classList.remove('is-dragging');
+    };
+    film.addEventListener('pointerup', end);
+    film.addEventListener('pointercancel', end);
+  });
+
+  // The Desktop / Phone switch swaps the strip between the two captures.
+  // Phones open on the phone captures, which fit their portrait slides.
+  const root = document.querySelector<HTMLElement>('[data-view-root]');
+  const viewBtns = document.querySelectorAll<HTMLButtonElement>('[data-view-btn]');
+  const setView = (view: string) => {
+    if (!root) return;
+    root.dataset.view = view;
+    viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.viewBtn === view)));
+    films.forEach(centre);
+  };
+  viewBtns.forEach((btn) => btn.addEventListener('click', () => setView(btn.dataset.viewBtn!)));
+  if (window.matchMedia('(max-width: 899px)').matches) setView('phone');
+</script>

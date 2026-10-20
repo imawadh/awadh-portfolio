@@ -1,34 +1,36 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import CertCard from '../components/CertCard.astro';
+import { projects } from '../data/projects';
+import { shots, SIZE } from '../data/shots';
 
 const certifications = [
   {
     date: 'Jan 2026',
     title: 'The Complete Full-Stack Web Development Bootcamp',
-    issuer: 'Dr. Angela Yu, Udemy',
-    details: '70 hours of REST API design, backend architecture, and SQL and NoSQL databases.',
+    issuer: 'Dr. Angela Yu · Udemy',
+    details: '70 hours — REST API design, backend architecture, SQL & NoSQL databases',
     url: 'https://www.udemy.com/certificate/UC-16b07d74-aa19-45d3-924c-41b9e7fae772/',
   },
   {
     date: 'Apr 2025',
     title: 'Python Certification',
     issuer: 'Intellipaat',
-    details: 'Professional Python programming certification.',
+    details: 'Professional Python programming certification',
     url: 'https://intellipaat.com/academy/certificate-link/?Yz0xNTQzJnU9MTY2Njk4JmV4dD0x',
   },
   {
     date: 'Mar 2025',
     title: 'Mathematics for Data Science & ML Bootcamp',
-    issuer: 'Krish Naik, Udemy',
-    details: 'Mathematical foundations for machine learning.',
+    issuer: 'Krish Naik · Udemy',
+    details: 'Mathematical foundations for machine learning',
     url: 'https://www.udemy.com/certificate/UC-d4ef6961-95f9-4912-be28-c2c0cf02974a/',
   },
   {
     date: 'Jan 2025',
     title: 'Complete Data Analysis Bootcamp',
-    issuer: 'Krish Naik, Udemy',
-    details: 'Comprehensive data analysis training.',
+    issuer: 'Krish Naik · Udemy',
+    details: 'Comprehensive data analysis training',
     url: 'https://www.udemy.com/certificate/UC-1590fb55-374f-406a-8285-014f7a1b1088/',
   },
 ];
@@ -36,72 +38,229 @@ const certifications = [
 const achievements = [
   {
     value: '1,000+',
+    whole: '1,000',
+    frac: '+',
     label: 'DSA problems solved',
-    note: 'On LeetCode and Codeforces, across trees, graphs and dynamic programming.',
+    note: 'LeetCode & Codeforces — Trees, Graphs, Dynamic Programming',
   },
   {
     value: '2,100+',
+    whole: '2,100',
+    frac: '+',
     label: 'GitHub commits',
-    note: 'Across personal projects, freelance work and internship contributions.',
+    note: 'Across personal projects, freelance work, and internship contributions',
   },
 ];
+
+// Screens of the shipped work, beside the page title.
+const work = ['prsnn', 'prescripto', 'axiora-learning', 'evaa'].map((slug) => {
+  const p = projects.find((x) => x.slug === slug)!;
+  return { name: p.name, href: p.caseStudy, shot: shots[slug][0] };
+});
 ---
 
 <PageLayout
   title="Certifications & Achievements — Awadh Kishor Singh"
   description="Certifications and achievements of Awadh Kishor Singh — full-stack web development, Python, data science, 1,000+ DSA problems, and 2,100+ GitHub commits."
 >
-  <section class="wrap band-lead pb-12 md:pb-16">
-    <h1 class="page-title reveal reveal-1 max-w-[12ch]">Proof of the work</h1>
-    <p class="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
-      Verified certifications and measurable achievements from continuous learning across
-      full-stack development, Python and data science.
-    </p>
-  </section>
-
-  <section class="wrap band band-b">
-    <div class="split">
-      <div class="split-head">
-        <h2 class="m-0">Achievements</h2>
-        <p>Practice that adds up, counted.</p>
-      </div>
-
-      <div class="grid gap-x-12 border-t border-[var(--border-bright)] sm:grid-cols-2">
-        {
-          achievements.map((a) => (
-            <div class="border-b border-[var(--border)] py-8">
-              <span class="numeral block text-[3.4rem] text-[var(--accent)] md:text-[4.4rem]">
-                {a.value}
-              </span>
-              <p class="ui m-0 mt-4 text-[1.15rem] font-semibold text-[var(--fg)]">{a.label}</p>
-              <p class="m-0 mt-1.5 max-w-[36ch] text-[1rem] text-[var(--muted)]">{a.note}</p>
-            </div>
-          ))
-        }
-      </div>
+  <section class="wrap band-lead lead-row grid-12">
+    <div class="lead-main">
+      <h1 class="page-title reveal reveal-1 max-w-[12ch]">Proof of the work</h1>
+      <p class="page-lede reveal reveal-2 mt-8 max-w-[34ch]">
+        Verified certifications and measurable achievements from continuous learning across
+        full-stack development, Python, and data science.
+      </p>
     </div>
-  </section>
-
-  <section class="wrap band band-a">
-    <div class="split">
-      <div class="split-head">
-        <h2 class="m-0">Certifications</h2>
-        <p>{certifications.length} verified, each linked to its issuer.</p>
-      </div>
-
-      <div class="flex flex-col">
+    <figure class="lead-shots reveal reveal-3">
+      <ul class="shots-grid">
         {
-          certifications.map((cert) => (
-            <CertCard
-              date={cert.date}
-              title={cert.title}
-              issuer={cert.issuer}
-              details={cert.details}
-              url={cert.url}
-            />
+          work.map((w, i) => (
+            <li>
+              <a href={w.href} aria-label={`${w.name} case study`}>
+                <img
+                  src={w.shot.src}
+                  alt={w.shot.alt}
+                  width={SIZE.desktop.width}
+                  height={SIZE.desktop.height}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </a>
+            </li>
           ))
         }
+      </ul>
+      <figcaption class="small muted mt-3">
+        {work.map((w) => w.name).join(', ')}
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ───────────── ACHIEVEMENTS: figures aligned on the decimal ───────────── -->
+  <section class="wrap section ledger grid-12" aria-labelledby="ach-title">
+    <div class="ledger-head">
+      <h2 id="ach-title" class="sec-h" data-rise>Achievements</h2>
+    </div>
+    <dl class="ledger-rows">
+      {
+        achievements.map((a, i) => (
+          <div class="l-row" data-rise style={`--i: ${i + 1}`}>
+            <dt class="sr-only">{a.label}</dt>
+            <dd class="l-whole figures" aria-hidden="true">{a.whole}</dd>
+            <dd class="l-frac figures" aria-hidden="true">{a.frac}</dd>
+            <dd class="l-cap">
+              <span class="sr-only">{a.value} </span>
+              <span class="block">{a.label}</span>
+              <span class="block muted mt-1">{a.note}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <!-- ───────────── CERTIFICATIONS: two-ended rows, each to its verification ───────────── -->
+  <section class="section certs last" aria-labelledby="cert-title">
+    <div class="wrap">
+      <div class="grid-12 cert-head">
+        <h2 id="cert-title" class="sec-h-wide" data-rise>Certifications</h2>
+        <p class="cert-note muted" data-rise style="--i: 1">
+          {certifications.length} verified
+        </p>
       </div>
+      <ul class="mt-14 flex flex-col">
+        {
+          certifications.map((cert, i) => (
+            <li data-rise style={`--i: ${i % 3}`}>
+              <CertCard
+                date={cert.date}
+                title={cert.title}
+                issuer={cert.issuer}
+                details={cert.details}
+                url={cert.url}
+              />
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 </PageLayout>
+
+<style>
+  .section {
+    margin-top: var(--section-gap);
+  }
+  .lead-row {
+    align-items: end;
+    row-gap: 3rem;
+  }
+  .lead-main {
+    grid-column: 1 / span 7;
+  }
+  .lead-shots {
+    grid-column: 8 / span 5;
+  }
+  .shots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .shots-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    background: var(--surface);
+  }
+  .sec-h,
+  .sec-h-wide {
+    font-size: var(--step-head);
+    line-height: 1;
+  }
+
+  /* Ledger: the same build as the home page's, figures right-aligned on the point. */
+  .ledger {
+    align-items: center;
+    row-gap: 2.5rem;
+  }
+  .ledger-head {
+    grid-column: 1 / span 4;
+  }
+  .ledger-rows {
+    grid-column: 5 / span 8;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .l-row {
+    display: grid;
+    grid-template-columns: 2.9em 0.7em minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 0;
+    font-size: var(--step-display);
+  }
+  .l-whole,
+  .l-frac {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .l-whole {
+    text-align: right;
+  }
+  .l-cap {
+    padding-left: 1.25rem;
+    font-size: var(--step-body);
+    line-height: 1.35;
+    max-width: 34ch;
+  }
+
+  .certs {
+    background: var(--surface);
+    padding-top: calc(var(--section-gap) / 2);
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+  .cert-head {
+    align-items: end;
+    row-gap: 1rem;
+  }
+  .cert-head h2 {
+    grid-column: 1 / span 7;
+  }
+  .cert-note {
+    grid-column: 9 / span 4;
+  }
+
+  @media (max-width: 899px) {
+    .lead-main,
+    .lead-shots,
+    .ledger-head,
+    .ledger-rows,
+    .cert-head h2,
+    .cert-note {
+      grid-column: 1 / -1;
+    }
+    .ledger-rows {
+      gap: 28px;
+    }
+    .l-row {
+      grid-template-columns: 2.9em 0.7em;
+      font-size: 15vw;
+    }
+    .l-cap {
+      grid-column: 1 / -1;
+      padding: 0.4rem 0 0;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 899px) {
+    .l-row {
+      grid-template-columns: 2.9em 0.7em minmax(0, 1fr);
+      font-size: 11vw;
+    }
+    .l-cap {
+      grid-column: auto;
+      padding: 0 0 0 1.25rem;
+    }
+  }
+</style>

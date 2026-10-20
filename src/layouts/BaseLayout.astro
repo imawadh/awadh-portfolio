@@ -90,8 +90,8 @@ const websiteSchema = {
     })(window,document,'script','dataLayer','GTM-MP8BCT3J');</script>
     <!-- End Google Tag Manager -->
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#e8ebe3" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0c0a08" />
+    <meta name="color-scheme" content="dark" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -104,9 +104,13 @@ const websiteSchema = {
 
     <link rel="canonical" href={canonical} />
 
+    <!-- Marks the page as scripted so entrance animations may hide content until it enters. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,700&display=swap" rel="stylesheet" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -146,5 +150,26 @@ const websiteSchema = {
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <slot />
+
+    <!-- Entrances: each [data-rise] element rises once as it enters the viewport. -->
+    <script>
+      const risers = document.querySelectorAll<HTMLElement>('[data-rise]');
+      if (!('IntersectionObserver' in window)) {
+        risers.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' }
+        );
+        risers.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

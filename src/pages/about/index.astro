@@ -2,26 +2,29 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 
 const facts = [
-  { key: 'Stack', value: 'Next.js, React, NestJS, Node, Express, PostgreSQL, MongoDB' },
-  { key: 'Currently', value: 'Open to internships and freelance work' },
-  { key: 'Building', value: 'My first mobile app, for Android and iOS, releasing soon' },
-  { key: 'Recently', value: 'Full Stack Developer Intern at IAVerse (remote)' },
-  { key: 'Education', value: 'BS in Data Science, IIT Madras (CGPA 8.27)' },
-  { key: 'Algorithms', value: '1,000+ DSA problems on LeetCode and Codeforces' },
+  { key: 'Stack', value: 'Next.js · React · NestJS · Node · Express · PostgreSQL · MongoDB' },
+  { key: 'Currently', value: 'Open to internships & freelance work' },
+  { key: 'Building', value: 'First mobile app — Android & iOS, releasing soon' },
+  { key: 'Recently', value: 'Full Stack Developer Intern @ IAVerse (Remote)' },
+  { key: 'Education', value: 'BS Data Science, IIT Madras · CGPA 8.27' },
+  { key: 'Algorithms', value: '1,000+ DSA problems · LeetCode & Codeforces' },
 ];
 
 const principles = [
   {
-    title: 'Ship end to end',
-    body: 'I work across the whole stack, from UI and API to database and deployment, so a feature is done when it’s live and working, not when the PR merges.',
+    title: 'Ship end-to-end',
+    shot: { src: '/work/prsnn/d1.webp', alt: 'Prsnn', name: 'Prsnn' },
+    body: 'I work across the whole stack — UI, API, database, deployment — so a feature is done when it is live and working, not when the PR merges.',
   },
   {
     title: 'Build for scale',
-    body: 'Scalable architecture, clean component systems and API security are decisions I make early, not patches I add when something breaks.',
+    shot: { src: '/work/axiora-learning/d1.webp', alt: 'Axiora Learning', name: 'Axiora Learning' },
+    body: 'Scalable architecture, clean component systems, and API security are decisions I make early, not patches I add when something breaks.',
   },
   {
     title: 'Mind the invisible',
-    body: 'Analytics, error monitoring and performance budgets matter as much as the visible UI. They’re how you actually know a product works.',
+    shot: { src: '/work/prescripto/d1.webp', alt: 'Prescripto', name: 'Prescripto' },
+    body: 'Analytics, error monitoring, and performance budgets matter as much as the visible UI — they are how you actually know a product works.',
   },
 ];
 
@@ -37,92 +40,88 @@ const quickNav = [
   title="About — Awadh Kishor Singh"
   description="About Awadh Kishor Singh — Full Stack AI Developer in Bengaluru and Data Science undergraduate at IIT Madras, building production-ready web applications end-to-end, with applied ML experience and a first mobile app in progress."
 >
-  <!-- ───────────── LEAD ───────────── -->
-  <section class="wrap band-lead pb-12 md:pb-16">
-    <h1 class="page-title reveal reveal-1">About</h1>
-    <p class="page-lede reveal reveal-2 mt-6 max-w-[40ch]">
-      Full Stack AI Developer based in Bengaluru, building web apps that hold up with real users,
-      real traffic and real deadlines.
-    </p>
-  </section>
+  <!-- ───────────── LEAD + BIO: text beside the portrait ───────────── -->
+  <section class="wrap lead-sec" aria-labelledby="about-title">
+    <h1 id="about-title" class="page-title is-long reveal reveal-1">The person behind the commits</h1>
+    <div class="grid-12 bio-grid mt-8">
+      <div class="bio-text">
+        <p class="page-lede reveal reveal-2 mt-8 max-w-[34ch]">
+          Full Stack AI Developer based in Bengaluru — building web apps that hold up with real users,
+          real traffic, and real deadlines.
+        </p>
 
-  <!-- ───────────── BIO ───────────── -->
-  <section class="wrap band band-b">
-    <div class="grid gap-12 md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] md:items-start md:gap-16">
-      <figure class="m-0 md:sticky md:top-28">
-        <div class="plate">
-          <img
-            src="https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/sitting-image.webp"
-            alt="Awadh Kishor Singh"
-            loading="eager"
-            width="600"
-            height="800"
-            class="aspect-[3/4] object-cover object-top"
-          />
+        <div class="bio-copy reveal reveal-3">
+          <p>
+            I&rsquo;m a Full Stack AI Developer and a Data Science undergraduate at IIT Madras. I
+            design, build, and ship production-ready web applications — most recently as a Full Stack
+            Developer Intern at IAVerse.
+          </p>
+          <p>
+            My recent work spans a 1,200+ page WordPress-to-Next.js migration at IAVerse, a workforce
+            alignment platform at KaiKa AI where I also trained the machine learning model behind its
+            scoring engine, a freelance ed-tech platform serving 1,500+ daily active users, and a
+            peer-to-peer marketplace live across four Indian cities. I work the whole stack: React and
+            Next.js on the front, Node.js and Express REST APIs on the back, MongoDB and PostgreSQL for
+            data, deployed on Vercel, Render, and AWS.
+          </p>
+          <p>
+            I care about the parts users never see — product analytics with Mixpanel and PostHog, error
+            monitoring with Sentry, API security, and architecture that scales. Alongside building,
+            I&rsquo;ve solved 1,000+ Data Structures &amp; Algorithms problems on LeetCode and
+            Codeforces, with a focus on Trees, Graphs, and Dynamic Programming.
+          </p>
+          <p>
+            Right now I&rsquo;m extending that into mobile — learning Android and iOS development, with
+            a first app in progress and a release planned soon. I&rsquo;m open to software
+            engineering, full-stack and AI/ML roles, and to internship and freelance opportunities.
+          </p>
         </div>
-        <figcaption class="plate-caption">
-          <span>Awadh Kishor Singh</span>
-          <span class="inline-flex items-center gap-2 text-[var(--fg)]">
-            <span class="pulse"></span>
-            Open to work
-          </span>
-        </figcaption>
-      </figure>
 
-      <div class="flex max-w-[64ch] flex-col gap-6">
-        <p class="m-0 text-[1.25rem] leading-[1.6] text-[var(--fg)]">
-          I&rsquo;m a Full Stack AI Developer and a Data Science undergraduate at IIT Madras. I
-          design, build and ship production-ready web applications, most recently as a Full Stack
-          Developer Intern at IAVerse.
-        </p>
-        <p class="m-0">
-          My recent work spans a 1,200+ page WordPress-to-Next.js migration at IAVerse, a workforce
-          alignment platform at KaiKa AI where I also trained the machine learning model behind its
-          scoring engine, a freelance ed-tech platform serving 1,500+ daily active users, and a
-          peer-to-peer marketplace live across four Indian cities. I work the whole stack: React and
-          Next.js on the front, Node.js and Express REST APIs on the back, MongoDB and PostgreSQL for
-          data, deployed on Vercel, Render and AWS.
-        </p>
-        <p class="m-0">
-          I care about the parts users never see: product analytics with Mixpanel and PostHog, error
-          monitoring with Sentry, API security, and architecture that scales. Alongside building,
-          I&rsquo;ve solved 1,000+ Data Structures &amp; Algorithms problems on LeetCode and
-          Codeforces, with a focus on trees, graphs and dynamic programming.
-        </p>
-        <p class="m-0">
-          Right now I&rsquo;m extending that into mobile, learning Android and iOS development with
-          a first app in progress and a release planned soon. I&rsquo;m open to software
-          engineering, full-stack and AI/ML roles, and to internship and freelance opportunities.
-        </p>
-
-        <dl class="m-0 mt-6 border-t border-[var(--border-bright)]">
+        <dl class="facts" data-rise>
           {
             facts.map((f) => (
-              <div class="grid gap-1 border-b border-[var(--border)] py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                <dt class="ui text-[1rem] font-semibold text-[var(--fg)]">{f.key}</dt>
-                <dd class="serif m-0 text-[1.05rem] text-[var(--fg-dim)]">{f.value}</dd>
+              <div>
+                <dt class="small muted">{f.key}</dt>
+                <dd class="small mt-1">{f.value}</dd>
               </div>
             ))
           }
         </dl>
       </div>
+
+      <figure class="portrait reveal reveal-2">
+        <img
+          src="https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/sitting-image.webp"
+          alt="Awadh Kishor Singh"
+          loading="eager"
+          width="800"
+          height="1000"
+        />
+        <figcaption class="small mt-3 inline-flex items-center gap-2.5">
+          <span>Awadh Kishor Singh</span>
+          <span class="inline-flex items-center gap-2"><span class="pulse"></span>Open</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- ───────────── HOW I WORK ───────────── -->
-  <section class="wrap band band-a">
-    <div class="split">
-      <div class="split-head">
-        <h2 class="m-0">How I work</h2>
-        <p>Three habits that shape every project I take on.</p>
+  <!-- ───────────── HOW I WORK: three habits stepping down the grid ───────────── -->
+  <section class="habits section" aria-labelledby="habits-title">
+    <div class="wrap">
+      <div class="habits-head">
+        <h2 id="habits-title" data-rise>How I work</h2>
       </div>
 
-      <div class="border-b border-[var(--border-bright)]">
+      <div class="ladder">
         {
-          principles.map((p) => (
-            <div class="border-t border-[var(--border-bright)] py-7 md:py-9">
-              <h3 class="m-0 text-[1.7rem]">{p.title}</h3>
-              <p class="m-0 mt-3 max-w-[60ch]">{p.body}</p>
+          principles.map((p, i) => (
+            <div class={`step ${i % 2 ? 'step-flip' : ''}`}>
+              <figure class="step-shot" data-rise>
+                <img src={p.shot.src} alt={p.shot.alt} width="1440" height="900" loading="lazy" decoding="async" />
+                <figcaption class="small muted mt-2">{p.shot.name}</figcaption>
+              </figure>
+              <h3 class="step-title" data-rise style="--i: 1">{p.title}</h3>
+              <p class="step-body" data-rise style="--i: 2">{p.body}</p>
             </div>
           ))
         }
@@ -130,24 +129,204 @@ const quickNav = [
     </div>
   </section>
 
-  <!-- ───────────── KEEP READING ───────────── -->
-  <section class="wrap band band-b">
-    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-      <div>
-        <h2 class="m-0">Keep reading</h2>
-        <p class="m-0 mt-3 max-w-[48ch] text-[var(--muted)]">
-          Where I&rsquo;ve worked, what I&rsquo;ve built, and how to reach me.
-        </p>
-      </div>
-      <nav aria-label="More about Awadh" class="flex flex-wrap gap-3">
+  <!-- ───────────── KEEP READING: two-ended rows ───────────── -->
+  <section class="wrap section grid-12 more">
+    <div class="more-head">
+      <img
+        class="more-photo"
+        src="https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/awadh-about.webp"
+        alt="Portrait of Awadh Kishor Singh"
+        width="320"
+        height="320"
+        loading="lazy"
+        data-rise
+        style="--i: 2"
+      />
+    </div>
+    <nav aria-label="Quick nav" class="more-list" data-rise style="--i: 2">
+      <ul>
         {
-          quickNav.map((n, i) => (
-            <a href={n.href} class={i === quickNav.length - 1 ? 'btn btn-primary' : 'btn btn-ghost'}>
-              {n.label}
-            </a>
+          quickNav.map((n) => (
+            <li>
+              <a href={n.href} class="more-row">
+                <span class="more-label lead">{n.label}</span>
+              </a>
+            </li>
           ))
         }
-      </nav>
-    </div>
+      </ul>
+    </nav>
   </section>
 </PageLayout>
+
+<style>
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  /* ── LEAD + BIO ── */
+  .lead-sec {
+    padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
+  }
+  .bio-grid {
+    row-gap: 3rem;
+    align-items: start;
+  }
+  .bio-text {
+    grid-column: 1 / span 7;
+  }
+  .bio-text .page-title {
+    margin-left: -0.04em;
+  }
+  .bio-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 62ch;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem 20px;
+    max-width: 62ch;
+    margin-top: 3rem;
+  }
+  .portrait {
+    grid-column: 8 / span 5;
+    position: sticky;
+    top: 6rem;
+  }
+  .portrait img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    background: var(--surface);
+  }
+
+  /* ── HOW I WORK ── */
+  .habits {
+    background: var(--surface);
+    padding-top: calc(var(--section-gap) / 2);
+    padding-bottom: calc(var(--section-gap) / 2);
+  }
+  .habits-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 3rem;
+  }
+  .ladder {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 2rem + 2vw, 4rem);
+    margin-top: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+  /* Each habit: its screen on one side, title and text on the other,
+     the sides swapping from row to row. */
+  .step {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: 20px;
+    row-gap: 1rem;
+    align-items: start;
+  }
+  .step-shot {
+    grid-column: 1 / span 4;
+    grid-row: 1 / span 2;
+  }
+  .step-shot img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    background: var(--bg);
+  }
+  .step-title {
+    grid-column: 6 / span 6;
+  }
+  .step-body {
+    grid-column: 6 / span 6;
+    max-width: 52ch;
+  }
+  .step-flip .step-shot {
+    grid-column: 9 / span 4;
+  }
+  .step-flip .step-title,
+  .step-flip .step-body {
+    grid-column: 2 / span 6;
+  }
+
+  /* ── KEEP READING ── */
+  .more {
+    align-items: start;
+    row-gap: 2.5rem;
+  }
+  .more-head {
+    grid-column: 1 / span 5;
+  }
+  .more-photo {
+    width: 120px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center 20%;
+    margin-top: 2rem;
+  }
+  .more-list {
+    grid-column: 7 / span 6;
+  }
+  .more-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 56px;
+    padding: 8px 0;
+  }
+  .more-label {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--muted);
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+  .more-row:hover .more-label {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+
+  /* ── TABLET AND PHONE ── */
+  @media (max-width: 899px) {
+    .facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .more-head,
+    .more-list {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .step-shot,
+    .step-title,
+    .step-body,
+    .step-flip .step-shot,
+    .step-flip .step-title,
+    .step-flip .step-body {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+  }
+  @media (max-width: 639px) {
+    .bio-text,
+    .portrait {
+      grid-column: 1 / -1;
+    }
+    .portrait {
+      position: static;
+    }
+  }
+</style>

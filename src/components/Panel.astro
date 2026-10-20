@@ -1,21 +1,36 @@
 ---
 /**
- * A bordered figure block — the editorial replacement for the old terminal
- * window. Used for stack breakdowns, architecture notes, and spec tables.
+ * A tone-step figure: a --surface block with an optional small caption.
+ * Diagrams put --surface-2 boxes inside it (see .flow in CaseStudyLayout). No borders.
  */
 interface Props {
   title?: string;
   class?: string;
 }
 
-const { title = 'Detail', class: cls = '' } = Astro.props;
+const { title, class: cls = '' } = Astro.props;
 ---
 
-<figure class={`panel ${cls}`}>
-  <figcaption class="panel-head">
-    <span class="panel-title">{title}</span>
-  </figcaption>
-  <div class="panel-body">
+<figure class={`panel ${cls}`} data-rise>
+  {
+    title && (
+      <figcaption class="panel-head">
+        <span class="panel-title">{title}</span>
+      </figcaption>
+    )
+  }
+  <div class={title ? 'panel-body' : 'panel-body panel-body-solo'}>
     <slot />
   </div>
 </figure>
+
+<style>
+  .panel-body-solo {
+    padding-top: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .panel-body-solo {
+      padding-top: 2rem;
+    }
+  }
+</style>
