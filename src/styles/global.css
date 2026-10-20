@@ -585,3 +585,15 @@ code {
     scroll-behavior: auto;
   }
 }
+
+/* Touch screens: give every tappable chip, button and card link a 44px target. */
+@media (pointer: coarse) {
+  a.chip,
+  .btn,
+  .card a.inline-flex {
+    min-height: 44px;
+  }
+  a.chip {
+    padding-inline: 0.85rem;
+  }
+}
