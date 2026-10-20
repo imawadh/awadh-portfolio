@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import RevealObserver from '@/components/RevealObserver';
 import { pageMetadata, siteUrl } from '@/utils/metadata';
 import '@/styles/global.css';
 import '@/styles/components.css';
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#e8ebe3',
+  themeColor: '#2323ff',
   colorScheme: 'light',
 };
 
@@ -100,15 +101,18 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Caveat:wght@500;600&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap"
         />
+
+        {/* Lets CSS hide [data-reveal] blocks only when JS will reveal them. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
 
         {/* Structured data */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
@@ -135,6 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <RevealObserver />
       </body>
     </html>
   );

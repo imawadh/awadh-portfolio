@@ -14,3 +14,10 @@
  * with a hosted copy (e.g. a Google Drive share link) without a code change.
  */
 export const resumeUrl: string = process.env.NEXT_PUBLIC_RESUME_URL || '/My-Resume.pdf';
+
+export const email = 'awadhkishorsingh241@gmail.com';
+
+/** Portraits hosted on S3. */
+export const portraitUrl = 'https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/awadh-about.webp';
+export const sittingPortraitUrl =
+  'https://awadh-portfolio-website.s3.ap-south-1.amazonaws.com/images/sitting-image.webp';

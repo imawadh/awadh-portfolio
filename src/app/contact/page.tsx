@@ -21,7 +21,7 @@ export const metadata = pageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <section className="wrap band-lead pb-14 md:pb-20">
+      <section className="page-hero wrap band-lead pb-14 md:pb-20">
         <h1 className="page-title reveal reveal-1">Say hello</h1>
         <p className="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
           Open to internships, freelance work and good conversations across full-stack, software

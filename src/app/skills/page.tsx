@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PillPile from '@/components/PillPile';
 import SkillCard from '@/components/SkillCard';
 import { pageMetadata } from '@/utils/metadata';
 
@@ -82,6 +83,9 @@ const skillsData = [
   },
 ];
 
+// The pile in the hero: languages, frontend, backend and databases, each skill once.
+const pileSkills = [...new Set(skillsData.slice(0, 4).flatMap((g) => g.skills))];
+
 export const metadata = pageMetadata({
   title: 'Skills & Technologies — Awadh Kishor Singh',
   description: 'The full tech stack of Awadh Kishor Singh — React, Next.js, TypeScript, Node.js, Express, NestJS, MongoDB, PostgreSQL, Python, scikit-learn, AWS, and the tools behind production web apps.',
@@ -92,12 +96,15 @@ export default function SkillsPage() {
   return (
     <>
       {/* ───────────── LEAD ───────────── */}
-      <section className="wrap band-lead pb-12 md:pb-16">
+      <section className="page-hero wrap band-lead pb-12 md:pb-16">
         <h1 className="page-title reveal reveal-1">Skills</h1>
         <p className="page-lede reveal reveal-2 mt-6 max-w-[40ch]">
           The languages, frameworks and tools I reach for across full-stack development, from shipping
           UI to securing APIs to monitoring what happens in production.
         </p>
+        <div className="reveal reveal-3 mt-12">
+          <PillPile pills={pileSkills} />
+        </div>
       </section>
 
       {/* ───────────── THE WORKING STACK ───────────── */}

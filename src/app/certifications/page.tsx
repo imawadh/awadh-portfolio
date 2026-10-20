@@ -54,7 +54,7 @@ export const metadata = pageMetadata({
 export default function CertificationsPage() {
   return (
     <>
-      <section className="wrap band-lead pb-12 md:pb-16">
+      <section className="page-hero wrap band-lead pb-12 md:pb-16">
         <h1 className="page-title reveal reveal-1 max-w-[12ch]">Proof of the work</h1>
         <p className="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
           Verified certifications and measurable achievements from continuous learning across

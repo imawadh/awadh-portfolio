@@ -41,7 +41,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ───────────── LEAD ───────────── */}
-      <section className="wrap band-lead pb-12 md:pb-16">
+      <section className="page-hero wrap band-lead pb-12 md:pb-16">
         <h1 className="page-title reveal reveal-1">About</h1>
         <p className="page-lede reveal reveal-2 mt-6 max-w-[40ch]">
           Full Stack AI Developer based in Bengaluru, building web apps that hold up with real users,

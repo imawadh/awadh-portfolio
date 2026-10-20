@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { socials } from '@/utils/socials';
+import { email, portraitUrl } from '@/utils/site';
 
 interface NavItem {
   label: string;
@@ -16,116 +17,129 @@ const navItems: NavItem[] = [
   { label: 'Experience', href: '/experience' },
   { label: 'Skills', href: '/skills' },
   { label: 'Credentials', href: '/certifications' },
+  { label: 'Contact', href: '/contact' },
 ];
 
+/**
+ * Fixed header. At the top of a page it shows the wordmark and the pill nav;
+ * once scrolled, both tuck away and only the Contact pill and the menu
+ * button stay. The menu button opens a full-screen navy menu.
+ */
 export default function Navbar() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
 
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Close the menu whenever the route changes.
   useEffect(() => setOpen(false), [pathname]);
 
-  // While the menu is open: lock page scroll, close on outside click or Escape.
+  // While the menu is open: lock page scroll, close on Escape.
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = 'hidden';
-    const onClick = (e: MouseEvent) => {
-      if (!navRef.current?.contains(e.target as Node)) setOpen(false);
-    };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false);
     };
-    document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
-      document.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
 
   return (
-    <nav ref={navRef} className="sticky top-0 z-50 bg-[rgba(232,235,227,0.86)] backdrop-blur-md">
-      <div className="wrap flex items-center justify-between gap-6 py-3.5">
-        <Link href="/" className="wordmark shrink-0" aria-label="Awadh Kishor Singh, home">
-          Awadh Kishor Singh
+    <header className="site-header" data-scrolled={scrolled || undefined} data-open={open || undefined}>
+      <div className="wrap header-row">
+        <Link href="/" className="wordmark" aria-label="Awadh Kishor Singh, home">
+          <span>Awadh</span>
+          <span>Kishor Singh</span>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
+        <nav aria-label="Main" className="nav-pill">
+          {navItems.slice(0, -1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
-              className={`nav-link ${isActive(item.href) ? 'is-active' : ''}`}
+              className="nav-link"
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            aria-current={isActive('/contact') ? 'page' : undefined}
-            className="btn btn-primary ml-4 !min-h-0 !px-5 !py-2 !text-[0.95rem]"
-          >
+        </nav>
+
+        <div className="header-actions">
+          <Link href="/contact" className="talk-pill">
+            <span className="talk-avatar">
+              <img src={portraitUrl} alt="" width={40} height={40} />
+              <span className="talk-dot" />
+            </span>
             Contact
           </Link>
+          <button
+            type="button"
+            className="menu-btn"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="siteMenu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span className="menu-bar menu-bar-top" />
+            <span className="menu-bar menu-bar-bot" />
+          </button>
         </div>
-
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="navMenu"
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpen((o) => !o);
-          }}
-          className="nav-toggle inline-flex h-11 items-center gap-2.5 rounded-full border-[1.5px] border-[var(--fg)] px-4 text-[0.95rem] font-semibold text-[var(--fg)] lg:hidden"
-        >
-          <span className="toggle-label-closed">Menu</span>
-          <span className="toggle-label-open">Close</span>
-          <span className="relative flex h-3 w-4 flex-col items-center justify-center">
-            <span className="bar bar-top absolute h-[1.5px] w-4 bg-current transition-transform duration-300"></span>
-            <span className="bar bar-bot absolute h-[1.5px] w-4 bg-current transition-transform duration-300"></span>
-          </span>
-        </button>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        id="navMenu"
-        className={`nav-menu invisible absolute left-0 right-0 top-full max-h-[calc(100dvh-4.5rem)] -translate-y-2 overflow-y-auto bg-[var(--bg)] opacity-0 transition-all duration-300 ease-out lg:hidden ${open ? 'is-open' : ''}`}
-      >
-        <div className="wrap pb-10 pt-4">
-          <ul className="flex flex-col">
-            {[...navItems, { label: 'Contact', href: '/contact' }].map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
-                  onClick={() => setOpen(false)}
-                  className={`menu-link block py-2 ${isActive(item.href) ? 'text-[var(--accent)]' : 'text-[var(--fg)]'}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <div id="siteMenu" className="menu-panel on-navy" aria-hidden={!open}>
+        <div className="wrap menu-inner">
+          <nav aria-label="Menu">
+            <ul className="menu-list">
+              {navItems.map((item, i) => (
+                <li key={item.href} style={{ '--i': i } as React.CSSProperties}>
+                  <Link
+                    href={item.href}
+                    tabIndex={open ? undefined : -1}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
+                    onClick={() => setOpen(false)}
+                    className="menu-link"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {socials.map((social) => (
-              <a key={social.url} href={social.url} target="_blank" rel="noopener noreferrer" className="chip">
-                {social.label}
-              </a>
-            ))}
+          <div className="menu-foot">
+            <a href={`mailto:${email}`} tabIndex={open ? undefined : -1} className="menu-email">
+              {email}
+            </a>
+            <div className="flex flex-wrap gap-2">
+              {socials.map((social) => (
+                <a
+                  key={social.url}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tabIndex={open ? undefined : -1}
+                  className="chip"
+                >
+                  {social.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

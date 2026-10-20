@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ProjectCard from '@/components/ProjectCard';
+import WorkCard from '@/components/WorkCard';
 import { personalProjects, freelanceProjects, projects } from '@/data/projects';
 import { pageMetadata } from '@/utils/metadata';
 
@@ -19,7 +19,7 @@ export const metadata = pageMetadata({
 export default function ProjectsPage() {
   return (
     <>
-      <section className="wrap band-lead pb-12 md:pb-16">
+      <section className="page-hero wrap band-lead pb-12 md:pb-16">
         <h1 className="page-title reveal reveal-1 max-w-[12ch]">Products, shipped end to end</h1>
         <p className="page-lede reveal reveal-2 mt-6 max-w-[44ch]">
           Full-stack applications and client websites built end to end, most of them live in production
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
                 <dt className="ui mt-1.5 text-[0.98rem] text-[var(--muted)]">{t.label}</dt>
                 <dd
                   className={[
-                    'numeral m-0 text-[2.6rem]',
+                    'numeral m-0 text-[4.5rem]',
                     t.accent ? 'text-[var(--accent)]' : 'text-[var(--fg)]',
                   ].filter(Boolean).join(' ')}
                 >
@@ -54,19 +54,10 @@ export default function ProjectsPage() {
           Personal projects: self-directed full-stack builds where I owned every architectural decision.
         </p>
 
-        <div className="mt-10 border-b border-[var(--border-bright)]">
+        <div className="mt-12 grid gap-x-6 gap-y-14 md:grid-cols-2">
           {
-            personalProjects.map((p, i) => (
-              <ProjectCard key={i}
-                name={p.name}
-                tagline={p.tagline}
-                role={p.role}
-                description={p.description}
-                tags={p.tags}
-                live={p.live}
-                code={p.code}
-                caseStudy={p.caseStudy}
-              />
+            personalProjects.map((p) => (
+              <WorkCard key={p.slug} project={p} />
             ))
           }
         </div>
@@ -80,19 +71,10 @@ export default function ProjectsPage() {
           and live users.
         </p>
 
-        <div className="mt-10 border-b border-[var(--border-bright)]">
+        <div className="mt-12 grid gap-x-6 gap-y-14 md:grid-cols-2">
           {
-            freelanceProjects.map((p, i) => (
-              <ProjectCard key={i}
-                name={p.name}
-                tagline={p.tagline}
-                role={p.role}
-                description={p.description}
-                tags={p.tags}
-                live={p.live}
-                code={p.code}
-                caseStudy={p.caseStudy}
-              />
+            freelanceProjects.map((p) => (
+              <WorkCard key={p.slug} project={p} />
             ))
           }
         </div>

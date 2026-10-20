@@ -15,6 +15,10 @@ export interface Project {
   live?: string;
   code?: string;
   caseStudy: string;
+  /** Screenshot of the live site in public/work/, when one is worth showing. */
+  image?: string;
+  /** Card ground for the work carousel (CSS background). */
+  ground: string;
 }
 
 export const projects: Project[] = [
@@ -34,6 +38,8 @@ export const projects: Project[] = [
     live: 'https://awadh-patient-app.vercel.app/',
     code: 'https://github.com/imawadh/Hospital-Prescripto',
     caseStudy: '/projects/prescripto',
+    image: '/work/prescripto.jpg',
+    ground: 'linear-gradient(135deg, #4f7bff 0%, #2323ff 100%)',
   },
   {
     slug: 'cryptofolio',
@@ -50,6 +56,8 @@ export const projects: Project[] = [
     live: 'https://crytofolio.vercel.app/',
     code: 'https://github.com/imawadh/crytofolio',
     caseStudy: '/projects/cryptofolio',
+    image: '/work/cryptofolio.jpg',
+    ground: 'linear-gradient(135deg, #7b5cff 0%, #2a1d8f 100%)',
   },
 
   /* ───────── FREELANCE ───────── */
@@ -67,6 +75,8 @@ export const projects: Project[] = [
     featured: false,
     live: 'https://www.axioralearning.com/',
     caseStudy: '/projects/axiora-learning',
+    image: '/work/axiora-learning.jpg',
+    ground: 'linear-gradient(135deg, #ff7a8a 0%, #e4405f 100%)',
   },
   {
     slug: 'evaa',
@@ -82,6 +92,8 @@ export const projects: Project[] = [
     featured: true,
     live: 'https://www.evaa.enterprises/',
     caseStudy: '/projects/evaa',
+    image: '/work/evaa.jpg',
+    ground: 'linear-gradient(135deg, #3b3355 0%, #0f0b24 100%)',
   },
   {
     slug: 'srs-classes',
@@ -98,6 +110,7 @@ export const projects: Project[] = [
     live: 'https://srsclasses.com/',
     code: 'https://github.com/imawadh/srs-website',
     caseStudy: '/projects/srs-classes',
+    ground: 'linear-gradient(135deg, #ffd60a 0%, #ffb800 100%)',
   },
   {
     slug: 'prsnn',
@@ -113,6 +126,7 @@ export const projects: Project[] = [
     featured: true,
     live: 'https://www.prsnn.com/',
     caseStudy: '/projects/prsnn',
+    ground: 'linear-gradient(135deg, #c9f56b 0%, #5fbf3a 100%)',
   },
 ];
 
