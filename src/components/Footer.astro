@@ -14,22 +14,27 @@ const email = 'awadhkishorsingh241@gmail.com';
 const year = new Date().getFullYear();
 ---
 
-<footer class="foot mt-[calc(var(--section-gap)/2)]" aria-label="Site footer">
-  <div class="tiles">
-    <div class="tile t-statement" data-rise>
-      <p class="max-w-[40ch]">
+<footer class="foot" aria-label="Site footer">
+  <div class="wrap">
+    <div class="foot-top" data-rise>
+      <a href={`mailto:${email}`} class="foot-email">{email}</a>
+      <a href="/contact" class="btn btn-primary">Say hello</a>
+    </div>
+
+    <div class="foot-grid grid-12">
+      <p class="foot-statement small">
         Full Stack AI Developer building production-ready web applications from Bengaluru. Most
         recently Full Stack Developer Intern at IAVerse, a Data Science undergraduate at IIT Madras,
         and currently building my first mobile app.
       </p>
-      <p class="small muted">&copy; {year} Awadh Kishor Singh</p>
-    </div>
 
-    <nav class="tile t-nav" aria-label="Footer" data-rise style="--i: 1">
-      <ul class="flex flex-col gap-1">
-        {navItems.map((n) => <li><a href={n.href} class="foot-link">{n.label}</a></li>)}
-      </ul>
-      <ul class="flex flex-wrap gap-x-4 gap-y-1">
+      <nav class="foot-nav" aria-label="Footer">
+        <ul class="flex flex-col gap-1">
+          {navItems.map((n) => <li><a href={n.href} class="foot-link small">{n.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <ul class="foot-social flex flex-col gap-1">
         {
           socials
             .filter((s) => s.icon !== 'mail')
@@ -42,97 +47,68 @@ const year = new Date().getFullYear();
             ))
         }
       </ul>
-    </nav>
 
-    <div class="tile t-time" data-rise style="--i: 2">
-      <p class="small muted inline-flex items-center gap-2"><span class="pulse"></span>Open to internships &amp; freelance</p>
-      <p class="small muted">Bengaluru, India</p>
-      <p class="lead figures">
-        <time id="localTime">IST</time>
-      </p>
+      <div class="foot-time small">
+        <p class="inline-flex items-center gap-2"><span class="pulse"></span>Open to internships &amp; freelance</p>
+        <p class="muted mt-1">Bengaluru, India</p>
+        <p class="figures mt-1"><time id="localTime">IST</time></p>
+      </div>
     </div>
 
-    <div class="tile t-email" data-rise style="--i: 3">
-      <p class="small muted">Email</p>
-      <a href={`mailto:${email}`} class="foot-email">{email}</a>
-    </div>
-
-    <a href="/" class="tile t-mark" aria-label="Awadh Kishor Singh, home">
-      <span>Awadh Kishor Singh</span>
-    </a>
-
-    <a href="/contact" class="tile t-cta">
-      <span class="cta-words">Say hello</span>
-      <svg class="cta-arrow" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
-        <path d="M10 38 38 10M16 10h22v22" fill="none" stroke="currentColor" stroke-width="4" />
-      </svg>
-    </a>
+    <p class="foot-legal small muted">&copy; {year} Awadh Kishor Singh</p>
   </div>
 </footer>
 
 <style>
-  .tiles {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 8px;
-    padding: 8px;
-  }
-  .tile {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1.5rem;
-    min-height: 220px;
-    padding: 20px;
+  .foot {
+    margin-top: var(--section-gap);
+    padding: clamp(3rem, 2rem + 4vw, 6rem) 0 2rem;
     background: var(--surface);
   }
-  .t-statement {
-    grid-column: 1 / span 4;
-  }
-  .t-nav {
-    grid-column: 5 / span 3;
-  }
-  .t-time {
-    grid-column: 8 / span 2;
-  }
-  .t-email {
-    grid-column: 10 / span 3;
-  }
-  .t-mark {
-    grid-column: 1 / span 8;
-    min-height: 320px;
+  .foot-top {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    background: var(--ink);
-    color: var(--bg);
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    padding-bottom: clamp(2.5rem, 2rem + 3vw, 5rem);
   }
-  .t-mark span {
-    font-size: var(--step-display);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 0.9;
-    text-align: center;
+  .foot-email {
+    font-size: var(--step-head);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+    transition: color 0.2s ease;
   }
-  .t-cta {
-    grid-column: 9 / span 4;
-    min-height: 320px;
-    background: var(--accent);
-    color: var(--accent-ink);
-    transition: background-color 0.2s ease;
+  .foot-email:hover {
+    color: var(--accent);
   }
-  .t-cta:hover {
-    background: var(--accent-hover);
+  .foot-grid {
+    row-gap: 2rem;
+    padding-top: 2rem;
+    box-shadow: 0 -1px 0 var(--line);
   }
-  .cta-words {
-    font-size: var(--step-lead);
-    font-weight: 500;
+  .foot-statement {
+    grid-column: 1 / span 5;
+    max-width: 44ch;
+    color: var(--muted);
   }
-  .cta-arrow {
-    align-self: flex-end;
-    transition: transform 0.3s var(--ease-out);
+  .foot-nav {
+    grid-column: 7 / span 2;
   }
-  .t-cta:hover .cta-arrow {
-    transform: translate(4px, -4px);
+  .foot-social {
+    grid-column: 9 / span 2;
+  }
+  .foot-time {
+    grid-column: 11 / span 2;
+  }
+  .foot-time p {
+    font-size: inherit;
+    line-height: 1.5;
+  }
+  .foot-time p.muted {
+    color: var(--muted);
   }
   .foot-link {
     color: var(--ink);
@@ -141,51 +117,30 @@ const year = new Date().getFullYear();
   .foot-link:hover {
     color: var(--accent);
   }
-  .foot-email {
-    font-size: var(--step-body);
-    font-weight: 500;
-    overflow-wrap: anywhere;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.22em;
-    text-decoration-color: var(--muted);
-    transition: color 0.2s ease;
-  }
-  .foot-email:hover {
-    color: var(--accent);
+  .foot-legal {
+    margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
   }
 
   @media (max-width: 899px) {
-    .tiles {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      padding: 6px;
-    }
-    .tile {
-      min-height: 170px;
-    }
-    .t-mark {
+    .foot-statement {
       grid-column: 1 / -1;
-      order: -2;
-      min-height: 160px;
     }
-    .t-cta {
-      grid-column: 1 / -1;
-      order: -1;
-      min-height: 160px;
+    .foot-nav {
+      grid-column: 1 / span 4;
     }
-    .t-nav,
-    .t-email,
-    .t-time,
-    .t-statement {
-      grid-column: auto;
+    .foot-social {
+      grid-column: 5 / span 4;
+    }
+    .foot-time {
+      grid-column: 9 / span 4;
     }
   }
-  @media (max-width: 479px) {
-    .t-nav,
-    .t-email,
-    .t-time,
-    .t-statement {
+  @media (max-width: 559px) {
+    .foot-nav,
+    .foot-social {
+      grid-column: span 6;
+    }
+    .foot-time {
       grid-column: 1 / -1;
     }
   }

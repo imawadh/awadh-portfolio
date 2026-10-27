@@ -260,12 +260,12 @@ const liveCount = projects.filter((p) => p.status === 'live').length;
     height: 100%;
     object-fit: cover;
     object-position: top;
-    transition: filter 0.35s var(--ease-out);
+    transition: opacity 0.35s var(--ease-out);
   }
   /* Pointing at a run dims every other run. */
   .sheet:has(.run:hover) .run:not(:hover) img,
   .sheet:has(.run:focus-within) .run:not(:focus-within) img {
-    filter: brightness(0.35);
+    opacity: 0.3;
   }
   .sheet:has(.run:hover) .run:not(:hover) .run-name,
   .sheet:has(.run:focus-within) .run:not(:focus-within) .run-name {

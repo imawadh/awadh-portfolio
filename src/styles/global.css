@@ -1,14 +1,34 @@
 /* ============================================================
-   CONTACT SHEET — design system
-   Warm black ground, white ink, gold on the one action per screen.
-   One typeface, General Sans, in five sizes. No rules, no shadows,
-   no gradients: surfaces step in tone, and the screens of the work
+   QUIET LIGHT — design system
+   A white page, near-black type, one blue for the thing to press.
+   One typeface (Schibsted Grotesk), five sizes. No shadows, no
+   gradients: surfaces step in tone, and the screens of the work
    are the only colour on the page.
    ============================================================ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
 
 *,
 *::before,
@@ -23,54 +43,55 @@
 
 :root {
   /* ── PALETTE ── */
-  --bg: #0c0a08;
-  --surface: #181512;
-  --surface-2: #231f1b;
-  --ink: #ffffff;
-  --muted: #a39d96;
-  --accent: #c9a45a;
-  --accent-hover: #ddbb74;
-  --accent-ink: #0c0a08;
-  --signal: #8fc79a;
+  --bg: #ffffff;
+  --surface: #f3f4f6;
+  --surface-2: #e8eaee;
+  --ink: #17191e;
+  --muted: #666b75;
+  --line: #e3e5e9;
+  --accent: #2b45e6;
+  --accent-hover: #1f34b8;
+  --accent-ink: #ffffff;
+  --signal: #1f9d55;
 
-  /* Older role names still used in page markup, mapped onto the palette.
-     Lines are not part of this system, so the border roles are invisible. */
+  /* Older role names still used in page markup, mapped onto the palette. */
   --bg-2: var(--surface);
   --fg: var(--ink);
-  --fg-dim: #d9d3cc;
+  --fg-dim: #3a3e47;
   --border: transparent;
   --border-bright: transparent;
   --accent-2: var(--accent-hover);
-  --accent-soft: rgba(201, 164, 90, 0.14);
+  --accent-soft: rgba(43, 69, 230, 0.08);
   --band-a: transparent;
   --band-b: var(--surface);
   --band-c: transparent;
 
   /* ── TYPE — one face, five sizes ── */
-  --font: 'General Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font: 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: var(--font);
   --font-sans: var(--font);
   --font-serif: var(--font);
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; /* taste-skill-ignore: only for <code> */
 
-  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
-  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
-  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-  --step-display: clamp(3.4rem, 9.4vw, 9.5rem);
+  --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  --step-lead: clamp(1.3125rem, 1.1rem + 0.8vw, 1.75rem);
+  --step-head: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  --step-display: clamp(3.25rem, 8.4vw, 8.25rem);
 
   /* ── FRAME ── */
-  --margin: clamp(1.25rem, 0.8rem + 1.4vw, 1.75rem);
-  --section-gap: clamp(6rem, 4rem + 8vw, 12rem);
-  --radius: 0px;
-  --radius-sm: 0px;
+  --margin: clamp(1.25rem, 0.6rem + 2.2vw, 3rem);
+  --section-gap: clamp(5rem, 3.5rem + 7vw, 11rem);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --measure: 62ch;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-/* Kept for markup that still uses it; it is the same dark ground now. */
+/* Kept for markup that still uses it. */
 .on-brand {
   color: var(--ink);
 }
@@ -87,7 +108,7 @@ body {
   font-family: var(--font);
   font-weight: 400;
   font-size: var(--step-body);
-  line-height: 1.45;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -100,6 +121,7 @@ body {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+  border-radius: 3px;
 }
 
 /* ── TYPE ── */
@@ -108,35 +130,39 @@ h2,
 h3,
 h4 {
   font-family: var(--font);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.02em;
-  line-height: 0.95;
+  letter-spacing: -0.03em;
+  line-height: 1;
   text-wrap: balance;
 }
 h1 {
   font-size: var(--step-display);
-  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
 }
 h2 {
   font-size: var(--step-head);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
 }
 h3 {
   font-size: var(--step-lead);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 h4 {
   font-size: var(--step-body);
-  font-weight: 500;
-  letter-spacing: 0;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   line-height: 1.3;
 }
 
 p {
   font-size: var(--step-body);
-  line-height: 1.45;
+  line-height: 1.55;
   color: var(--ink);
   text-wrap: pretty;
 }
@@ -155,19 +181,20 @@ video {
   max-width: 100%;
 }
 strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 code {
   font-family: var(--font-mono);
   font-size: 0.88em;
-  background: var(--surface-2);
-  padding: 0.08em 0.36em;
+  background: var(--surface);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
 }
 
 .small {
   font-size: var(--step-small);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 .muted {
   color: var(--muted);
@@ -175,6 +202,7 @@ code {
 .lead {
   font-size: var(--step-lead);
   line-height: 1.3;
+  letter-spacing: -0.015em;
 }
 .figures {
   font-variant-numeric: tabular-nums lining-nums;
@@ -190,14 +218,14 @@ code {
 .prose-serif,
 .prose-serif li {
   font-size: var(--step-body);
-  line-height: 1.45;
+  line-height: 1.6;
   color: var(--ink);
 }
 
 /* ── FRAME ── */
 .wrap {
   width: 100%;
-  max-width: none;
+  max-width: 1480px;
   margin: 0 auto;
   padding-left: var(--margin);
   padding-right: var(--margin);
@@ -207,7 +235,7 @@ code {
 .grid-12 {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 20px;
+  column-gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
 }
 
 .band {
@@ -245,7 +273,7 @@ code {
 @media (min-width: 900px) {
   .split {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    gap: 20px;
+    gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
   }
   .split-head {
     position: sticky;
@@ -259,10 +287,11 @@ code {
   color: var(--muted);
 }
 
-/* ── SURFACES — a step in tone, never a line ── */
+/* ── SURFACES — a step in tone, never a shadow ── */
 .panel,
 .card {
   background: var(--surface);
+  border-radius: var(--radius);
 }
 .panel {
   overflow: hidden;
@@ -272,7 +301,7 @@ code {
 }
 .panel-title {
   font-size: var(--step-small);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--muted);
 }
 .panel-body {
@@ -288,7 +317,7 @@ code {
 }
 .band-b .panel,
 .band-b .card {
-  background: var(--surface-2);
+  background: var(--bg);
 }
 
 .spec {
@@ -323,9 +352,10 @@ code {
   align-items: center;
   font-size: var(--step-small);
   font-weight: 500;
-  padding: 0.3rem 0.65rem;
-  background: var(--surface-2);
+  padding: 0.3rem 0.8rem;
+  background: var(--surface);
   color: var(--ink);
+  border-radius: 99px;
 }
 a.chip {
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -335,28 +365,28 @@ a.chip:hover {
   color: var(--accent-ink);
 }
 
-/* ── BUTTONS — square, flat, one fill ── */
+/* ── BUTTONS — pill, flat, one fill ── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 48px;
-  padding: 0.75rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   font-family: var(--font);
   font-size: var(--step-body);
   font-weight: 500;
   line-height: 1;
-  background: var(--surface-2);
+  background: var(--surface);
   color: var(--ink);
   border: 0;
+  border-radius: 99px;
   cursor: pointer;
   white-space: nowrap;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s var(--ease-out);
 }
 .btn:hover {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-2);
 }
 .btn:active {
   transform: scale(0.97);
@@ -370,8 +400,11 @@ a.chip:hover {
   color: var(--accent-ink);
 }
 .btn-ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.btn-ghost:hover {
   background: var(--surface);
-  color: var(--ink);
 }
 
 /* Underlined text link. */
@@ -379,8 +412,8 @@ a.chip:hover {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
-  text-decoration-color: var(--muted);
+  text-underline-offset: 0.25em;
+  text-decoration-color: #b4b8c0;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 .link:hover {
@@ -389,8 +422,8 @@ a.chip:hover {
 }
 
 .numeral {
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1;
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -425,6 +458,7 @@ a.chip:hover {
 .plate {
   overflow: hidden;
   background: var(--surface);
+  border-radius: var(--radius);
 }
 .plate img {
   width: 100%;
@@ -441,8 +475,9 @@ a.chip:hover {
 /* Page lead on inner pages. */
 .page-title {
   font-size: var(--step-display);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
 }
 /* Long page titles step down to the heading size on phones so they stay within two lines. */
 @media (max-width: 599px) {
@@ -453,19 +488,21 @@ a.chip:hover {
 .page-lede {
   font-size: var(--step-lead);
   line-height: 1.3;
+  letter-spacing: -0.015em;
   color: var(--ink);
+  max-width: 40ch;
 }
 
 /* ── MOTION ──
    Entrances only run when script is present (html.js), so content never
-   stays hidden if it fails. Parts of a section rise in turn as it enters. */
+   stays hidden if it fails. Parts of a section fade up in turn as it enters. */
 .js [data-rise] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(14px);
   transition:
-    opacity 0.8s var(--ease-out),
-    transform 0.8s var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 80ms);
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
 }
 .js [data-rise].is-in {
   opacity: 1;
@@ -473,7 +510,7 @@ a.chip:hover {
 }
 
 .reveal {
-  animation: reveal 0.8s var(--ease-out) both;
+  animation: reveal 0.75s var(--ease-out) both;
 }
 .reveal-1 {
   animation-delay: 0.05s;
@@ -493,7 +530,7 @@ a.chip:hover {
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(14px);
   }
 }
 

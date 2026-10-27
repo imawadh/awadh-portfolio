@@ -161,16 +161,16 @@ const mailtoCompose = `mailto:${email}?subject=Let%27s%20work%20together&body=Hi
   /* The address at display size, breaking before the @ if it must;
      on a phone it drops to the head size so it never splits mid-name. */
   .email-h {
-    font-size: var(--step-display);
+    font-size: clamp(2.25rem, 1.2rem + 4.6vw, 5.5rem);
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     overflow-wrap: anywhere;
   }
   .email {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.14em;
-    text-decoration-color: var(--muted);
+    text-decoration-color: var(--line);
     transition:
       color 0.2s ease,
       text-decoration-color 0.2s ease;
@@ -275,10 +275,10 @@ const mailtoCompose = `mailto:${email}?subject=Let%27s%20work%20together&body=Hi
     object-fit: cover;
     object-position: top;
     background: var(--surface);
-    transition: filter 0.35s var(--ease-out);
+    transition: opacity 0.35s var(--ease-out);
   }
   .recent-row:has(a:hover) a:not(:hover) img {
-    filter: brightness(0.4);
+    opacity: 0.3;
   }
   @media (max-width: 899px) {
     .recent-row {

@@ -16,8 +16,8 @@ const currentPath = Astro.url.pathname;
 const isActive = (href: string) => currentPath.startsWith(href);
 ---
 
-<nav id="siteNav" class="sticky top-0 z-50 bg-[var(--bg)]">
-  <div class="wrap flex h-16 items-center justify-between gap-6">
+<nav id="siteNav" class="site-nav sticky top-0 z-50">
+  <div class="wrap flex h-[4.25rem] items-center justify-between gap-6">
     <a href="/" class="wordmark shrink-0" aria-label="Awadh Kishor Singh, home">Awadh Kishor Singh</a>
 
     <div class="hidden items-center gap-7 lg:flex">
@@ -50,7 +50,7 @@ const isActive = (href: string) => currentPath.startsWith(href);
     </button>
   </div>
 
-  <div id="navMenu" class="nav-menu invisible absolute inset-x-0 top-full bg-[var(--bg)] opacity-0 lg:hidden">
+  <div id="navMenu" class="nav-menu invisible absolute inset-x-0 top-full opacity-0 lg:hidden">
     <ul class="wrap flex flex-col pb-10 pt-2">
       {
         [...navItems, { label: 'Contact', href: '/contact' }].map((item) => (
@@ -70,13 +70,25 @@ const isActive = (href: string) => currentPath.startsWith(href);
 </nav>
 
 <style>
+  .site-nav {
+    background: rgba(255, 255, 255, 0.86);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .nav-menu {
+    background: var(--bg);
+    box-shadow: 0 1px 0 var(--line);
+  }
   .wordmark {
     font-size: var(--step-body);
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     color: var(--ink);
   }
   .nav-link {
-    font-size: var(--step-body);
+    font-size: var(--step-small);
+    font-weight: 500;
     color: var(--muted);
     transition: color 0.2s ease;
   }
@@ -88,8 +100,8 @@ const isActive = (href: string) => currentPath.startsWith(href);
     display: block;
     padding: 0.35rem 0;
     font-size: var(--step-head);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: -0.035em;
     line-height: 1.05;
     color: var(--ink);
   }
