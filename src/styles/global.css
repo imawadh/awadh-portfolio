@@ -1,34 +1,13 @@
 /* ============================================================
-   QUIET LIGHT — design system
-   A white page, near-black type, one blue for the thing to press.
-   One typeface (Schibsted Grotesk), five sizes. No shadows, no
-   gradients: surfaces step in tone, and the screens of the work
-   are the only colour on the page.
+   SOFT DEPTH — design system (after DESIGN.md, nafay3d.com style)
+   A cool #F4F5FA canvas, white cards lifted by indigo-tinted
+   shadows, Young Serif headlines over Figtree body copy, and one
+   peach fill for the thing to press. Links and hovers are cobalt.
    ============================================================ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: 'Schibsted Grotesk';
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url('/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Schibsted Grotesk';
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url('/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
-    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
-    U+A720-A7FF;
-}
 
 *,
 *::before,
@@ -42,48 +21,62 @@
 }
 
 :root {
-  /* ── PALETTE ── */
-  --bg: #ffffff;
-  --surface: #f3f4f6;
-  --surface-2: #e8eaee;
-  --ink: #17191e;
-  --muted: #666b75;
-  --line: #e3e5e9;
-  --accent: #2b45e6;
-  --accent-hover: #1f34b8;
+  /* ── PALETTE (DESIGN.md colors) ── */
+  --bg: #f4f5fa; /* background */
+  --surface: #ffffff; /* surface — cards and panels */
+  --surface-2: #e9ebf3; /* inset ground inside a card */
+  --ink: #18234d; /* heading */
+  --body: #535b7a; /* on-surface — body copy */
+  --muted: #535b7a;
+  --line: #e1e4ef; /* border */
+  --primary: #efa67d; /* peach — primary actions only */
+  --primary-hover: #e48f60;
+  --on-primary: #18234d;
+  --accent: #27418e; /* cobalt — links and hover text */
+  --accent-hover: #1d3170;
   --accent-ink: #ffffff;
-  --signal: #1f9d55;
+  --magenta: #b24680; /* secondary highlight */
+  --ice: #add1e7;
+  --focus: #7c91d0;
+  --signal: #2f9e64;
+
+  /* ── ELEVATION (DESIGN.md levels 2 and 3) ── */
+  --shadow-1: 0 1px 2px 0 rgba(24, 35, 77, 0.04), 0 12px 32px -12px rgba(24, 35, 77, 0.18);
+  --shadow-2: 0 18px 40px -18px rgba(24, 35, 77, 0.45);
+  --ring: 0 0 0 4px rgba(124, 145, 208, 0.22);
 
   /* Older role names still used in page markup, mapped onto the palette. */
   --bg-2: var(--surface);
   --fg: var(--ink);
-  --fg-dim: #3a3e47;
-  --border: transparent;
-  --border-bright: transparent;
+  --fg-dim: var(--body);
+  --border: var(--line);
+  --border-bright: var(--line);
   --accent-2: var(--accent-hover);
-  --accent-soft: rgba(43, 69, 230, 0.08);
+  --accent-soft: rgba(39, 65, 142, 0.08);
   --band-a: transparent;
-  --band-b: var(--surface);
+  --band-b: transparent;
   --band-c: transparent;
 
-  /* ── TYPE — one face, five sizes ── */
-  --font: 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: var(--font);
+  /* ── TYPE — Young Serif headlines, Figtree text ── */
+  --font: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
   --font-sans: var(--font);
-  --font-serif: var(--font);
-  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; /* taste-skill-ignore: only for <code> */
+  --font-serif: var(--font-display);
+  --font-mono: ui-monospace, Menlo, monospace;
 
-  --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
-  --step-body: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
-  --step-lead: clamp(1.3125rem, 1.1rem + 0.8vw, 1.75rem);
-  --step-head: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
-  --step-display: clamp(3.25rem, 8.4vw, 8.25rem);
+  --step-small: 0.9375rem; /* 15px body-md */
+  --step-body: 1.0625rem; /* 17px body-lg */
+  --step-lead: clamp(1.25rem, 1rem + 0.9vw, 1.6875rem); /* → 27px */
+  --step-title: clamp(1.4375rem, 1.3rem + 0.4vw, 1.625rem); /* 23 → 26px */
+  --step-head: clamp(2rem, 1.5rem + 1.6vw, 2.75rem); /* → 44px */
+  --step-display: clamp(2.625rem, 1.6rem + 3.4vw, 4.125rem); /* → 66px */
 
   /* ── FRAME ── */
-  --margin: clamp(1.25rem, 0.6rem + 2.2vw, 3rem);
-  --section-gap: clamp(5rem, 3.5rem + 7vw, 11rem);
-  --radius: 10px;
-  --radius-sm: 6px;
+  --margin: clamp(1.25rem, 0.8rem + 1.4vw, 1.375rem);
+  --section-gap: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  --radius: 20px; /* card */
+  --radius-xl: 26px;
+  --radius-sm: 12px; /* input, inner frames */
   --measure: 62ch;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -104,66 +97,61 @@ html {
 
 body {
   background-color: var(--bg);
-  color: var(--ink);
+  color: var(--body);
   font-family: var(--font);
   font-weight: 400;
   font-size: var(--step-body);
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 /* ── TYPE ── */
 h1,
 h2,
-h3,
-h4 {
-  font-family: var(--font);
-  font-weight: 600;
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
   color: var(--ink);
-  letter-spacing: -0.03em;
-  line-height: 1;
+  letter-spacing: normal;
   text-wrap: balance;
 }
 h1 {
   font-size: var(--step-display);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.92;
+  line-height: 1.02;
+  letter-spacing: -0.011em;
 }
 h2 {
   font-size: var(--step-head);
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.05;
 }
 h3 {
-  font-size: var(--step-lead);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: var(--step-title);
   line-height: 1.15;
 }
 h4 {
+  font-family: var(--font);
   font-size: var(--step-body);
   font-weight: 600;
-  letter-spacing: -0.005em;
-  line-height: 1.3;
+  line-height: 1.4;
+  color: var(--ink);
 }
 
 p {
   font-size: var(--step-body);
-  line-height: 1.55;
-  color: var(--ink);
+  line-height: 1.6;
+  color: var(--body);
   text-wrap: pretty;
 }
 
@@ -187,22 +175,23 @@ strong {
 code {
   font-family: var(--font-mono);
   font-size: 0.88em;
-  background: var(--surface);
+  background: var(--surface-2);
+  color: var(--ink);
   padding: 0.1em 0.4em;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .small {
   font-size: var(--step-small);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .muted {
   color: var(--muted);
 }
 .lead {
   font-size: var(--step-lead);
-  line-height: 1.3;
-  letter-spacing: -0.015em;
+  line-height: 1.35;
+  color: var(--body);
 }
 .figures {
   font-variant-numeric: tabular-nums lining-nums;
@@ -210,22 +199,28 @@ code {
 
 /* Face utilities kept for page markup — there is one face, so they only reset it. */
 .ui,
-.serif,
 .prose-serif,
 .prose-serif li {
   font-family: var(--font);
+}
+.serif {
+  font-family: var(--font-display);
 }
 .prose-serif,
 .prose-serif li {
   font-size: var(--step-body);
   line-height: 1.6;
+  color: var(--body);
+}
+strong,
+b {
   color: var(--ink);
 }
 
 /* ── FRAME ── */
 .wrap {
   width: 100%;
-  max-width: 1480px;
+  max-width: calc(1120px + 2 * var(--margin));
   margin: 0 auto;
   padding-left: var(--margin);
   padding-right: var(--margin);
@@ -287,11 +282,12 @@ code {
   color: var(--muted);
 }
 
-/* ── SURFACES — a step in tone, never a shadow ── */
+/* ── SURFACES — white cards lifted by indigo-tinted shadows ── */
 .panel,
 .card {
   background: var(--surface);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
 }
 .panel {
   overflow: hidden;
@@ -314,10 +310,6 @@ code {
   .panel-body {
     padding: 1.25rem 2rem 2rem;
   }
-}
-.band-b .panel,
-.band-b .card {
-  background: var(--bg);
 }
 
 .spec {
@@ -352,38 +344,41 @@ code {
   align-items: center;
   font-size: var(--step-small);
   font-weight: 500;
-  padding: 0.3rem 0.8rem;
+  padding: 0.25rem 0.8rem;
   background: var(--surface);
   color: var(--ink);
-  border-radius: 99px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 a.chip {
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 a.chip:hover {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
 }
 
-/* ── BUTTONS — pill, flat, one fill ── */
+/* ── BUTTONS — pills; peach for the primary action ── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 48px;
-  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  padding: 11px 22px;
   font-family: var(--font);
-  font-size: var(--step-body);
-  font-weight: 500;
-  line-height: 1;
+  font-size: var(--step-small);
+  font-weight: 600;
+  line-height: 1.2;
   background: var(--surface);
   color: var(--ink);
   border: 0;
-  border-radius: 99px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px var(--line);
   cursor: pointer;
   white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s var(--ease-out);
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 .btn:hover {
   background: var(--surface-2);
@@ -391,39 +386,46 @@ a.chip:hover {
 .btn:active {
   transform: scale(0.97);
 }
+.btn:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--focus), var(--ring);
+}
 .btn-primary {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: none;
 }
 .btn-primary:hover {
-  background: var(--accent-hover);
-  color: var(--accent-ink);
+  background: var(--primary-hover);
+  color: var(--on-primary);
+}
+.btn-primary:focus-visible {
+  box-shadow: var(--ring);
 }
 .btn-ghost {
   background: transparent;
-  box-shadow: inset 0 0 0 1px var(--line);
 }
 .btn-ghost:hover {
   background: var(--surface);
 }
 
-/* Underlined text link. */
+/* Inline text link — cobalt, underline on hover. */
 .link {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
-  text-decoration-color: #b4b8c0;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
 }
 .link:hover {
-  color: var(--accent);
-  text-decoration-color: currentColor;
+  text-decoration: underline;
 }
 
 .numeral {
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.011em;
   line-height: 1;
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -459,6 +461,7 @@ a.chip:hover {
   overflow: hidden;
   background: var(--surface);
   border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
 }
 .plate img {
   width: 100%;
@@ -474,10 +477,11 @@ a.chip:hover {
 
 /* Page lead on inner pages. */
 .page-title {
+  font-family: var(--font-display);
   font-size: var(--step-display);
-  font-weight: 500;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.011em;
 }
 /* Long page titles step down to the heading size on phones so they stay within two lines. */
 @media (max-width: 599px) {
@@ -487,9 +491,8 @@ a.chip:hover {
 }
 .page-lede {
   font-size: var(--step-lead);
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-  color: var(--ink);
+  line-height: 1.35;
+  color: var(--body);
   max-width: 40ch;
 }
 
@@ -553,4 +556,24 @@ a.chip:hover {
   a.chip {
     min-height: 44px;
   }
+}
+
+/* ── INPUTS ── */
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  font: 500 1rem/1.4 var(--font);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.3px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: var(--ring);
 }
